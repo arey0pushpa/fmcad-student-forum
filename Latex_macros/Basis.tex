@@ -1,0 +1,1731 @@
+% 23.12.1999
+%
+% Die Basis fuer Folien wie fuer normale Texte.
+%
+%
+\input Latex_macros/Bibliographie.tex
+\input Latex_macros/Adressen.tex
+%
+% -----------------------------------------------------------------------------------------------------------------
+% ENVIRONMENT (Latex-Umgebung)
+% -----------------------------------------------------------------------------------------------------------------
+%
+\scrollmode
+%
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{latexsym}
+\usepackage{stmaryrd}
+\usepackage{array}
+\usepackage{exscale}
+%
+%\renewcommand{\baselinestretch}{1.0}
+%
+% ########################################################
+% ----------------------------------------------------------------------------------------------------------------
+% GENERAL CONSTRUCTS (Allgemeine Konstrukte)
+% -----------------------------------------------------------------------------------------------------------------
+% ########################################################
+%
+\newcommand{\nc}{\newcommand}
+\newcommand{\ol}{\overline}
+\newcommand{\ul}{\underline}
+\newcommand{\es}{\emptyset}
+\newcommand{\sm}{\setminus}
+\newcommand{\ve}{\varepsilon}
+\newcommand{\vp}{\varphi}
+\newcommand{\bw}{\bigwedge}
+\newcommand{\bv}{\bigvee}
+\newcommand{\bc}{\bigcup}
+\newcommand{\bca}{\bigcap}
+\newcommand{\Lra}{\Leftrightarrow}
+\newcommand{\Lora}{\Longrightarrow}
+\newcommand{\Lla}{\Longleftarrow}
+\newcommand{\Llra}{\Longleftrightarrow}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\La}{\Leftarrow}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\lora}{\longrightarrow}
+\newcommand{\la}{\leftarrow}
+\newcommand{\lra}{\leftrightarrow}
+\newcommand{\da}{\downarrow}
+\newcommand{\ub}{\underbrace}
+\newcommand{\ob}{\overbrace}
+\newcommand{\sst}{\subset}
+\newcommand{\sse}{\subseteq}
+\newcommand{\spt}{\supset}
+\newcommand{\spe}{\supseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\ex}{\exists}
+\newcommand{\mr}{\mathrm}
+\newcommand{\mc}{\mathcal}
+\newcommand{\mf}{\mathfrak}
+\newcommand{\vtr}{\vartriangleright}
+\newcommand{\trd}{\triangledown}
+\newcommand{\DMO}{\DeclareMathOperator}
+%
+\newcommand{\DST}{\displaystyle}
+\newcommand{\TST}{\textstyle}
+\newcommand{\SST}{\scriptstyle}
+\newcommand{\SSST}{\scriptscriptstyle}
+%
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\NNZ}{\NN_0}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+%
+\newcommand{\AAM}{\mathbb{A}}
+\newcommand{\BB}{\mathbb{B}}
+\newcommand{\DD}{\mathbb{D}}
+\newcommand{\EE}{\mathbb{E}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\GG}{\mathbb{G}}
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\KK}{\mathbb{K}}
+\newcommand{\LL}{\mathbb{L}}
+\newcommand{\MM}{\mathbb{M}}
+\newcommand{\OO}{\mathbb{O}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\SSM}{\mathbb{S}}
+\newcommand{\TT}{\mathbb{T}}
+\newcommand{\UU}{\mathbb{U}}
+\newcommand{\VV}{\mathbb{V}}
+\newcommand{\WW}{\mathbb{W}}
+%
+% Lists in mathematical textmode with (appropriate) linebreaks:
+\mathchardef\breakingcomma\mathcode`\,
+{\catcode`,=\active
+  \gdef,{\breakingcomma\discretionary{}{}{}}
+}
+\newcommand{\mathlist}[1]{$\mathcode`\,=\string"8000 #1$}
+%
+% Alte Beweisumgebungen, nun obsolet (anstelle verwende man die prf/prfd-
+% Umgebung mit \Qed):
+\newcommand{\Ende}{\ \rule{0.4em}{1.7ex}}
+\newcommand{\pr}{\noindent\textbf{Proof:}\quad}
+\newcommand{\prd}{\noindent\textbf{Beweis:}\quad}
+%%
+\newcommand{\ha}{\hspace*{5mm}}
+\newcommand{\hb}{\hspace*{10mm}}
+\newcommand{\hc}{\hspace*{15mm}}
+\newcommand{\hd}{\hspace*{20mm}}
+\newcommand{\he}{\hspace*{25mm}}
+%
+\newcommand{\mar}[1]{\makebox[0cm]{#1}}
+%
+% 16.10.2003
+\newcommand{\NAA}{\setlength{\itemsep}{0pt}} % Null Aufzaehlungs-Abstand
+%
+% Tilde-Symbol ~ ("richtig"); fragiles Kommando (wg. \raisebox)
+% Do not use within the \url command --- there just use "~" !
+\newcommand{\rilde}{{\large\raisebox{-1ex}[0mm][0mm]{\~{}}\hspace{-0.05em}}}
+%
+% Deutsche Quotierung (30.11.2003); alter Makro-Name war ``\Quot''
+\newcommand{\Qu}[1]{\glqq{}{#1}\grqq{}}
+%
+% Fuer Diagramme mittels xymatrix; for diagrams using xymatrix:
+\newcommand{\aru}{\ar @{-}} % ungerichtete Kante; undirected edge
+% gerichtet: einfach \ar[...]; for a directed edge just use \ar[...]
+\newcommand{\arug}{\ar @{--}} % gestrichelte ungerichtete Kante; dashed undirected edge
+\newcommand{\arde}{\ar @{->>}} % ``epimorphe'' gerichtete Kante; epimorphic directed edge
+\newcommand{\ardm}{\ar @{^(->}} % ``monomorphe'' gerichtete Kante; monomorphic directed edge
+\newcommand{\ardg}{\ar @{-->}} % gestrichelte gerichtete Kante; dottet directed edge
+\newcommand{\arddg}{\ar @{<-->}} % gestrichelte beidseitig-gerichtete Kante; dashed edge directed in both directions
+%
+% Wiedergabe von Programmen
+\usepackage{listings}
+\lstloadlanguages{Pascal,C++,Java}
+\newcommand{\Pascal}{\lstset{language=Pascal,keywordstyle=\bfseries,breaklines,breakindent=30pt}}
+\newcommand{\Cpp}{\lstset{language=C++,keywordstyle=\bfseries,breaklines,breakindent=30pt}}
+\newcommand{\Java}{\lstset{language=Java,keywordstyle=\bfseries,breaklines,breakindent=30pt}}
+\newcommand{\inl}[1]{\lstinline$#1$}
+%
+% ########################################################
+% ----------------------------------------------------------------------------------------------------------------
+% SETS AND BASIC LOGIC (Mengen und elementare Logik)
+% -----------------------------------------------------------------------------------------------------------------
+% ########################################################
+%
+\newcommand{\und}{{\:\wedge\:}} % and
+\newcommand{\oder}{{\:\vee\:}} % or
+%
+\newcommand{\mb}{{\:|\:}} % Mengenbildner; set creation
+\newcommand{\set}[1]{\{ #1 \}}
+\newcommand{\setb}[1]{\big \{ \, #1 \, \big \}}
+%
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\cod}{cod} % Codomain (28.11.2003)
+\DeclareMathOperator{\rg}{rg} % Wertemenge ("range")
+\DeclareMathOperator{\tcomp}{\trans{\circ}} % transposed composition of maps%
+\DeclareMathOperator{\simrv}{\,\sim\hspace{-0.05em}}
+\DeclareMathOperator{\simlv}{\!\sim\,}
+\nc{\simlvi}[1]{\!\sim_{#1}}
+\DeclareMathOperator{\rstr}{|} % Einschraenkung; restriction
+%
+% Kardinalitaeten (cardinalities):
+\DeclareMathOperator{\card}{card}
+%
+% Projektionen und Injektionen; projections and injections
+\DeclareMathOperator{\proj}{pr}
+\DeclareMathOperator{\inj}{in}
+%
+% 1.1.2004 Mengenoperationen
+%
+\newcommand{\rbca}[1]{\bca_{#1}\nolimits} % relative intersection
+% ToDo: How to produce \rbca{X}_{i \in I} ?! (\sideset is too restricted,
+% since the symbol will always be in displaystyle, and \DeclareMathOperator* doesn't allow
+% arguments).
+\DeclareMathOperator*{\rbcaX}{\bca_X\nolimits}
+\DeclareMathOperator{\symdif}{\vartriangle} % symmetrische Differenz
+\newcommand{\addcup}{\mathbin{\mathaccent\cdot\cup}} % Vereinigung, die disjunkt ist; disjoint union
+\DeclareMathOperator*{\addbcup}{{\stackrel{\text{\raisebox{-4.2ex}[-0ex][-0ex]{\Large$\cdot$}}}{\bigcup}}} % entsprechend grosse Vereinigung, die disjunkt ist; big disjoint union
+\nc{\apprel}[3]{{#1}(#2)_{(#3)}} % \apprel{R}{M}{k} : Anwendung der Relation auf M bzgl. Stufe k; application of relation R to set M at level k
+%
+\DeclareMathOperator{\Rel}{\mf{REL}} % Menge aller binaeren Relationen
+\DeclareMathOperator{\Abb}{\mf{MAP}} % Menge der Abbildungen
+\DeclareMathOperator{\Abbi}{\mf{MAP}_i} % Menge der injektiven Abbildungen
+\DeclareMathOperator{\Abbs}{\mf{MAP}_s} % Menge der surjektiven Abbildungen
+\DeclareMathOperator{\Tra}{\mf{T}} % Menge der Transformationen
+\DeclareMathOperator{\Per}{\mf{S}} % Menge der Permutationen
+\DeclareMathOperator{\Pert}{\Per_t} % Menge der transitiven Permutationen
+\DeclareMathOperator{\Ptr}{\mf{PT}} % partielle Transformationen
+\DeclareMathOperator{\fix}{fix} % Menge der Fixpunkte einer Transformation
+\DeclareMathOperator{\Peri}{\Per_i} % Menge der injektiven Transformationen; set of injective transformations
+\DeclareMathOperator{\Pers}{\Per_s} % Menge der surjektiven Transformationen; set of surjective transformations
+%
+% Spezielle Relationen
+%
+\DeclareMathOperator{\Rrel}{\Rel_r} % reflexive Relationen
+\DeclareMathOperator{\Srel}{\Rel_s} % symmetrische Relationen
+\DeclareMathOperator{\Trel}{\Rel_t} % transitive Relationen
+%
+\newcommand{\gef}[1]{{#1}^{((*))}} % Menge aller geordneten endlichen Folgen
+\newcommand{\ef}[1]{{#1}^{(*)}} % Menge aller endlichen Folgen
+\newcommand{\stdf}[1]{{#1}^{*}} % Menge aller endlichen Standardfolgen
+\newcommand{\stdfn}[1]{{#1}^{+}} % Menge aller endlichen nichtleeren Standardfolgen
+\DeclareMathOperator{\konkat}{\sqcup} % Konkatenation (23.10.2006)
+%
+% Operationen fuer Mengensysteme; operations for set-systems
+%
+\DeclareMathOperator{\cmpl}{\complement^1} % Komplement elementweise fuer Mengensysteme; elementwise complement for set-systems
+\nc{\cmpli}[1]{\complement^1_{#1}} % mit einem Index; with an index
+\DeclareMathOperator{\cmplz}{\complement^0} % Komplement bzgl. einer Grundmenge; complement w.r.t. a base-set
+\nc{\cmplzi}[1]{\complement^0_{#1}} % mit einem Index; now with an index
+\DeclareMathOperator{\cmplzo}{\complement^*} % Komposition von compl und complz; composition of compl and complz
+\nc{\cmplzoi}[1]{\complement^*_{#1}} % mit einem Index; with an index
+\DeclareMathOperator{\fsigma}{{\mf{F}}_{\sigma}} % Abschluss unter abzaehlbaren Vereinigungen
+\newcommand{\gdelta}[2]{{\mf{G}}_{\sigma}^{#1}(#2)} % Abschluss unter abzaehlbaren Durchschnitten
+\DeclareMathOperator{\gdeltao}{\mf{G}_{\sigma}}
+\DeclareMathOperator{\fs}{{\mf{F}}_{s}} % Abschluss unter endlichen Vereinigungen
+\DeclareMathOperator{\fss}{{\mf{F}}_{s}^*} % Abschluss unter endlichen nichtleeren Vereinigungen
+\newcommand{\gd}[2]{\mf{G}_{\mr{d}}^{#1}(#2)} % Abschluss unter abzaehlbaren Durchschnitten
+\newcommand{\gds}[1]{\mf{G}_{\mr{d}}^*(#1)} % Abschluss unter abzaehlbaren nichtleeren Durchschnitten
+\newcommand{\gsigma}[2]{\sigma_{#1}(#2)} % erzeugte sigma-Algebra; generated sigma-algebra
+\newcommand{\gsigmar}[1]{\sigma_{\mr{r}}(#1)} % erzeugter sigma-Ring; generated sigma-ring
+% 
+% Speziell zur axiomatischen Mengenlehre:
+%
+\nc{\zf}{\mr{ZF}}
+\nc{\zfmf}{\zf^0} % minus Fundierung
+\nc{\zfc}{\mr{ZFC}}
+\nc{\zfcmf}{\zfc^0} % minus Fundierung
+\nc{\bst}{\mr{BST}} % Bourbaki set theory
+%
+% ########################################################
+% ----------------------------------------------------------------------------------------------------------------
+% NUMBERS (Zahlen)
+% -----------------------------------------------------------------------------------------------------------------
+% ########################################################
+%
+% Zahlenmengen (sets of numbers):
+\newcommand{\nni}{\NNZ \cup \{+\infty\}} % natuerliche Zahlen mit 0 und unendlich; natural numbers with 0 and infinity
+\newcommand{\nnpi}{\NN \cup \{+\infty\}} % natuerliche Zahlen mit unendlich; natural numbers with infinity ("p" for "positive")
+% Abschluss von R (7.1.2004):
+\newcommand{\rri}{\ol{\RR}} % RR + -+unendlich
+\newcommand{\cci}{\ol{\CC}} % CC + unendlich (die Riemannsche Zahlkugel)
+%
+% 11.7.2003: Teilbereiche
+\newcommand{\tb}[2]{\set{#1, \dots, #2}} % Teilbereich
+%
+% Realteil und Imaginaerteil (8.1.2004)
+\DeclareMathOperator{\re}{Re}
+\DeclareMathOperator{\im}{Im}
+%
+\DeclareMathOperator{\sgn}{sgn} % Vorzeichen; sign
+%
+\providecommand{\abs}[1]{\lvert #1 \rvert} % 29.8.2000
+\providecommand{\norm}[1]{\lVert #1 \rVert} % 29.11.2000
+%
+\DeclareMathOperator{\ld}{ld} % logarithmus dualis; logarithm to base 2
+\DeclareMathOperator{\fld}{fld} % floor of logarithm dualis
+%
+% ########################################################
+% ----------------------------------------------------------------------------------------------------------------
+% MATRICES (Matrizen)
+% -----------------------------------------------------------------------------------------------------------------
+% ########################################################
+%
+%
+\DeclareMathOperator{\rank}{rank} % 1.7.2000
+\providecommand{\inprod}[1]{\left\langle #1 \right\rangle} % Skalarprodukt
+%
+\DeclareMathOperator{\Q}{\mf{Q}} % die ``qualitive Klasse'' einer Matrix; the ``qualitative class'' einer Matrix
+%
+% 6.9.2001: Menge aller reellen Matrizen
+\DeclareMathOperator{\M}{\mc{M}} % deaktiviert 13.1.2007
+% \DeclareMathOperator{\Mpm}{\M(\set{-1,0,+1})} % deaktiviert 13.1.2007
+%
+\DeclareMathOperator{\Mat}{\mc{M}} % Menge aller Matrizen
+\DeclareMathOperator{\Rows}{R} % Zeilenmenge
+\DeclareMathOperator{\Columns}{C} % Spaltenmenge
+\DeclareMathOperator{\tr}{tr} % Spur
+\newcommand{\trans}[1]{#1^{\hspace{0.05em}\mr{t}}} % Transposition
+\DeclareMathOperator{\Gl}{GL} % lineare Gruppe; linear group
+\DeclareMathOperator{\Sl}{SL} % spezielle lineare Gruppe; special linear group
+\DeclareMathOperator{\Orth}{\mc{O}} % orthogonale Gruppe
+\DeclareMathOperator{\per}{per} % Permanente
+%
+% ########################################################
+% ----------------------------------------------------------------------------------------------------------------
+% ORDER THEORY (Ordnungstheorie)
+% -----------------------------------------------------------------------------------------------------------------
+% ########################################################
+%
+% Intervalle (20.12.2000): ``a'' fuer abgeschlossen, ``o'' fuer offen.
+% Die *-Versionen erlauben variable Groesse.
+\makeatletter
+\DeclareRobustCommand{\genericinterval}[2]{%
+  \@ifstar{\genericinterval@star{#1}{#2}}{\genericinterval@nostar{#1}{#2}}}
+\newcommand{\genericinterval@star}[4]{\mathopen{}\mathclose{\left#1#3,#4\right#2}}
+\newcommand{\genericinterval@nostar}[4]{\mathopen{#1}#3,#4\mathclose{#2}}
+\newcommand{\iaa}{\genericinterval[]}
+\newcommand{\ioo}{\genericinterval][}
+\newcommand{\ioa}{\genericinterval]]}
+\newcommand{\iao}{\genericinterval[[}
+\makeatother
+%
+\nc{\untit}[2]{{#1}^{#2 \downarrow}} % untere Iterierte
+\nc{\obit}[2]{{#1}^{#2 \uparrow}} % obere Iterierte
+%
+\DeclareMathOperator{\inttop}{\tau_{\mr{O}}} % (offene) Intervalltopologie; open interval topology
+\DeclareMathOperator{\rointtop}{\tau_+} % rechts-offene Intervalltopologie
+\DeclareMathOperator{\lointtop}{\tau_-} % links-offene Intervalltopologie
+%
+\DeclareMathOperator{\sid}{\mc{IDL}} % Menge der Ideale in einem Verband; set of ideals in a lattice
+\DeclareMathOperator{\skid}{\mc{CID}} % Menge der Koideale; set of co-ideals
+\DeclareMathOperator{\smid}{\sid_m} % Menge der maximalen echten Ideale; set of maximal proper ideals
+\DeclareMathOperator{\smkid}{\skid_m} % Menge der maximalen echten Koideale; set of maximal proper co-ideals
+%
+\DeclareMathOperator*{\ordsum}{+} % ordinale Summe; ordinal sum
+\DeclareMathOperator{\lexprod}{\times_{\mathrm{l}}} % lexikographisches Produkt; lexicographical product
+\DeclareMathOperator*{\lexprodb}{\sideset{}{^\mathrm{l}}\prod\hspace*{-0.25em}} % grosse Form; big form
+\DeclareMathOperator{\colexprod}{\times_{\mathrm{c}}} % kolexikographisches Produkt; colexicographical product
+\DeclareMathOperator*{\colexprodb}{\sideset{}{^\mathrm{c}}\prod\hspace*{-0.25em}}
+
+%
+% ########################################################
+% ----------------------------------------------------------------------------------------------------------------
+% GRAPH THEORY (Graphentheorie)
+% -----------------------------------------------------------------------------------------------------------------
+% ########################################################
+%
+\DeclareMathOperator{\nachbarn}{\Gamma}
+\DeclareMathOperator{\enachbarn}{N}
+\DeclareMathOperator{\nachbarnr}{\Gamma_{\!\mr{r}}}
+\DeclareMathOperator{\nachbarnz}{\widetilde{\Gamma}}
+\DeclareMathOperator{\nachbarnzr}{\widetilde{\Gamma}_{\!\mr{r}}}
+%
+% Incidence matrices (Inzidenzmatrizen)
+%
+\DeclareMathOperator{\inzEK}{\mc{I}^{\mr{V}}}
+\DeclareMathOperator{\inzEKe}{\mc{I}^{\mr{V}}_1}
+\DeclareMathOperator{\inzEKz}{\mc{I}^{\mr{V}}_2}
+\nc{\inzEKi}[1]{\mc{I}^{\mr{V}}_{#1}}
+\DeclareMathOperator{\inzKE}{\mc{I}^{\mr{E}}}
+\DeclareMathOperator{\inzKEe}{\mc{I}^{\mr{E}}_1}
+\DeclareMathOperator{\inzKEz}{\mc{I}^{\mr{E}}_2}
+\nc{\inzKEi}[1]{\mc{I}^{\mr{E}}_{#1}}
+\DeclareMathOperator{\inz}{I}
+\DeclareMathOperator{\tinz}{\trans{\inz}} % transponierte Inzidenzmatriz; transposed incidence matrix
+%
+% Adjacency matrices (Adjazenzmatrizen)
+%
+\DeclareMathOperator{\adjE}{\mc{A}^{\mr{V}}}
+\DeclareMathOperator{\adjEe}{\mc{A}^{\mr{V}}_1}
+\DeclareMathOperator{\adjEz}{\mc{A}^{\mr{V}}_2}
+\nc{\adjEi}[1]{\mc{A}^{\mr{V}}_{#1}}
+\DeclareMathOperator{\adjor}{\mc{A}_{\mr{S}}} % orientierte Adjazenzmatrix
+\DeclareMathOperator{\adjK}{\mc{A}^{\mr{E}}}
+\DeclareMathOperator{\adj}{A}
+%
+% Ranks and degrees
+%
+% \deg ist schon Latex
+\DeclareMathOperator{\degmin}{\mu\!\deg}
+\DeclareMathOperator{\degmax}{\nu\!\deg}
+\DeclareMathOperator{\degdur}{\widetilde{\deg}} % Durchschnitt
+\DeclareMathOperator{\ideg}{idg} % Innengrad
+\DeclareMathOperator{\odeg}{odg} % Aussengrad
+\DeclareMathOperator{\degmaxl}{\nu\!\deg_{<}}
+\DeclareMathOperator{\degl}{\deg_{<}}
+%
+\DeclareMathOperator{\rankmin}{\mu\!\rank}
+\DeclareMathOperator{\rankmax}{\nu\!\rank}
+\DeclareMathOperator{\rankdur}{\widetilde{\rank}}
+\DeclareMathOperator{\rankmaxl}{\nu\!\rank_{<}}
+\DeclareMathOperator{\rankl}{\rank_{<}}
+% 
+% Graphparameter
+%
+\DeclareMathOperator{\vertexcon}{\kappa} % Eckenzusammenhangsgrad
+\DeclareMathOperator{\edgecon}{\lambda} % Kantenzusammenhangsgrad
+\DeclareMathOperator{\treewidth}{tw} % Baumweite
+\DeclareMathOperator{\girth}{g} % Taillenweite
+\DeclareMathOperator{\circumference}{cf} % Umfang
+\DeclareMathOperator{\length}{lgth} % Laenge
+\DeclareMathOperator{\npm}{\Phi} % number of perfect matchings
+%
+\DeclareMathOperator{\concomp}{cc} % connected components
+\DeclareMathOperator{\nconcomp}{ncc} % number of connected components
+%
+\DeclareMathOperator{\indprim}{ip} % Primitivitaetsindex
+\DeclareMathOperator{\indimprim}{iip} % Imprimitivitaetsindex
+%
+% Spezielle Graphen
+\DeclareMathOperator{\bouquet}{B}
+\DeclareMathOperator{\dipol}{D}
+\DeclareMathOperator{\jkg}{J} % Johnson-Kneser-Graph
+\DeclareMathOperator{\vjkg}{VK} % Johnson-Kneser-Graph
+%
+% Hypergraphen:
+\DeclareMathOperator{\Tr}{Tr} % Transversalen
+\DeclareMathOperator{\Ind}{Ind} % independent sets
+\DeclareMathOperator{\Zuo}{Mat} % matchings
+\DeclareMathOperator{\Pzuo}{PMat} % perfect matchings
+\DeclareMathOperator{\St}{St} % stars
+\DeclareMathOperator{\Ints}{Ints} % intersecting hypergraphs
+\DeclareMathOperator{\Cov}{Cov} % coverings
+\DeclareMathOperator{\closse}{clo_{\sse}} % Abschluss unter Teilmengenbildung
+\DeclareMathOperator{\clospe}{clo_{\supseteq}} % Abschluss unter Obermengenbildung
+\DeclareMathOperator{\edgemg}{ML} % Kantenmultigraph
+\newcommand{\dualh}[1]{\trans{#1}} % dualer Hypergraph
+\DeclareMathOperator{\kneserg}{K} % Knesergraph
+\DeclareMathOperator{\knesern}{\tau_0} % Kneserzahl
+\DeclareMathOperator{\nis}{nis} % Nichtschneidungszahl; non-intersection number
+%
+% Designs:
+%
+\DeclareMathOperator{\PBD}{PBD}
+\nc{\BD}[1]{{#1}\text{-}\mr{BD}}
+\DeclareMathOperator{\BIBD}{BIBD}
+\DeclareMathOperator{\Steiner}{S}
+\DeclareMathOperator{\SteinerTriple}{STS}
+\DeclareMathOperator{\SteinerQuadruple}{SQS}
+\DeclareMathOperator{\progeo}{PG} % projektiver Raum
+\DeclareMathOperator{\affgeo}{AG} % affiner Raum
+\newcommand{\vgrd}[2]{g_{#1,#2}}
+%
+% Association schemes (Assoziationsschemata):
+%
+\newcommand{\aspf}[1]{p^{(#1)}} % parameters of the first kind (Parameter der ersten Art)
+\DeclareMathOperator{\astriv}{A_t} % trivial association scheme (triviales Assoziationsschema)
+%
+% Conways Problem
+\DeclareMathOperator{\KochenSpecker}{KS}
+\DeclareMathOperator{\KochenSpeckerErw}{KS'}
+%
+% Rangdiskrepanz
+\DeclareMathOperator{\rankd}{rd}
+%
+% Maximale Anzahl von Zusammenhangskomponenten nach Aufspaltung
+\DeclareMathOperator{\mnconcomp}{mncc}
+%
+% Graphenprodukte (10.10.2004)
+%
+\DeclareMathOperator{\gpk}{\Box} % Graphenprodukt: kartesisch
+\DeclareMathOperator{\gpw}{\times} % Graphenprodukt: schwaches
+\DeclareMathOperator{\gps}{\boxtimes} % Graphenprodukt: starkes
+\DeclareMathOperator{\gjoin}{\boxdot} % Join von Graphen
+\DeclareMathOperator{\gjoinplus}{\boxplus} % Join von Graphen
+%
+% Ordnungstheorie (26.2.2005)
+\DeclareMathOperator{\Ketten}{\mc{L}}
+\DeclareMathOperator{\Antiketten}{\mc{A}}
+\DeclareMathOperator{\comparable}{\Bumpeq}
+\DeclareMathOperator{\incomparable}{\parallel}
+%
+% 21.11.2004
+\DeclareMathOperator{\pot}{\PP} % Potenzmenge; power set
+\DeclareMathOperator{\pote}{\PP_f} % endliche Potenzmenge; finite power set
+\DeclareMathOperator{\potfv}{\overrightarrow{\PP}} % Vorwaerts-Potenzmengenfunktor
+\newcommand{\potfvi}[1]{\overrightarrow{\PP}_{\!\!#1}} % Vorwaerts-Potenzmengenfunktor mit Index
+\DeclareMathOperator{\potfvn}{\overrightarrow{\PP}^{\!*}} % nichtleerer Vorwaerts-Potenzmengenfunktor
+\newcommand{\potfvni}[1]{\overrightarrow{\PP}^{\!*}_{\!\!#1}} % nichtleerer Vorwaerts-Potenzmengenfunktor mit Index
+\DeclareMathOperator{\potfr}{\overleftarrow{\PP}} % Rueckwaerts-Potenzmengenfunktor
+\newcommand{\potfri}[1]{\overleftarrow{\PP}_{\!\!#1}} % Rueckwaerts-Potenzmengenfunktor mit Index
+%
+%
+% ########################################################
+% -----------------------------------------------------------------------------------------------------------------
+% MATROIDS (Matroide)
+% -----------------------------------------------------------------------------------------------------------------
+% ########################################################
+%
+\DeclareMathOperator{\mtris}{\mc{I}} % unabh\"angige Mengen eines Matroids (independent sets of a matroid)
+\DeclareMathOperator{\mtrdp}{\mc{D}} % abh\"angige Mengen eines Matroids (dependent sets of a matroid)
+%
+% ########################################################
+% -----------------------------------------------------------------------------------------------------------------
+% ALGEBRA (Algebra)
+% -----------------------------------------------------------------------------------------------------------------
+% ########################################################
+%
+% Gruppoide (25.6.2006)
+%
+\providecommand{\huelle}[1]{\langle #1 \rangle} % Huelle; hull (closure)
+\DeclareMathOperator{\linksnull}{LZ} % Linksnull-Halbgruppe
+\DeclareMathOperator{\rechtsnull}{RZ} % Rechtsnull-Halbgruppe
+% Halbringe (30.10.2004)
+\DeclareMathOperator{\can}{Can} % kuerzbare Elemente (in Monoiden)
+\DeclareMathOperator{\addcan}{Can^+}
+\DeclareMathOperator{\multcan}{Can^{\ast}}
+\DeclareMathOperator{\sol}{Sol} % loesbare Elemente (in Monoiden)
+\DeclareMathOperator{\addsol}{Sol^+}
+\DeclareMathOperator{\multsol}{Sol^{\ast}}
+\DeclareMathOperator{\inv}{Inv} % invertierbare Elemente (in Monoiden)
+\DeclareMathOperator{\addinv}{Inv^+} % Menge der additiv invertierbaren Elemente
+\DeclareMathOperator{\multinv}{Inv^{\ast}} % Menge der multiplikativ invertierbaren Elemente
+\DeclareMathOperator{\idemp}{Ip} % idempotente Elemente (in Monoiden)
+\DeclareMathOperator{\addidemp}{Ip^+}
+\DeclareMathOperator{\multidemp}{Ip^{\ast}}
+\nc{\konv}[2]{{#1}[{#2}]} % Halbringsbildung durch Konvolution
+\DeclareMathOperator{\radikal}{Rad} % Radikal
+%\DeclareMathOperator{\ker}{ker}
+\DeclareMathOperator{\ordH}{ord} % Ordnung eines Elementes in einer Halbgruppe
+\DeclareMathOperator{\indH}{ind} % Index eines Elementes in einer Halbgruppe
+\DeclareMathOperator{\perH}{per} % Periode eines Elementes in einer Halbgruppe
+%
+% Zentralisatoren; centralisors
+\DeclareMathOperator{\cent}{C}
+\DeclareMathOperator{\centr}{Z} % Zentrum; centre
+%
+% Ideale; ideals
+\DeclareMathOperator{\slids}{\mc{LIDS}} % Menge der Linksideale in einer Halbgruppe; set of left ideals in a semigroup
+\DeclareMathOperator{\srids}{\mc{RIDS}} % Menge der Rechtsideale in einer Halbgruppe; set of right ideals in a semigroup
+\DeclareMathOperator{\sids}{\mc{IDS}} % Menge der Ideale in einer Halbgruppe; set of ideals in a semigroup
+%
+% Greensche Relationen
+\DeclareMathOperator{\qol}{\le_{\mc{L}}}
+\DeclareMathOperator{\qor}{\le_{\mc{R}}}
+\DeclareMathOperator{\qoh}{\le_{\mc{H}}}
+\DeclareMathOperator{\qoj}{\le_{\mc{J}}}
+\DeclareMathOperator{\eql}{\mc{L}}
+\DeclareMathOperator{\eqr}{\mc{R}}
+\DeclareMathOperator{\eqh}{\mc{H}}
+\DeclareMathOperator{\eqj}{\mc{J}}
+\DeclareMathOperator{\eqd}{\mc{D}}
+%
+% Aktionen und Operationen (22.4.2007)
+\DeclareMathOperator{\orbit}{\mc{O}}
+\DeclareMathOperator{\stab}{Stab}
+\nc{\actpres}[1]{\Phi_{#1}} % Aktionen als Darstellungen; actions as representations
+%
+% Gruppen; groups
+%
+% Konjugation; conjugation:
+\DeclareMathOperator{\conjc}{K} % Konjugationsklasse eines Elements oder einer Untergruppe; conjugacy class of an element or of a subgroup
+%
+% Permutationsgruppen; permutation groups
+%
+\DeclareMathOperator{\cycle}{\mr{cyc}} % Zyklus zu einem Tupel; cycle associated with a tuple
+\DeclareMathOperator{\cyclet}{ct} % Zyklentyp einer Permutation; cycle type of a permutation
+\DeclareMathOperator{\cyclen}{cn} % Zyklenanzahl einer Permutation; number of cycles of a permutation
+%
+% Ringe; rings
+\DeclareMathOperator{\slid}{\mc{LID}} % Menge der Linksideale in einem Ring; set of left ideals in a ring
+\DeclareMathOperator{\srid}{\mc{RID}} % Menge der Rechtsideale; set of right ideals
+% \sid ist die Menge der Ideale (wie fuer Verbaende); set of ideals
+% \smid ist die Menge der maximalen echten Ideale (wie fuer Verbaende); set of proper maximal ideals
+%
+% Universelle Algebra; universal algebra
+%
+\DeclareMathOperator{\oper}{Op} % Menge aller Operationen
+\DeclareMathOperator{\clone}{Clo} % Operationenklon
+%
+% ########################################################
+% -----------------------------------------------------------------------------------------------------------------
+% NUMBER THEORY (Zahlentheorie)
+% -----------------------------------------------------------------------------------------------------------------
+% ########################################################
+%
+% Auf- und absteigende Fakultaeten (23.4.2004)
+\newcommand{\untfak}[2]{(#1)_{\downarrow#2}}
+\newcommand{\obfak}[2]{(#1)_{\uparrow#2}}
+\DeclareMathOperator{\fak}{fac}
+%
+\newcommand{\ueber}[2]{\genfrac{}{}{0pt}{}{#1}{#2}}% ersetzt atop
+%
+\newcommand{\floor}[1]{\lfloor #1 \rfloor}
+\newcommand{\ceil}[1]{\lceil #1 \rceil}
+%
+% Spezielle Zahlenfolgen (9.10.2005)
+\newcommand{\bernoulliz}[1]{b_{#1}}
+\newcommand{\bernoullip}[2]{b_{#1}(#2)}
+\newcommand{\stirlinge}[2]{s_{#1,#2}}
+\newcommand{\stirlingz}[2]{S_{#1,#2}}
+\newcommand{\partition}[2]{p_{#1}(#2)}
+\DeclareMathOperator{\partitiont}{p}
+%
+\DeclareMathOperator{\teilt}{\mid} % Teilbarkeitsbeziehung; divisor relation
+\DeclareMathOperator{\nteilt}{\nmid} % negierte Teilbarkeitsbeziehung; negated divisor relation
+\nc{\Prim}{\mc{PR}} % Primzahlen
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\ggt}{ggt}
+\DeclareMathOperator{\kgv}{kgv}
+% Ganzzahliger Rest und ganzzahlige Division
+\DeclareMathOperator{\opmod}{mod}
+\DeclareMathOperator{\opdiv}{div}
+% Arithmetische Funktionen
+\DeclareMathOperator{\eulphi}{\vp}
+%
+% Integrallogarithums (logarithmic integral)
+\DeclareMathOperator{\Li}{Li}
+% Integralexponentialfunction (exponential integral)
+\DeclareMathOperator{\Ei}{Ei}
+%
+% ########################################################
+% -----------------------------------------------------------------------------------------------------------------
+% GEOMETRY (Geometrie)
+% -----------------------------------------------------------------------------------------------------------------
+% ########################################################
+%
+\newcommand{\vvek}[2]{\overrightarrow{{#1}{#2}}} % Verbindungsvektor
+%
+\DeclareMathOperator{\projr}{\mc{P}}
+\newcommand{\projri}[1]{\mc{P}_{#1}}
+\DeclareMathOperator{\affr}{\mc{A}}
+\newcommand{\affri}[1]{\mc{A}_{#1}}
+%
+\DeclareMathOperator{\convh}{conv} % konvexe Huelle; convex hull
+%
+% ########################################################
+% -----------------------------------------------------------------------------------------------------------------
+% TOPOLOGY (TOPOLOGIE)
+% -----------------------------------------------------------------------------------------------------------------
+% ########################################################
+%
+\DeclareMathOperator{\offm}{\tau} % Menge der offenen Mengen
+\DeclareMathOperator{\abgm}{\tau_c} % Menge der abgeschlossenen Mengen
+\DeclareMathOperator{\offabgm}{clop} % Menge der offen-abgeschlossenen Mengen (``clopen'')
+\DeclareMathOperator{\offabgmF}{Clop} % der entsprechende Funktor
+\DeclareMathOperator{\offabgmFz}{Clop^*} % dieser Funktor eingeschr\"ankt auf die nulldimensionalen Raeume
+\DeclareMathOperator{\offabgmFbl}{Clop_b} % jener Funktor noch weitergefuehrt in die booleschen Verbaende
+\DeclareMathOperator{\offabgmFblz}{Clop_b^*} % % dieser Funktor eingeschr\"ankt auf die nulldimensionalen Raeume
+\DeclareMathOperator{\nf}{NF} % Nachbarschaftsfilter
+\DeclareMathOperator{\erzf}{\mf{GF}} % erzeugter Filter
+\DeclareMathOperator{\erzt}{\Ktop} % erzeugte Topologie
+\DeclareMathOperator{\abgh}{clo} % abgeschlossene Huelle
+\DeclareMathOperator{\offk}{int} % offener Kern
+\DeclareMathOperator{\rand}{fr} % alternativ koennte man den Rand auch mit \partial bezeichnen.
+\DeclareMathOperator{\iso}{iso} % isolierte Punkte
+\DeclareMathOperator{\haeu}{acc} % Haeufungspunkte (``Akkumulationspunkte'')
+\DeclareMathOperator{\ohaeu}{acc_{\omega}} % omega-Haeufungspunkte
+\DeclareMathOperator{\kond}{acc_{>\omega}} % Kondensationspunkte
+\DeclareMathOperator{\haeuind}{\lambda} % Haeufungspunkt-Index
+\DeclareMathOperator{\limitp}{lmp} % Menge der Grenzwerte; set of limit points
+\DeclareMathOperator{\clup}{clp} % Menge der Haeufungswerte; set of cluster points
+%
+\DeclareMathOperator{\Off}{\mf{O}} % Verband der offenen Mengen; lattice of open sets
+\DeclareMathOperator{\Abg}{\mf{A}} % Verband der abgeschlossenen Mengen; lattice of closed sets
+%
+\DeclareMathOperator{\erzalg}{gsa} % erzeugende Mengenalgebren
+%
+% Filter, Bornologien, Roste, Trichter
+%
+\DeclareMathOperator{\sfilt}{\mc{FLT}} % Menge der Filter; set of filters
+\DeclareMathOperator{\sufilt}{\beta} % Menge der Ultrafilter; set of ultrafilters
+\DeclareMathOperator{\sborn}{\mc{BRN}} % Menge der Bornologien; set of bornologies
+\DeclareMathOperator{\suborn}{\sborn_u} % Menge der Ultrabornologien; set of ultra-bornologies
+\DeclareMathOperator{\sfun}{\mc{FNL}} % Menge der Trichter (funnel)
+\DeclareMathOperator{\sgri}{\mc{GRL}} % Menge der Roste (grill)
+%
+\DeclareMathOperator{\stet}{cont} % Menge der Stetigkeitspunkte; points of continuity
+\DeclareMathOperator{\ustet}{dict} % Menge der Unstetigkeitspunkte; points of discontinuity
+%
+\newcommand{\T}[1]{T_{\mr{#1}}} % Trennungsaxiome
+\DeclareMathOperator{\supp}{supp} % Traeger
+\DeclareMathOperator{\hypo}{\mf{H}} % Hypergraph der nichtleeren offenen Mengen
+%
+\nc{\sselr}{\sse^{\mapsto}}
+\nc{\sserl}{\sse^{\mapsfrom}}
+\nc{\spelr}{\spe^{\mapsto}}
+\nc{\sperl}{\spe^{\mapsfrom}}
+%
+\DeclareMathOperator{\okugel}{K} % offene Kugel
+\DeclareMathOperator{\akugel}{\ol{K}} % abgeschlossene Kugel
+\DeclareMathOperator{\rkugel}{K'} % Rand der Kugel
+\DeclareMathOperator{\pokugel}{\dot{K}} % punktierte offene Kugel
+\DeclareMathOperator{\pakugel}{\dot{\ol{K}}} % punktierte abgeschlossene Kugel
+\nc{\ball}[1]{\mr{B}^{#1}} % Einheitsball
+\nc{\oball}[1]{\breve{\mr{B}}^{#1}} % offener Einheitsball
+\nc{\pball}[1]{\dot{\mr{B}}^{#1}} % punktierter Einheitsball
+\nc{\prr}[1]{\dot{\RR}^{#1}} % punktierter n-dimensionaler euklidischer Raum
+\nc{\sph}[1]{\mr{S}^{#1}} % Einheitssphaere
+\nc{\ssim}[1]{s\sigma_{#1}} % Standardsimplex
+%
+\DeclareMathOperator{\offs}{int} % offenes Simplex
+\nc{\koerper}[1]{\norm{#1}}
+%
+% Dimension theory
+\nc{\Ccovdim}{\mc{CD}}
+\nc{\Cinddim}{\mc{SID}}
+\DeclareMathOperator{\inddim}{idim}
+\nc{\CInddim}{\mc{LID}}
+\DeclareMathOperator{\Inddim}{Idim}
+%
+\DeclareMathOperator{\sset}{sset} % Nachfolgermenge
+%
+% Manifolds
+%
+\DeclareMathOperator{\Karten}{\mc{CH}}
+\DeclareMathOperator{\Atlanten}{\mc{AT}\!}
+\DeclareMathOperator{\Kartifizierbar}{\mc{MP}} % mapable
+\newcommand{\DiffKarten}[1]{\mc{CS}^{#1}}
+%
+% Mengen von Abbildungen
+%
+\DeclareMathOperator{\Abbp}{\Abb_p} % Menge der Abbildungen mit der punktweisen Konvergenz
+\DeclareMathOperator{\sconm}{C} % Menge von stetigen Abbildungen; set of continous maps
+\DeclareMathOperator{\sconmp}{C_p} % Menge von stetigen Abbildungen mit der punktweisen Konvergenz; set of continous maps with pointwise convergence
+%
+% ########################################################
+% -----------------------------------------------------------------------------------------------------------------
+% ANALYSIS (Analysis)
+% -----------------------------------------------------------------------------------------------------------------
+% ########################################################
+%
+\DeclareMathOperator{\diffop}{D} % totaler Ableitungsoperator
+\DeclareMathOperator*{\diffoplimit}{D} % Interne Hilfskonstruktion
+\nc{\diffopc}[1]{\sideset{_{#1}}{}\diffoplimit} % komponentenweiser Ableitungsoperator
+\nc{\diffopp}[1]{\diffop_{#1}} % partieller Ableitungsoperator
+\nc{\diffopcp}[2]{\sideset{_{#2}}{_{#1}}\diffoplimit} % kombinierter Ableitungsoperator
+\DeclareMathOperator{\diff}{d} % Differential
+%
+\DeclareMathOperator{\lincop}{\mc{L}} % space of continuous linear operators
+%
+\DeclareMathOperator{\vpnorm}{N} % verallgemeinerte p-Norm
+\nc{\meanH}[2]{\mf{M}_{#1,#2}} % Mittelwerte verallgemeinert nach Hardy et al
+\DeclareMathOperator{\gmean}{\mf{M}} % Potenzmittelwerte
+\nc{\emean}[2]{\mf{M}_{\exp_{#1},#2}} % Exponentialmittelwerte
+%
+% ########################################################
+% -----------------------------------------------------------------------------------------------------------------
+% CATEGORY THEORY (Kategorientheorie)
+% -----------------------------------------------------------------------------------------------------------------
+% ########################################################
+%
+\DeclareMathOperator{\obj}{Obj}
+\DeclareMathOperator{\mor}{Mor}
+\DeclareMathOperator{\Hom}{Hom} % Morphismenmengen in algebraischen Kontexten
+\DeclareMathOperator{\mendo}{End} % Endomorphismenmonoid (ersetzt das aeltere \DeclareMathOperator{\edom}{End})
+\DeclareMathOperator{\auto}{Aut} % Automorphismengruppe
+\nc{\autoerw}[1]{\mr{Aut}^{#1}} % erweiterte Automorphismengruppe
+\DeclareMathOperator{\autotrans}{Aut^{(t)}} % erweiterte Automorphismengruppe bzgl. Transposition
+%
+\newcommand{\dualk}[1]{\trans{#1}} % duale Kategorie
+\newcommand{\dualf}[1]{\trans{#1}} % dualer Funktor
+%
+\newcommand{\ramono}{\hookrightarrow} % Monomorphismen; monomorphisms
+\newcommand{\raepi}{\twoheadrightarrow} % Epimorphismen; epimorphisms
+\newcommand{\raiso}{\ramono\hspace{-0.5em}\rightarrow} % Isomorphismen; isomorphisms
+%
+\newcommand{\prodmorf}{\bigotimes} % Produkt einer Morphismenfamilie f_i: X \ra Y_i als Morphismus von X nach dem Produkt der Y_i.
+\DeclareMathOperator{\prodmor}{\otimes} % Produkt zweier Morphismen
+\newcommand{\coprodmorf}{\bigsqcup} % Koprodukt einer Morphismenfamilie f_i: X_i \ra Y als Morphismus von dem Koprodukt der X_i nach Y.
+\DeclareMathOperator{\coprodmor}{\sqcup} %  Koprodukt zweier Morphismen
+\newcommand{\mprodmorf}{\prod} % "Mehrfaches" Produkt einer Familie
+\DeclareMathOperator{\mprodmor}{\times}
+\newcommand{\mcoprodmorf}{\coprod}
+\DeclareMathOperator{\mcoprodmor}{\amalg}
+%
+\nc{\komma}[2]{(#1 \downarrow #2)} % Komma-Kategorie
+%
+\DeclareMathOperator{\prodsem}{\mc{PS}} % Halbgruppe bzgl. Produktbildung modulo Isomorphie
+\DeclareMathOperator{\coprodsem}{\mc{CS}} % Halbgruppe bzgl. Koproduktbildung modulo Isomorphie
+\DeclareMathOperator{\prodmon}{\mc{PM}} % Monoid bzgl. Produktbildung modulo Isomorphie
+\DeclareMathOperator{\coprodmon}{\mc{CM}} % Monoid bzgl. Koproduktbildung modulo Isomorphie
+%
+\DeclareMathOperator{\zsh}{Z} % zusammenhaengende Objekte nach Preuss, Definition 5.1.5
+%
+\newcommand{\Kset}{\mf{SET}} % Mengen
+\newcommand{\Kfset}{\Kset_{\mr{f}}} % endliche Mengen
+\newcommand{\Kard}{\mc{CARD}} % Kardinalzahlen
+\newcommand{\Ord}{\mc{ORD}} % Ordinalzahlen
+\newcommand{\Kardm}{\Kard_{\!-1}}
+\DeclareMathOperator{\cardsup}{cardsup}
+\DeclareMathOperator{\cardsupl}{cardsup_<}
+\DeclareMathOperator{\cardmin}{cardmin}
+%
+\newcommand{\Kkor}{\mf{KOR}} % Korrespondenzen
+\newcommand{\liei}{\mr{lu}} % linkseindeutig
+\newcommand{\reei}{\mr{ru}} % rechtseindeutig
+\newcommand{\lito}{\mr{lt}} % linkstotal
+\newcommand{\reto}{\mr{rt}} % rechtsstotal
+\newcommand{\kortyp}{\mr{KT}} % Korrespondenztypen
+%
+\newcommand{\Krel}{\mf{REL}} % Relationale
+\newcommand{\Krelk}[2]{\Krel_{#1}\mf{K}_{#2}} % Relationen mit Korrespondenzen
+\newcommand{\Krelkr}[2]{\Krelk{#1}{#2}\mf{R}} % Rueckwaertsmorphismen
+%
+% Quasiorders (Quasiordnungen), lattices (Verbaende):
+%
+\newcommand{\Kqord}{\mf{QORD}} % Quasi-Ordnungen
+\newcommand{\Kpord}{\mf{PORD}} % partielle Ordnungen
+\newcommand{\Klord}{\mf{LORD}} % lineare Ordnungen
+\newcommand{\seb}{\mr{s}} % supremumserhaltend binaer
+\newcommand{\seu}{\seb^{\infty}} % supremumserhaltend unendlich
+\newcommand{\sef}{\seb^{<\infty}} % supremumserhaltend endlich
+\newcommand{\seun}{\seb^{\infty}_{\not= \es}} % supremumserhaltend unendlich nichtleer
+\newcommand{\seen}{\seb^{<\infty}_{\not= \es}} % supremumserhaltend endlich nichtleer
+\newcommand{\ieb}{\mr{i}} % infimumserhaltend binaer
+\newcommand{\ieu}{\ieb^{\infty}} % infimumserhaltend unendlich
+\newcommand{\iee}{\ieb^{<\infty}} % infimumserhaltend endlich
+\newcommand{\ieun}{\ieb^{\infty}_{\not= \es}} % infimumserhaltend unendlich nichtleer
+\newcommand{\ieen}{\ieb^{<\infty}_{\not= \es}} % infimumserhaltend endlich nichtleer
+\newcommand{\Kvb}{\mf{LT}} % Verb\"ande
+\newcommand{\Kuvb}{\ul{\mf{S}}\Kvb} % untere Halbverb\"ande
+\newcommand{\Kovb}{\ol{\mf{S}}\Kvb} % obere Halbverb\"ande
+\newcommand{\Kvvb}{\mf{C}\Kvb} % vollstaendige Verb\"ande
+\newcommand{\Kvuvb}{\mf{C}\Kuvb} % untere vollstaendige Halbverb\"ande
+\newcommand{\Kvovb}{\mf{C}\Kovb} % obere vollstaendige Halbverb\"ande
+\newcommand{\Kbvb}{\mf{B}\Kvb} % Verb\"ande mit Null und Eins
+\newcommand{\Kbuvb}{\mf{B}\Kuvb} % untere Halbverb\"ande mit Null
+\newcommand{\Kbovb}{\mf{B}\Kovb} % obere Halbverb\"ande mit Eins
+\newcommand{\Kdvb}{\mf{D}\Kvb} % distributive Verb\"ande
+\newcommand{\Kkvb}{\mf{CO}\Kvb} % komplementierte Verb\"ande
+\newcommand{\Kekvb}{\mf{UCO}\Kvb} % eindeutig komplementierte Verb\"ande
+\newcommand{\Kboolvb}{\mf{BO}\Kvb} % boolesche Verb\"ande
+\newcommand{\Kvboolvb}{\mf{C}\Kboolvb} % vollstaendige boolesche Verb\"ande
+\newcommand{\Kboolalg}{\mf{BA}} % boolesche Algebren
+\newcommand{\Kheyvb}{\mf{HO}} % Heyting-Verband
+\newcommand{\Kheyalg}{\mf{HA}} % Heyting-Algebren
+\newcommand{\dist}{\mr{d}} % distributiv
+\newcommand{\vdist}{\mr{d}^{\infty}} % vollst\"andig-distributiv
+\newcommand{\komp}{\mr{c}} % komplementiert
+\newcommand{\ekomp}{\mr{c}_1} % eindeutig komplementiert
+\DeclareMathOperator{\qo}{QO} % formation of quasi-order
+%
+% Matrices (Matrizen):
+%
+\nc{\Kmat}{\mf{MAT}} % category of matrices (with principal homotopisms); Kategorie der Matrizen mit Haupthomotopismen als Morphismen
+\nc{\Khmat}{\mf{HMAT}} % category of matrices with homotopisms; Kategorie der Matrizen mit Homotopismen als Morphismen
+%
+% Gruppoids (Gruppoide):
+%
+\newcommand{\Kgod}{\mf{GOD}} % Gruppoide
+\newcommand{\Khgod}{\mf{HGOD}} % Gruppoide mit Homotopismen als Morphismen; groupoids with homotopisms as morphisms
+\newcommand{\Ksgr}{\mf{SGR}} % Halbgruppen
+\newcommand{\Kugod}{\mf{UGOD}} % unitales Gruppoid
+\newcommand{\Kmon}{\mf{MON}} % Monoide
+\newcommand{\Kcgod}{\mf{CGOD}} % kuerzbare Gruppoide
+\newcommand{\Krgod}{\mf{RGOD}} % loesbare Gruppoide
+\newcommand{\Kqgp}{\mf{QGP}} % Quasigruppen
+\newcommand{\Kcsgr}{\mf{CSGR}} % kuerzbare Halbgruppen
+\newcommand{\Kcugod}{\mf{CUGOD}} % kuerzbare unitale Gruppoide
+\newcommand{\Krugod}{\mf{RUGOD}} % loesbare unitale Gruppoide
+\newcommand{\Kcmon}{\mf{CMON}} % kuerzbare Monoide
+\newcommand{\Klop}{\mf{LOP}} % Loops
+\newcommand{\Kgr}{\mf{GRP}} % Gruppen
+\newcommand{\Kagod}{\mf{AGOD}} % abelsche Gruppoide
+\newcommand{\Kasgr}{\mf{ASGR}} % abelsche Halbgruppen
+\newcommand{\Kaugod}{\mf{AUGOD}} % abelsche unitales Gruppoid
+\newcommand{\Kamon}{\mf{AMON}} % abelsche Monoide
+\newcommand{\Kacgod}{\mf{ACGOD}} % abelsche kuerzbare Gruppoide
+\newcommand{\Kargod}{\mf{ARGOD}} % abelsche loesbare Gruppoide
+\newcommand{\Kaqgp}{\mf{AQGP}} % abelsche Quasigruppen
+\newcommand{\Kacsgr}{\mf{ACSGR}} % abelsche kuerzbare Halbgruppen
+\newcommand{\Kacugod}{\mf{ACUGOD}} % abelsche kuerzbare unitale Gruppoide
+\newcommand{\Karugod}{\mf{ARUGOD}} % abelsche loesbare unitale Gruppoide
+\newcommand{\Kacmon}{\mf{ACMON}} % abelsche kuerzbare Monoide
+\newcommand{\Kalop}{\mf{ALOP}} % abelsche Loops
+\newcommand{\Kagr}{\mf{AGRP}} % abelsche Gruppen
+%
+\newcommand{\Klact}[2]{{}_{#1} #2} % Links-Aktionen (oder -Operation)
+\newcommand{\Kract}[2]{#2_{#1}} % Rechts-Aktionen (oder -Operation)
+\newcommand{\Kact}{\mf{ACT}} % Aktionen
+\newcommand{\Kopt}{\mf{OPR}} % Operationen
+%
+% Automaten (automata):
+%
+\newcommand{\Kdfa}{\mf{DFA}}
+\newcommand{\Kdfma}{\mf{DFMA}}
+%
+% Rings (Ringe):
+%
+\newcommand{\Kring}{\mf{RNG}} % Ringe
+\newcommand{\Kkring}{\mf{CRNG}} % kommutative Ringe
+\newcommand{\Khring}{\mf{SRNG}} % Halbringe
+\newcommand{\Kpring}{\mf{PRNG}} % Pseudoringe
+\newcommand{\Kphring}{\mf{PSRNG}} % Pseudohalbringe
+\newcommand{\Kkhring}{\mf{CSRNG}} % kommutative Halbringe
+\newcommand{\Kkpring}{\mf{CPRNG}} % kommutative Pseudoringe
+\newcommand{\Kkphring}{\mf{CPSRNG}} % kommutative Pseudohalbringe
+\newcommand{\Kringfr}{\mf{RR}} % Ringrahmen
+\newcommand{\Kprering}{\mf{PRG}} % Pr\"aeringe
+\newcommand{\Kaprering}{\mf{APRG}} % assoziative Pr\"aeringe
+\newcommand{\Knprering}{\mf{NPRG}} % normale Pr\"aeringe
+%
+% Modules (Module):
+%
+\newcommand{\Kpremodul}[1]{\mf{PMD}_{#1}} % Praemodule
+\newcommand{\Kppremodul}[1]{\mf{PPMD}_{#1}} % Pseudopraemodule
+\newcommand{\Kapremodul}[1]{\mf{APMD}_{#1}} % abelscher Praemodule
+\newcommand{\Ksmodul}[1]{\mf{SMOD}_{#1}} % Semimodule
+\newcommand{\Kmodul}[1]{\mf{MOD}_{#1}} % Module
+\newcommand{\Krmodul}[1]{\mf{MOD}^{#1}} % Rechtsmodule
+\newcommand{\Krsmodul}[1]{\mf{SMOD}^{#1}} % Rechtssemimodule
+\newcommand{\Kbmodul}[2]{\mf{MOD}_{#1}^{#2}} % Bimodule
+\newcommand{\Kbsmodul}[2]{\mf{SMOD}_{#1}^{#2}} % Bisemimodule
+\newcommand{\Kvec}[1]{\mf{VEC}_{#1}} % Vektorraeume
+%
+% Kategorien (categories):
+%
+\newcommand{\Kkat}{\mf{CAT}} % Kategorie der Kategorien
+\newcommand{\Kpaddkat}{\mf{PACAT}} % praeadditive Kategorien
+\newcommand{\Knpaddkat}{\mf{NPACAT}} % normale praeadditive Kategorien
+\newcommand{\Ksaddkat}{\mf{SACAT}} % semiadditive Kategorien
+\newcommand{\Kaddkat}{\mf{ACAT}} % additive Kategorien
+\newcommand{\Kkatn}{\mf{CAT}_2} % Kategorie der Kategorien mit natuerlichen Transformationen als Morphismen
+%
+\DeclareMathOperator{\Kfun}{\mf{FUN}} % Funktorkategorie
+\DeclareMathOperator{\nattr}{NAT} % natuerliche Transformationen
+%
+\DeclareMathOperator{\symm}{Symm} % Symmetrisierung einer Kategorie
+%
+\nc{\homfun}[1]{\mor_{#1}(-_1,-_2)} % Hom-Funktor
+\nc{\homfunae}[1]{\mor_{#1}(-_1)} % Hom-Funktor als (Objekt -> kovarianter Hom-Funktor)
+\nc{\homfunbe}[1]{\mor_{#1}(-_2)} % Hom-Funktor (Objekt -> kontravarianter Hom-Funktor)
+\nc{\homfunxy}[3]{\mor_{#1}(#2(-_1), #3(-_2))}
+\nc{\homfunx}[2]{\mor_{#1}(#2(-_1), -_2)}
+\nc{\homfuny}[2]{\mor_{#1}(-_1, #2(-_2))}
+\nc{\homfuna}[2]{\mor_{#1}(#2, -)} % kovarianter Homfunktor
+\nc{\homfunb}[2]{\mor_{#1}(-, #2)} % kontravarianter Homfunktor
+\nc{\hhomfuna}[2]{\Hom_{#1}(#2, -)} % kovarianter Homfunktor (geschrieben Hom)
+\nc{\hhomfunb}[2]{\Hom_{#1}(-, #2)} % kontravarianter Homfunktor (geschrieben Hom)
+%
+% Topologie (Topology):
+%
+\newcommand{\Ktop}{\mf{TOP}} % Kategorie der topologischen R\"aume
+\newcommand{\modhom}{\mf{H}} % modulo Homotopie
+\newcommand{\Ktophom}{\Ktop\modhom} % Kategorie der topologischen R\"aume modulo Homotopie
+\newcommand{\Kptophom}{\mf{TOP}_*\modhom} % Kategorie der punktierten topologischen R\"aume modulo Homotopie
+\newcommand{\Ktoptmhom}{\Ktop_{[1]}\modhom_1} % Topologische Raeume mit Teilmengen modulo Homotopie
+\newcommand{\Katop}{\mf{STOP}} % Kategorie der A-topologischen Raeume
+\newcommand{\Kktop}{\mf{COMP}} % Kategorie der kompakten topologischen R\"aume
+\newcommand{\Khtop}{\mf{HTOP}} % Kategorie der hausdorffschen topologischen R\"aume
+\newcommand{\Kztop}{\mf{Z}\Ktop} % Kategorie der nulldimensionalen Raeume
+%
+\DeclareMathOperator{\Kdelta}{\Delta} % Mengen {0, ..., n-1} mit monoton steigenden Abbildungen
+\DeclareMathOperator{\Kdeltas}{\Delta_{\mr{s}}} % Mengen {0, ..., n-1} mit streng monoton steigenden Abbildungen
+\DeclareMathOperator{\Kdeltat}{\Delta^{\mr{t}}}
+\DeclareMathOperator{\Kdeltast}{\Delta_{\mr{s}}^{\mr{t}}}
+\DeclareMathOperator{\Kdeltap}{\Delta^{\!+}}
+\DeclareMathOperator{\Kdeltasp}{\Delta_{\mr{s}}^{\!+}}
+\DeclareMathOperator{\Kdeltapt}{\Delta^{\!+ \mr{t}}}
+\DeclareMathOperator{\Kdeltaspt}{\Delta_{\mr{s}}^{\!+ \mr{t}}}
+%
+\newcommand{\Kloc}[1]{\mf{LOC}_{#1}} % Kategorie der lokal #1-charakterisierten Raeume
+%
+% Topological groups (topologische Gruppen):
+%
+\DeclareMathOperator{\Ktopgr}{\mf{TG}} % topologische Gruppen
+\DeclareMathOperator{\Ktopagr}{\mf{TA}} % topologische abelsche Gruppen
+\DeclareMathOperator{\Klqkgr}{\mf{LQCG}} % lokal quasikompakte topologische Gruppen
+\DeclareMathOperator{\Klqkagr}{\mf{LQCA}} % lokal quasikompakte topologische abelsche Gruppen
+\DeclareMathOperator{\Klkgr}{\mf{LCG}} % lokalkompakte topologische Gruppen
+\DeclareMathOperator{\Klkagr}{\mf{LCA}} % lokalkompakte topologische abelsche Gruppen
+%
+% Topological vector spaces (topologische Vektorraeume):
+%
+\newcommand{\Ktpremodul}[1]{\mf{TPMD}_{#1}} % topologische Praemodule
+\newcommand{\Ktppremodul}[1]{\mf{TPPMD}_{#1}} % topologische Pseudopraemodule
+\newcommand{\Ktapremodul}[1]{\mf{TAPMD}_{#1}} % topologische abelscher Praemodule
+\newcommand{\Ktsmodul}[1]{\mf{TSMOD}_{#1}} % topologische Semimodule
+\newcommand{\Ktmodul}[1]{\mf{TMOD}_{#1}} % topologische Module
+\newcommand{\Ktrmodul}[1]{\mf{TMOD}^{#1}} % topologische Linksmodule
+\newcommand{\Ktbmodul}[2]{\mf{TMOD}_{#1}^{#2}} % topologische  Bimodule
+\newcommand{\Ktvec}[1]{\mf{TVEC}_{#1}} % topologische  Vektorraeume
+%
+% Graphs (Graphen):
+%
+\newcommand{\Kdgg}{\mf{GDG}} % directed general graphs (general digraphs); allgemeine gerichtete Graphen
+\newcommand{\Kdg}{\mf{DG}} % directed graphs
+\newcommand{\Kdgl}{\mf{DGL}} % directed graphs with loops
+\newcommand{\Kdrg}{\mf{DRG}} % directed reflexive graphs
+\newcommand{\Kgg}{\mf{GG}} % general graphs
+\newcommand{\Kg}{\mf{GR}} % graphs
+\newcommand{\Kgl}{\mf{GRL}} % graphs with loops
+\newcommand{\Kfg}{\Kg_{\mr{f}}} % finite graphs
+\newcommand{\Kfgl}{\Kgl_{\mr{f}}} % finite graphs with loops
+\newcommand{\Kfgg}{\Kgg_{\mr{f}}} % finite general graphs
+%
+\newcommand{\Khg}{\mf{HGR}} % hypergraphs
+\newcommand{\Khgi}{\Khg^{\infty}} % hypergraphs with infinite edges
+\newcommand{\Khgiinz}{\Khg^{\infty}_{\mr{inz}}} % hypergraphs with infinite edges and incidence morphisms
+\newcommand{\Kfhg}{\Khg_{\mr{f}}} % finite hypergraphs 
+\newcommand{\Kghg}{\mf{G}\Khg} % general hypergraphs
+\newcommand{\Kghgi}{\Kghg^{\infty}} % general hypergraphs with infinite edges
+\newcommand{\Kfghg}{\Kghg_{\mr{f}}} % finite general hypergraphs
+\newcommand{\Kbip}{\mf{BIP}} % bipartite Systeme
+%
+\DeclareMathOperator{\dgg}{dgg} % formation of directed general graphs
+\DeclareMathOperator{\dgl}{dgl} % formation of directed graphs with loops
+\DeclareMathOperator{\dg}{dg} % formation of directed graphs
+\DeclareMathOperator{\ugg}{ugg} % zugrundeliegender allgemeiner Graph
+\DeclareMathOperator{\ugl}{ugl} % zugrundeliegender Graph mit Schlingen
+\DeclareMathOperator{\ug}{ug} % zugrundeliegender Graph
+\DeclareMathOperator{\sg}{sg} % Symmetrisierung eines Graphen
+\DeclareMathOperator{\sgl}{sgl} % Symmetrisierung eines Graphen mit Schlingen
+%
+\DeclareMathOperator{\bip}{bip} % Das bipartite System assoziiert mit einem allgemeinen Hypergraphen
+\DeclareMathOperator{\hyp}{hyp} % der allgemeine Hypergraph assoziiert mit einem bipartiten System.
+%
+\DeclareMathOperator{\cat}{cat} % formation of categories (e.g., the free category created by a graph)
+%
+% Base sets with set systems
+%
+\newcommand{\Ksetsys}{\mf{SSYS}}
+\newcommand{\Ksetrng}{\mf{SRNG}} % Kategorie der Mengenringe
+\newcommand{\Ksetalg}{\mf{SALG}} % Kategorie der Mengenalgebren
+\DeclareMathOperator{\gtopsalg}{Gtop} % Functor: generated topology from set-algebra
+\DeclareMathOperator{\salgbolt}{V_{\!\Ksetalg}} % Funktor: von Mengenalgebren in boolesche Verbaende
+%
+% Klauselmengen (clause-sets)
+%
+\newcommand{\Kcls}{\mf{CLS}} % Kategorie der Klauselmengen (Vorwaertsmorphismen); category of clause-sets (forward morphisms)
+\newcommand{\Kfcls}{\mf{FCLS}} % Kategorie der formalen Klauselmengen; category of formal clause-sets
+\newcommand{\Klcls}{\mf{LCLS}} % Kategorie der markierten Klauselmengen; category of labelled clause-sets
+% Indizierte Versionen (indexed versions):
+\newcommand{\Kfclsi}[1]{\Kfcls_{\mr{#1}}}
+\newcommand{\Klclsi}[1]{\Klcls_\mr{#1}}
+% Zusaetzlich auch mit oberem Index (allowing also super-indices):
+\newcommand{\Kfclsis}[2]{\Kfcls_{\mr{#1}}^{#2}}
+\newcommand{\Klclsis}[2]{\Klcls_\mr{#1}^{#2}}
+% Old (no longer used):
+\newcommand{\Kccls}{\mf{CLS}} % Kategorie der potentiell kollidierenden Klauselmengen; category of c-clause-sets
+\newcommand{\Klccls}{\mf{L}\mr{c}\mf{CLS}} % Kategorie der markierten potentiell kollidierenden Klauselmengen; category of c-clause-sets
+\newcommand{\Kfccls}{\mf{F}\mr{c}\mf{CLS}}
+\newcommand{\Klcclsi}[1]{\Klccls_\mr{#1}}
+\newcommand{\Kfcclsi}[1]{\Kfccls_\mr{#1}}
+\newcommand{\Klcclsis}[2]{\Klccls_\mr{#1}^{#2}}
+\newcommand{\Kfcclsis}[2]{\Kfccls_\mr{#1}^{#2}}
+%
+% ########################################################
+% ----------------------------------------------------------------------------------------------------------------
+% LOGIK (Logik)
+% -----------------------------------------------------------------------------------------------------------------
+% ########################################################
+%
+\newcommand{\einfTyp}{\mc{T}_{\ra}} % Menge der einfachen Typen
+\newcommand{\einfType}{\mc{T}_{\ra,\times}} % Menge der erweiterten einfachen Typen
+%
+\DeclareMathOperator{\theory}{Th} % Theorie zu einer Menge von Strukturen; theory for set of structures
+%
+%
+% ########################################################
+% ----------------------------------------------------------------------------------------------------------------
+% COMBINATORICS (Kombinatorik)
+% -----------------------------------------------------------------------------------------------------------------
+%
+\newcommand{\gbinom}[3]{{\binom{#1}{#2}}_{\! #3}} % verallgemeinerte Binomialkoeffizienten (mittels Multimengen); generalised binomial coefficients (via multisets).
+\newcommand{\mjections}[2]{\mr{MJ}_{#1}(#2)} % \mjections km ist die Anzahl der k-stelligen Multijektionen f\"ur eine m-elemente Menge; the number of k-ary multijections for an m-set.
+\DeclareMathOperator{\quasigp}{QG} % lateinische Quadrate (Quasigruppen); latin squares (quasigroups)
+\DeclareMathOperator{\uquasigp}{uQG} % unitale Quasigruppen (loops); unital quasigroups (loops)
+%
+\DeclareMathOperator{\suquasigp}{uQG_s} % standardisierte unitale Quasigruppen (loops); standardised unital quasigroups (loops)
+\DeclareMathOperator{\luquasigp}{luQG} % links-unitale Quasigruppen; left unital quasigroups
+%
+\DeclareMathOperator{\sluquasigp}{luQG_s} % standardisierte links-unitale Quasigruppen; standardised left unital quasigroups
+%
+% ########################################################
+% ----------------------------------------------------------------------------------------------------------------
+% SAT NOTATIONS (SAT-Notationen)
+% -----------------------------------------------------------------------------------------------------------------
+% ########################################################
+%
+% Fundamentales:
+%
+\newcommand{\Va}{\mc{V\hspace{-0.1em}A}}
+\newcommand{\Dom}{\mc{DO\hspace{-0.08em}M}}
+\newcommand{\Lit}{\mc{LIT}}
+\newcommand{\Cl}{\mc{CL}}
+\newcommand{\Cls}{\mc{CLS}}
+\newcommand{\Tcls}{3\mbox{--}\Cls}
+\newcommand{\Pcls}[1]{#1\mbox{--}\Cls}
+\newcommand{\Clsab}[2]{\Cls\mbox{-}(#1, #2)}
+\newcommand{\Clsr}[1]{\Cls\mbox{-}#1}
+\newcommand{\Pass}{\mc{P\hspace{-0.32em}ASS}}
+\newcommand{\epa}{\pab{}} % leere partielle Belegung; empty partial assignment
+\newcommand{\Tass}{\mc{T\hspace{-0.35em}ASS}}
+\newcommand{\Sat}{\mc{SAT}}
+\newcommand{\Tsat}{3\mbox{-}\Sat}
+\newcommand{\Usat}{\mc{USAT}}
+\newcommand{\Usati}[1]{\Usat_{\!\!#1}}
+\newcommand{\Musat}{\mc{M\hspace{0.8pt}U}} % minimally unsatisfiable clause-sets; minimal unerfuellbare Klauselmengen
+\newcommand{\Musati}[1]{\Musat_{\!#1}} % used to select subsets, e.g., $\Musati{\delta=k}$; zur Auswahl von Teilklassen
+\newcommand{\Smusat}{\mc{S}\Musat} % saturated (``maximal'') minimally unsatisfiable clause-sets; saturierte (``maximale'') minimal unerfuellbare Klauselmengen
+\newcommand{\Smusati}[1]{\Smusat_{\!#1}}
+\newcommand{\Mmusat}{\mc{M}\Musat}% marginale minimal unerf\"ullbare Klms (25.4.2001)
+\newcommand{\Mmusati}[1]{\Mmusat_{\!#1}}
+\newcommand{\Vmusat}{\mc{V}\Musat} % variable minimally unsatisfiable clause-sets; Variablen-minimal unerfuellbare Klauselmengen
+\newcommand{\Vmusati}[1]{\Vmusat_{\!#1}}
+% \Umusat (union of MUs) is defined below.
+\newcommand{\symu}{\bar{\mc{U}}} % symbol for uniformity ("U" is already used for "union")
+\newcommand{\Unicls}{\symu\mc{CLS}} % uniform clause-sets; uniforme Klauselmengen
+\newcommand{\Punicls}[1]{{#1}\mbox{-}\Unicls} % specified clause-length
+\newcommand{\Unimusat}{\symu\mc{MU}} % uniform MUs
+\newcommand{\Unimusati}[1]{\symu\mc{MU}_{\!#1}} % with index
+\newcommand{\Punimusat}[1]{{#1}\mbox{-}\symu\mc{MU}} % uniform MUs, specified clause-length
+\newcommand{\Punimusati}[2]{{#1}\mbox{-}\symu\mc{MU}_{\!#2}} % with index
+%
+\newcommand{\Fpass}{{\mc{F}}\Pass}
+\nc{\Clsoo}{\Cls^{1,1}} % jede Variable hat 1-1-Vorkommen; each variable occurs once positively and once negatively
+%
+\DeclareMathOperator{\lit}{lit}
+\DeclareMathOperator{\var}{var}
+\DeclareMathOperator{\val}{val}
+\DMO{\dos}{ds} % domain size
+\DMO{\mdos}{mds} % maximal domain size
+%
+\newcommand{\sateq}{\overset{\mr{sat}}{\equiv}}
+%
+% Treffklauselmengen
+%
+\newcommand{\AF}{\mc{A}}% ausgezeichnete KNF
+\newcommand{\Clash}{\mc{HIT}} % schwach-resolvierbare Klauselmengen (global umdefiniert 24.7.2003)
+\newcommand{\Clashi}[1]{\Clash_{\!\!#1}}
+\newcommand{\Uclash}{\mc{U}\Clash} % unerfuellbare Treffklauselmengen
+\newcommand{\Uclashi}[1]{\Uclash_{\!\!#1}}
+\newcommand{\Sclash}{\mc{R}\Clash} % stark-resolvierbare Klauselmengen (global umdefiniert 24.7.2003; 7.4.2007: nun ``R'' fuer regulaer)
+\newcommand{\Sclashk}[1]{\Sclash_{\! #1}}
+\newcommand{\Mclash}{\mc{M}\Clash} % Multi-hitting 25.9.2004
+\newcommand{\Pclash}[1]{{#1}_{\nless}\mbox{\!--}\Clash} % Klausell\"ange exakt k 13.11.2005; einen allgemeinen Standard einfuehren fuer solche exakten Klausellaengenangaben
+\newcommand{\Puclash}[1]{{#1}_{\nless}\mbox{--}\Uclash}
+\DeclareMathOperator{\munpuclash}{\mu{}NH}
+\newcommand{\Pclashr}[2]{\Pclash{#1}\mbox{-}{#2}} % Zus\"atzlich haben alle Variablen den Grad $r$
+\newcommand{\Puclashr}[1]{\Puclash{#1}\mbox{-}*} % Variablen-regulaere uniforme unerfuellbare Treffklauselmengen.
+\newcommand{\Tuclash}{\mc{TUH}} % Baum-Treffklm; tree-hitting clause-sets
+% no \Tuclashi, since not needed.
+\newcommand{\Nclash}{\mc{NHIT}} % Fast-Treffklm; nearly hitting clause-sets
+%
+% Klauselmengen entsprechend Kongruenz-Ueberdeckungen; clause-sets related to
+% covers by congruences:
+\newcommand{\Cos}{\mc{CC}} % congruence-classes clause-sets
+\newcommand{\Ucos}{\mc{CS}} % covering-systems clause-sets
+\newcommand{\Clashcos}{\mc{DCC}} % disjoint congruence-classes clause-sets
+\newcommand{\Uclashcos}{\mc{DCS}} % disjoint convering systems cls
+%
+\DeclareMathOperator{\hdef}{\delta_{\mr{h}}} % hermitean defect 6.1.2004
+\DeclareMathOperator{\rdef}{\delta_{\mr{r}}} % rank defect 12.9.2004
+\newcommand{\Mclshd}{\Mcls_{\hdef}} % 24.7.2003
+\newcommand{\Clshd}{\Cls_{\hdef}} % 24.1.2004
+\newcommand{\Mmhd}{\Mclshd(1)} % 24.7.2003
+\newcommand{\Mclsp}{\Mcls_{i_+}} % 24.7.2003
+\newcommand{\Mclsn}{\Mcls_{i_-}} % 24.7.2003
+\newcommand{\Mclsh}{\Mcls_h} % 24.7.2003
+\newcommand{\Clsp}{\Cls_{i_+}} % 24.1.2004
+\newcommand{\Clsn}{\Cls_{i_-}} % 24.1.2004
+\newcommand{\Clsh}{\Cls_h} % 24.1.2004
+\newcommand{\Musath}{\Musat_{\!h}} % 24.7.2003
+\newcommand{\Musatd}{\Musat_{\!\delta}} % 24.7.2003
+\newcommand{\Smusatd}{\Smusat_{\!\delta}} % 24.7.2003
+\newcommand{\Mclsds}{\Mcls_{\delta^*}} % 24.7.2003
+\newcommand{\Trcls}{\mc{TCLS}}
+\newcommand{\Gtrcls}{\mc{GTCLS}}
+\newcommand{\Satein}{\Sat\mbox{-}1}
+\newcommand{\Lsat}{\mc{L}\Sat}
+\newcommand{\Ho}{\mc{HO}} % Hornformeln; Horn clause-sets
+\newcommand{\Rho}{\mc{R}\Ho} % Umbenennbare Hornformeln; renamable Horn clause-sets
+\newcommand{\Qho}{\mc{Q}\Ho}
+\newcommand{\Lean}{\mc{LEAN}}
+\newcommand{\Leani}[1]{\Lean_{\!#1}}
+\newcommand{\Llean}{\mc{L}\Lean}
+\newcommand{\Umusat}{\mc{U}\Musat}
+\newcommand{\Mlean}{\mc{M}\Lean}
+\newcommand{\Mleani}[1]{\Mlean_{\!#1}}
+\newcommand{\Msat}{\mc{M}\Sat}
+\newcommand{\Lsatz}{{\Lsat\!}_0}
+\newcommand{\Satv}[1]{\Sat\!_{#1}} % 15.8.2001
+\newcommand{\Psat}{\mc{P}\Sat}
+\newcommand{\Plean}{\mc{P}\Lean}
+\newcommand{\Mcls}{\mc{M}\Cls} % 27.12.2002
+\newcommand{\Pmcls}[1]{#1\mbox{--}\Mcls}
+\newcommand{\Scls}{\mc{SCL}} % 27.5.2004
+\newcommand{\Ssat}{\Sat} % 9.6.2004
+\newcommand{\Dcls}{\mc{C}\Cls} % 28.11.2004 (diagonale Klauselmengen), umbenannt am 12.9.2006 zu ``colouring clause-sets''
+\newcommand{\Sed}{\mc{SED}} % "surplus equal deficiency"
+%
+\DeclareMathOperator{\nulli}{null} % 17.5.2004
+%
+\newcommand{\Dnf}{\mathrm{DNF}}
+\newcommand{\pdnf}{p\mbox{-}\mathrm{DNF}}
+\newcommand{\tdnf}{3\mbox{-}\mathrm{DNF}}
+\newcommand{\twdnf}{2\mbox{-}\mathrm{DNF}}
+\newcommand{\Dnfa}{\mathrm{DNF}\mbox{-}(1, s)}
+\newcommand{\Dnfoi}{\mathrm{DNF}\mbox{-}(1, \infty)}
+\newcommand{\Dnfot}{\mathrm{DNF}\mbox{-}(1, 2)}
+\newcommand{\tdnfot}{3\mbox{-}\mathrm{DNF}\mbox{-}(1, 2)}
+\newcommand{\pdnfa}{p\mbox{-}\mathrm{DNF}\mbox{-}(1, s)}
+%
+\newcommand{\Cnf}{\mathrm{CNF}}
+%
+%
+\newcommand{\pcl}[1]{${\SST\le} #1$-clause}
+\newcommand{\pkl}[1]{${\SST\le} #1$-Klausel}
+%
+% Resolution:
+%
+\DeclareMathOperator{\res}{\diamond} % die (partielle) Resolutionsoperation
+\DeclareMathOperator{\resop}{Res} % der Resolutionsoperator (Hinzunahme aller Resolventen)
+\DeclareMathOperator{\mresop}{mRes} % der Resolutionsoperator (Hinzunahme aller Resolventen)
+\DeclareMathOperator{\dpl}{DP} % der DP-Operator
+\newcommand{\dpi}[1]{\dpl_{\!#1}}
+%
+% Beweissysteme:
+%
+\DeclareMathOperator{\comp}{Comp} % Komplexitaet bzgl. eines Beweisystems
+\DeclareMathOperator{\compex}{\comp_{ER}} % Erweiterte Resolution; extended resolution
+\DeclareMathOperator{\comptex}{\comp_{ER}^*} % baumartige erweiterte Resolution; extended resolution, tree-like
+\DeclareMathOperator{\compr}{\comp_R} % volle Resolution; full resolution
+\DeclareMathOperator{\comptr}{\comp_{R}^*} % baumartige Resolution; tree-like resolution
+% Resolution:
+\DMO{\premr}{ax} % premisses (axioms) in resolution proof
+\DMO{\concr}{C} % conclusion in resolution proof
+\DMO{\allcr}{cl} % all clauses in a resolution proof
+% Orakel:
+\newcommand{\Us}{\mc{U}} % August 2000 : Orakel fuer UNSAT
+\DeclareMathOperator{\comptru}{\comp_{tR(\Us)}} % Komplexitaet bzgl. baumartiger Resolution unter Verwendung des Orakel Us
+\DeclareMathOperator{\compru}{\comp_{R(\Us)}}
+\providecommand{\comptruv}[1]{\comp_{\mr{tR}(#1)}}
+\providecommand{\compruv}[1]{\comp_{\mr{R}(#1)}}
+\newcommand{\Sa}{\mc{S}} % September 2001
+% Hardness measurements:
+\DeclareMathOperator{\hardness}{hd}
+\DMO{\thardness}{thd} % tree-hardness (= hardness)
+\DMO{\phardness}{phd} % propagation-hardness
+\DeclareMathOperator{\wid}{wid} % symmetric width
+\DMO{\whardness}{awid} % width-based hardness (asymmetric width)
+\DMO{\dep}{dep} % depth
+\DMO{\hts}{hs} % Horton-Strahler number
+\DMO{\semspace}{css} % semantic clause-space complexity
+\DMO{\resspace}{crs} % resolution clause-space complexity
+\DMO{\treespace}{cts} % tree clause-space complexity of resolution
+%
+% Schubfachformeln (pigeonhole formulas):
+\newcommand{\php}{\mathrm{PHP}}
+\newcommand{\fphp}{\mathrm{FPHP}} % mit AMO-Klauseln
+\newcommand{\ophp}{\mathrm{OPHP}} % jedes Fach verwendet; every hole is used
+\newcommand{\ofphp}{\mathrm{BPHP}} % bijektive Form
+\newcommand{\ephp}{\mathrm{EPHP}} % PHP with extended-resolution clauses from Cook1976short
+%
+% Pebbling:
+\DeclareMathOperator{\pebf}{PF} % pebbling formulas (veraendert am 18.5.2001; vormals \pf)
+%
+% Baeume; trees:
+%
+\DeclareMathOperator{\rt}{rt} % Wurzel; root
+\DeclareMathOperator{\nds}{nds} % Menge der Knoten; set of nodes
+\DeclareMathOperator{\lvs}{lvs} % Menge der Blaetter; set of leaves
+\DeclareMathOperator{\nlvs}{\#lvs} % Anzahl der Blaetter; number of leaves
+\DeclareMathOperator{\nnds}{\#nds} % Anzahl der Knoten; number of nodes
+\DeclareMathOperator{\height}{ht}
+\DeclareMathOperator{\depth}{d}
+\DeclareMathOperator{\cls}{cls}
+\DeclareMathOperator{\newcommandls}{\#cls}
+\DeclareMathOperator{\ds}{ds}
+\DeclareMathOperator{\dst}{ds_T}
+\DeclareMathOperator{\dsg}{ds_G}
+\DeclareMathOperator{\dpr}{dp}
+\DeclareMathOperator{\dprt}{dp_T}
+\DeclareMathOperator{\dprg}{dp_G}
+\DeclareMathOperator{\ind}{in}
+\DeclareMathOperator{\indg}{in_G}
+\DeclareMathOperator{\outd}{out}
+\DeclareMathOperator{\outdg}{out_G}
+%
+\DeclareMathOperator{\peb}{peb} % 20.2.2000: pebbling complexity
+%
+\newcommand{\pab}[1]{\langle #1 \rangle}
+\newcommand{\pao}[2]{\langle #1 \ra #2 \rangle}
+\newcommand{\pat}[4]{\langle #1 \ra #2, #3 \ra #4 \rangle}
+%
+% Verzweigungstupel:
+%
+\DeclareMathOperator{\taum}{\max \tau}
+\DeclareMathOperator{\tauprob}{\tau^p} % probability distribution via tau
+\DeclareMathOperator{\mtau}{\mf{T}} % associated mean
+%
+\newcommand{\Btnz}{\mc{BT}} % non-zero branching tuples
+\newcommand{\Bt}{{\Btnz_{\! 0}}} % branching tuples
+\newcommand{\Btk}[1]{{\Btnz^{(#1)}}} % non-zero branching tuples of length k
+%
+\DeclareMathOperator{\concatbt}{;} % concatenation of branching tuples
+\DeclareMathOperator{\compobt}{\merge} % composition of branching tuples
+\nc{\bth}[1]{\langle{#1}\rangle} % branching tuple hull
+%
+%
+% Autarkien (autarkies):
+%
+% \DeclareMathOperator{\pc}{pc} % nicht mehr benutzt (13.5.2012); zu entfernen
+%
+\DeclareMathOperator{\aut}{Auk} % Autarkie-Monoid; autarky monoid
+\DeclareMathOperator{\autf}{Auk^r} % finitised (or ``restricted'') autarky monoid
+\DeclareMathOperator{\auts}{Auks} % autarky semigroup
+\DeclareMathOperator{\autsf}{Auks^r} % finitised (or ``restricted'') autarky semigroup
+\DeclareMathOperator{\autmax}{Auk\!\!\uparrow} % maximal autarkies
+\DeclareMathOperator{\autmin}{Auk\!\!\downarrow} % minimal autarkies
+\DeclareMathOperator{\autu}{Auk^s} % autark subsets
+\DeclareMathOperator{\autsu}{Auks^s} % autark non-empty subsets
+%
+\DeclareMathOperator{\laut}{LAuk} % lineare Autarkien
+\DeclareMathOperator{\lautz}{LAuk_0} % einfache lineare Autarkien
+\DeclareMathOperator{\maut}{MAuk}
+\newcommand{\A}{\mc{A}} % Autarkie-System; autarky system
+\DeclareMathOperator{\nv}{N} % ``Normalform'' (schlanker Kern) i.a.; ``normal form'' (lean kernel) in general
+\DeclareMathOperator{\na}{\nv_a} % schlanker Kern; lean kernel
+\DeclareMathOperator{\nA}{\nv_{\A}} % Normalform fuer Autarkiesystem A; leank kernel for autarky system A
+\DeclareMathOperator{\nla}{\nv_{la}}
+\DeclareMathOperator{\nbla}{\nv_{bla}}
+\DeclareMathOperator{\nma}{\nv_{ma}}
+\DeclareMathOperator{\npa}{\nv_{pa}}
+\DeclareMathOperator{\baut}{BAuk} % balancierte Autarkien
+\DeclareMathOperator{\blaut}{BLAuk} % balancierte lineare Autarkien
+\DeclareMathOperator{\blautz}{BLAuk_0} % balancierte lineare Autarkien
+\DeclareMathOperator{\paut}{PAut} % pure Autarkien
+\DeclareMathOperator{\pautz}{PAut_0} % einfache pure Autarkien
+\newcommand{\SatA}{\Sat\!_{\A}}
+\newcommand{\LeanA}{\Lean\!_{\A}}
+%
+% Relativierte Resolution:
+%
+\DeclareMathOperator{\resouz}{\overset{\Us, 0}{\vdash}}
+\DeclareMathOperator{\resouo}{\overset{\Us, 1}{\vdash}}
+\DeclareMathOperator{\resouk}{\overset{\Us,\, k}{\vdash}}
+\DeclareMathOperator{\resou}{\,\overset{\Us}{\vdash}\,}
+\DeclareMathOperator{\resour}{\,\overset{\Us_0}{\vdash}\,}
+\DeclareMathOperator{\resourz}{\,\overset{\Us_0, 0}{\vdash}\,}
+\DeclareMathOperator{\uresouk}{\resouk\hspace{-0.6em}\mbox{\raisebox{0.8ex}{\tiny u}}}
+\DeclareMathOperator{\bresouk}{\resouk\hspace{-0.6em}\mbox{\raisebox{0.8ex}{\tiny b}}}
+\DeclareMathOperator{\iresouk}{\resouk\hspace{-0.6em}\mbox{\raisebox{0.8ex}{\tiny i}}}
+\DeclareMathOperator{\resok}{\overset{k}{\vdash}} % 27.8.2000
+\newcommand{\resokv}[1]{\overset{#1}{\vdash}}
+\newcommand{\resoukv}[1]{\overset{\Us, \,#1}{\vdash}}
+%
+% Reductions:
+%
+\DMO{\rsub}{r_S} % subsumption-elimination
+\DMO{\rk}{r} % propagation-reduction
+\DMO{\ro}{\rk_1} % unit-clause propagation
+\DMO{\rki}{\rk_{\infty}} % the limit of r_k
+\DMO{\rpl}{r^{pl}} % elimination of pure literals
+\DMO{\ropl}{\rk_1^{pl}} % r_1 with elimination of pure literals
+%
+% Slur:
+%
+\nc{\rslur}{\xrightarrow{\text{SLUR}}} % SLUR-reduction
+\nc{\rslurs}{\rslur_{\!*}} % reflexive-transitive closure
+\DMO{\slur}{slur} % set of fully reduced results of SLUR-reduction
+\nc{\Slur}{\mc{SLUR}} % the SLUR-class
+\nc{\rkslur}[1]{\xrightarrow{\text{SLUR}_{#1}}} % k-SLUR-reduction
+\nc{\rkslurs}[1]{\rkslur{#1}_{\!*}} % reflexive-transitive closure
+% Alternative SLUR hierarchies:
+\nc{\Altsluri}[1]{\Slur(#1)}
+\nc{\Altslurstari}[1]{\Slur\text{\textasteriskcentered}(#1)}
+\nc{\Canoni}[1]{\mr{CANON}(#1)}
+\nc{\rkslurstar}[1]{\xrightarrow{\text{SLUR\textasteriskcentered}#1}} % k-SLUR*-reduction
+\nc{\rkslursstar}[1]{\rkslurstar{#1}_{\!*}} % reflexive-transitive closure
+\DMO{\slurstar}{\slur\!\text{\textasteriskcentered}}
+% Unit-refutation-completeness:
+\nc{\Urefc}{\mc{UC}}
+% Propagation-completeness:
+\nc{\Propc}{\mc{PC}}
+% Width-refutation-completeness:
+\nc{\Wrefc}{\mc{WC}} % class of clause-sets of w-hardness k
+%
+\DeclareMathOperator{\widl}{\hspace*{-1.5pt}wid}
+\DeclareMathOperator{\widb}{\sideset{^{\mr{b}}}{}\widl}
+\DeclareMathOperator{\widi}{\sideset{^{\mr{i}}}{}\widl}
+\DeclareMathOperator{\cwid}{\mc{W}} % classes
+\DeclareMathOperator{\cwidl}{\hspace*{-1pt}\mc{W}} % classes
+\DeclareMathOperator{\cwidb}{\sideset{^{\mr{b}}}{}\cwidl}
+\DeclareMathOperator{\cwidi}{\sideset{^{\mr{i}}}{}\cwidl}
+%
+\DeclareMathOperator{\modp}{mod_p} % partielle Modelle
+\DeclareMathOperator{\modt}{mod_t} % totale Modelle
+\DeclareMathOperator{\moda}{\mf{S}} % 15.1.2003; ``allgemeine Modelle''
+\DeclareMathOperator{\modf}{fal} % 27.11.2004; ``falsifizierende Modelle''; von \mf{F} zu \ol{mod} geaendert am 21.10.2006; zu ``fal'' geaendert am 27.9.2007
+\DeclareMathOperator{\mods}{mod} % 21.10.2006; ``erfuellende Modelle'' (satisfying models)
+%
+% Systems of Problem Instances:
+%
+\newcommand{\PI}{\mc{PI}}
+\newcommand{\Spi}{\mc{S}\PI}
+\newcommand{\Upi}{\,\mc{U}\PI}
+%
+% Hypergraphs of minimally unsatisfiable sub-clause-sets etc.:
+%
+\DeclareMathOperator{\mus}{MU}
+\DeclareMathOperator{\mss}{MS}
+\DeclareMathOperator{\cmus}{CMU}
+\DeclareMathOperator{\cmss}{CMS}
+% 13.5.2007: Verallgemeinerung fuer beliebige Klm
+\DeclareMathOperator{\eqs}{EQ} % aequivalente Teilmengen
+\DeclareMathOperator{\neqs}{NEQ} % nicht-aequivalente Teilmengen
+%
+% Konfliktmatrizen und Konfliktgraphen; conflict matrices and conflict graphs:
+%
+\DeclareMathOperator{\scf}{CM} % symmetric conflict matrix
+\DeclareMathOperator{\acf}{DCM} % asymmetric conflict matrix
+\DeclareMathOperator{\cmg}{cmg} % conflict multigraph
+\DeclareMathOperator{\cmdg}{cmdg} % conflict multidigraph
+\DeclareMathOperator{\cg}{cg} % conflict graph
+\DeclareMathOperator{\cdg}{cdg} % conflict digraph
+\DeclareMathOperator{\gcg}{cgg} % general conflict graph (allgemeiner Konfliktgraph)
+\DeclareMathOperator{\gcdg}{cgdg} % general conflict digraph (allgemeiner gerichteter Konfliktgraph)
+%
+\DeclareMathOperator{\rsg}{rg} % resolution graph
+\DeclareMathOperator{\srsg}{srg} % resolution graph without subsumptions
+%
+\DeclareMathOperator{\vhg}{vhg} % variable hypergraph
+\DeclareMathOperator{\cvg}{cvg} % common-variable graph (clauses joined by an edge of some variable in common)
+\DeclareMathOperator{\cvmg}{cvmg} % common-variable multi graph
+\DeclareMathOperator{\vig}{vig} % variable interaction graph
+\DeclareMathOperator{\vcg}{vcg} % variable-clause graph
+%
+\DeclareMathOperator{\nscf}{bcp} % symmetric conflict number
+\DeclareMathOperator{\nacf}{bcp_d} % asymmetric conflict number
+\DeclareMathOperator{\bcp}{bcp} % biclique partition number
+%
+\DeclareMathOperator{\tbcp}{tbcp} % ``triviale'' Biclique-Zerlegung; trivial biclique partition
+%
+% Grade und Raenge:
+%
+\DeclareMathOperator{\nsat}{\#sat}
+\DeclareMathOperator{\nusat}{\#usat}
+\DeclareMathOperator{\maxsat}{maxsat}
+%
+\DeclareMathOperator{\pmin}{\rankmin}
+\DeclareMathOperator{\pmax}{\rankmax}
+\DeclareMathOperator{\pav}{\rankdur}
+%
+\DeclareMathOperator{\ldeg}{ld} % Literalgrad; literal degree
+\DeclareMathOperator{\minldeg}{\mu\!\ldeg} % minimaler Literalgrad; minimal literal degree
+\DeclareMathOperator{\maxldeg}{\nu\ldeg} % maximaler Literalgrad; maximal literal degree
+%
+\DeclareMathOperator{\vdeg}{vd} % Variablengrad; variable degree
+\DeclareMathOperator{\minvdeg}{\mu\!\vdeg} % minimaler Variablengrad; minimal variable degree
+\DeclareMathOperator{\maxvdeg}{\nu\!\vdeg} % maximaler Variablengrad; maximal variable degree
+\DeclareMathOperator{\avvdeg}{\widetilde{\vdeg}} % durchschnittlicher Variablengrad; average variable degree
+%
+\DeclareMathOperator{\cldeg}{cldg} % complementary literal degree
+%
+% Minimaler Variablengrad von k-uniformen minimal unerfuellbaren booleschen Klm
+\DeclareMathOperator{\mvardu}{\mu\!\vdeg}
+\DMO{\varmvd}{\var_{\minvdeg}} % variables with minimal degree
+\DMO{\nfc}{fc} % number of full clauses
+\DMO{\maxnfc}{\nu\!\nfc} % maximal number of full clauses
+%
+%
+%
+% Spezielle Klauselmengen:
+%
+\nc{\Dt}[1]{\mc{F}_{#1}} % the saturated clause-sets of deficiency 2 are the $\Dt{n}$
+\DeclareMathOperator{\Inj}{Inj}
+%
+% OKlibrary:
+%
+\newcommand{\OKsolver}{\texttt{OKsolver}}
+\newcommand{\OKlibrary}{\texttt{OKlibrary}}
+\newcommand{\OKgenerator}{\texttt{OKgenerator}}
+\newcommand{\OKplatform}{\texttt{OKplatform}}
+\newcommand{\OKdatabase}{\texttt{OKdatabase}}
+\newcommand{\OKsystem}{\texttt{OKsystem}}
+\newcommand{\OKinternet}{\url{http://www.ok-sat-library.org}}
+\newcommand{\OKramsey}{\url{http://cs.swan.ac.uk/~csoliver/ok-sat-library/internet_html/doc/local_html/RamseyTheory.html}}
+\newcommand{\tawSolver}{\href{https://github.com/OKullmann/oklibrary/blob/master/Satisfiability/Solvers/TawSolver/tawSolver.cpp}{\texttt{tawSolver}}}
+%
+% Umfeld der minimalen Unerfuellbarkeit; context of MU:
+%
+\DeclareMathOperator{\Ex}{Ex} % Expansion; expansion
+\DeclareMathOperator{\surp}{\sigma} % Surplus
+\DeclareMathOperator{\nonmer}{nM} % Nicht-Mersenne-Zahl; non-Mersenne number
+\newcommand{\inonmer}{\operatorname{i}_{\mathrm{nM}}} % Index der nM-Zahl; index of nM-number
+\nc{\svbf}{\mc{VB}} % set of valid bounds-functions
+\nc{\svbfs}{\mc{VB}^*} % those <= nM
+\DMO{\potp}{pp} % potential pairs
+\DMO{\potprec}{NM} % recursion via potential pairs
+\DMO{\minnonmer}{VDM} % minimal variable degree for MU(k)
+\DMO{\minnonmerh}{VDH} % minimal variable degree for UHIT(k)
+\DMO{\maxsmar}{FCM} % maximal number of full clauses for MU(k)
+\DMO{\maxsmarh}{FCH} % maximal number of full clauses for UHIT(k)
+\newcommand{\Esnm}{\mc{SN\!M}} % k with nM(k)=S(k)
+%
+% Singularitaet; singularity:
+\DMO{\varsing}{\var_s} % singular variables
+\DMO{\varosing}{\var_{1s}} % 1-singular variables
+\DMO{\varnosing}{\var_{\neg1s}} % non-1-singular variables
+\DMO{\nsv}{\mathit{n}_s} % number of singular variables
+\DMO{\nosv}{\mathit{n}_{1s}}
+\DMO{\nnosv}{\mathit{n}_{\neg1s}}
+\nc{\Musatns}{\Musat'} % non-singular minimally unsatisfiable clause-sets
+\nc{\Musatnsi}[1]{\Musati{#1}'}
+\nc{\Smusatns}{\Smusat'} % non-singular saturated minimally unsatisfiable clause-sets
+\nc{\Smusatnsi}[1]{\Smusati{#1}'}
+\nc{\Uclashns}{\Uclash'} % non-singular hitting clause-sets
+\nc{\Uclashnsi}[1]{\Uclashi{#1}'}
+% Singular DP-reduction:
+\nc{\tsdp}{\xrightarrow{\text{sDP}}}
+\nc{\tsdps}{\tsdp_{\!*}}
+\nc{\tosdp}{\xrightarrow{\text{1sDP}}}
+\nc{\tosdps}{\tosdp_{\!*}}
+\DMO{\sdp}{sDP} % the set of reachable non-singular clause-sets
+\DMO{\osdp}{sDP_1} % the normalform obtained by 1sDP-reduction
+\nc{\cflmusat}{\mc{CF}\Musat} % F in MU with confluent singular DP-reduction
+\nc{\cflmusati}[1]{\mc{CF}\Musati{#1}}
+\nc{\cflimusat}{\mc{CFI}\Musat} % F in MU with confluent singular DP-reduction
+\DMO{\sNF}{sNF} % singular normal form
+\DMO{\eqp}{eqp} % equality-preserving permutations
+\DMO{\sgp}{sp} % singularity-preserving permutations
+\DMO{\singind}{si} % singularity index
+\DMO{\osingind}{si_1} % 1-singularity index
+\DMO{\shyp}{svh} % singularity-hypergraph
+\DMO{\sdph}{ssh} % sDP-hypergraph (hypergraph of singular sets)
+\DMO{\msdph}{mss} % maximal singular sets
+\DMO{\osdph}{ssh_1} % hypergraph of 1-singular sets
+\DMO{\mosdph}{mss_1} % maximal 1-singular set
+%
+% Minimale Praemissenmengen (minimal premise sets):
+\newcommand{\Mps}{\mathcal{MPS}} % set of minimal premise clause-sets
+\DMO{\mps}{mps} % set of minimal-premise-sub-clause-sets
+\DMO{\purec}{puc} % pure clause
+\DMO{\doping}{D}
+% Repraesentierung boolescher Funktionen; representations of boolean functions:
+%
+\DeclareMathOperator{\primec}{prc} % Prim-Klauseln; prime clauses (\primec_0 fuer CNF, \primec_1 fuer DNF)
+\DeclareMathOperator{\vcan}{vct} % variables of canonical translation
+\DeclareMathOperator{\cant}{ct} % canonical translation
+\DeclareMathOperator{\fcanoe}{fce} % full canonical 1-extension
+\DeclareMathOperator{\fcant}{fct} % full canonical translation
+\DeclareMathOperator{\fcanpt}{fctp} % full canonical p-translation
+%
+% Kombinatorische Operationen mit Klauselmengen (combinatorial operations):
+%
+\nc{\glue}[4]{\operatorname{glue}((#1,#2), (#3,#4))} % glueing
+\newcommand{\fglue}{\mathbin{\boxplus}} % full gluing
+\newcommand{\fvdglue}{\mathbin{\widetilde{\boxplus}}} % full variable-disjoint gluing
+\nc{\gluea}[3]{#1 \mathbin{\boxplus}_{#3} #2} % gluing with identification
+\newcommand{\cor}{\mathbin{\ovee}} % combinatorial disjunction
+\DMO{\saturate}{S}
+\DMO{\marginalise}{M}
+%
+% ########################################################
+% ----------------------------------------------------------------------------------------------------------------
+% BOOLEAN FUNCTIONS (Boolesche Funktionen)
+% -----------------------------------------------------------------------------------------------------------------
+% ########################################################
+%
+\newcommand{\Bf}[1]{\mc{BF}^{#1}} % Menge der booleschen Funktionen; set of boolean functions
+\DeclareMathOperator{\boolf}{bf} % zugehoerige boolesche Funktion
+\DeclareMathOperator{\essent}{es} % essentieller Teil; essential part
+\DeclareMathOperator{\unforced}{uf} % nicht-erzwungener Teil; unforced part
+\DeclareMathOperator{\essunf}{eu} % essentieller nicht-erzwungener Teil; essential unforced part
+\DeclareMathOperator{\booldiff}{\sm} % boolesche Differenz; boolean difference
+\DMO{\frl}{fl} % forced literals
+%
+% ########################################################
+% ----------------------------------------------------------------------------------------------------------------
+% COMPLEXITY THEORY (Komplexitaetstheorie)
+% -----------------------------------------------------------------------------------------------------------------
+% ########################################################
+%
+% Platz- und Zeitklassen i.a.
+%
+\DeclareMathOperator{\timem}{time}
+\DeclareMathOperator{\spacem}{space}
+\DeclareMathOperator{\dtime}{DTime}
+\DeclareMathOperator{\dspace}{DSpace}
+\DeclareMathOperator{\ndtime}{NTime}
+\DeclareMathOperator{\ndspace}{NSpace}
+\DeclareMathOperator{\condtime}{coNTime}
+\DeclareMathOperator{\condspace}{coNSpace}
+%
+\nc{\Con}{\mr{Con}}
+\nc{\Log}{\mr{Log}}
+\nc{\Lin}{\mr{Lin}}
+\nc{\Pol}{\mr{Pol}}
+\nc{\ExL}{\mr{ExL}}
+\nc{\ExP}{\mr{ExP}}
+%
+\nc{\CTime}{\mr{CTime}}
+\nc{\CSpace}{\mr{CSpace}}
+%
+\nc{\LTime}{\mr{LTime}}
+\nc{\LSpace}{\mr{L}}
+\nc{\NLSpace}{\mr{NL}}
+%
+\nc{\LinTime}{\mr{LinTime}}
+\nc{\LinSpace}{\mr{LinSpace}}
+%
+\nc{\PTime}{\mr{P}}
+\nc{\PSpace}{\mr{PSpace}}
+%
+\nc{\Np}{\mr{NP}}
+\nc{\Conp}{\text{coNP}}
+\nc{\NPSpace}{\mr{NPSpace}}
+\nc{\CoNPSpace}{\mr{coNPSpace}}
+%
+\nc{\ELTime}{\mr{ELTime}}
+\nc{\ELSpace}{\mr{ELSpace}}
+\nc{\EPTime}{\mr{EPTime}}
+\nc{\EPSpace}{\mr{EPSpace}}
+\nc{\NEPTime}{\mr{NEPTime}}
+%
+% Polynomiale Hierarchie
+%
+\nc{\polydelta}[1]{\Delta_{#1}^{\mr P}}
+\nc{\polypi}[1]{\Pi_{#1}^{\mr P}}
+\nc{\polysigma}[1]{\Sigma_{#1}^{\mr P}}
+\nc{\Ph}{\mr{PH}}
+\DeclareMathOperator{\exP}{\ex^{\mr P}}
+\DeclareMathOperator{\faP}{\fa^{\mr P}}
+%
+% Boolesche Hierarchie
+%
+\nc{\Dp}{D^P}
+%
+% Parallelitaet
+%
+\nc{\PllC}[2]{{\text{$\mr{PT}$/$\mr{WK}$}(#1, #2)}} % uniforme Schaltkreise der Tiefe O(#1) und der Groesse O(#2)
+\nc{\Nc}{\mr{NC}}
+\nc{\Nci}[1]{\Nc^{#1}}
+\nc{\Ac}{\mr{AC}}
+\nc{\Aci}[1]{\Ac^{#1}}
+%
+% Nichtuniforme Komplexitaet
+\nc{\pmodpoly}{P / \mathrm{poly}}
+%
+% Parametrisierung
+%
+\nc{\Wh}[1]{\mr{W}[#1]} % W-Hierarchie
+%
+% Randomisierung
+%
+\nc{\Rl}{\mr{RL}}
+\nc{\coRl}{\mr{coRL}}
+\nc{\Rp}{\mr{RP}}
+\nc{\coRp}{\mr{coRP}}
+\nc{\Zpp}{\mr{ZPP}}
+\nc{\Bpp}{\mr{BPP}}
+\nc{\Pp}{\mr{PP}}
+%
+% Probleme
+%
+\nc{\Reach}{\mr{STCON}} % gerichtete Erreichbarkeit
+\nc{\Undreach}{\mr{USTCON}} % ungerichtete Erreichbarkeit
+\nc{\Pcol}[2]{\mr{COL}(#1,#2)} % Hypergraphenfaerbung von #1-uniformen Hypergraph mit #2 Farben
+\nc{\Pscol}[2]{\mr{SCOL}(#1,#2)} % starke Hypergraphenfaerbung von #1-uniformen Hypergraph mit #2 Farben
+\nc{\Psorcol}[2]{\mr{SORCOL}(#1,#2)} % sortierte Hypergraphenfaerbung von #1-uniformen Hypergraph mit #2 Farben
+%
+% Algebraische Komplexitaet (algebraic complexity):
+%
+\DMO{\slp}{slp}
+%
+% ########################################################
+% ----------------------------------------------------------------------------------------------------------------
+% CRYPTOLOGY (Kryptologie)
+% -----------------------------------------------------------------------------------------------------------------
+%
+% Blockchiffren
+%
+\nc{\Mss}{\mr{MSS}}
+\nc{\Key}{\mr{KEY}}
+\nc{\Keyi}[1]{\Key_{\!#1}}
+\nc{\Nbmss}{N_{\mr{bm}}} % Anzahl Bits in Botschaften
+\nc{\Nbkey}{N_{\mr{bk}}} % Anzahl Bits in Schluesseln
+%
+% AES
+%
+\nc{\Rnb}{N_{\mr{b}}}
+\nc{\Rnk}{N_{\mr{k}}}
+\nc{\Rnr}{N_{\mr{r}}}
+\DeclareMathOperator{\Rijn}{RIJN}
+\DeclareMathOperator{\byte}{byte}
+\DeclareMathOperator{\qbyte}{qbyte}
+\nc{\Byte}{\mr{B}[8]}
+\nc{\QByte}{\mr{B}[4,8]}
+\nc{\KByte}{\mc{B}} % der K\"orper der Bytes
+\nc{\RQByte}{\mc{QB}} % der Ring der 4-Byte-Bloecke
+\DeclareMathOperator{\Rrk}{rk} % round key
+\DeclareMathOperator{\Rsm}{sm} % state mix
+\DeclareMathOperator{\Rsubbytes}{\mathtt{SubBytes}}
+\DeclareMathOperator{\Rshiftrows}{\mathtt{ShiftRows}}
+\DeclareMathOperator{\Rmixcolumns}{\mathtt{MixColumns}}
+\DeclareMathOperator{\Rsb}{S_{RD}} % S-box
+%
+% ##################################
+% # RAMSEY THEORY (Ramsey-Theorie) #
+% ##################################
+%
+% Ramsey-Zahlen und aehnliches; Ramsey numbers and other similar numbers
+\nc{\ramz}[3]{\mr{ram}_{#1}^{#2}(#3)} % Ramsey-Zahl; Ramsey number
+\DeclareMathOperator{\ramzg}{ram} % generische Funktion fuer Ramsey-Zahlen; generic function for Ramsey numbers
+\nc{\waez}[2]{\mr{vdw}_{#1}(#2)} % van der Waerden-Zahl; van der Waerden number
+\DeclareMathOperator{\waezg}{vdw} % generische Funktion fuer van der Waerden-Zahlen; generic function for van der Waerden numbers
+\nc{\gtz}[2]{\mr{grt}_{#1}(#2)} % Green-Tao-Zahl; Green-Tao number
+\DeclareMathOperator{\gtzg}{grt} % generische Funktion fuer Green-Tao-Zahlen; generic function for Treen-Tao numbers
+\nc{\pdwaez}[2]{\mr{vdw}_{#1}^{\mr{pd}}(#2)} % palindromische vdW-Zahlen; palindromic vdW-numbers
+\DeclareMathOperator{\schurz}{shr} % Schur-Zahl
+\DeclareMathOperator{\wschurz}{wshr} % schwache Schur-Zahl
+%
+\DeclareMathOperator{\FvdW}{F_{W}} % Klauselmenge, die die van-der-Waerden-Zahl darstellt; clause-set corresponding to van der Waerden numbers
+\DeclareMathOperator{\FRam}{F_{R}} % Klauselmenge, die Ramsey-Zahl darstellt; clause-sets corresponding to Ramsey numbers
+\DeclareMathOperator{\arithp}{ap} % Menge aller arithmetischen Progressionen; set of all arithmetic progressions.
+\DeclareMathOperator{\arithpp}{ap_{pr}} % Menge aller arithmetischen Progressionen in der Menge der Primzahlen; set of all arithmetic progressions in the primes.
+\DeclareMathOperator{\crarithp}{cr_{ap}} % Konvergenzrate der relativen Unabhaengigkeitszahl von arithp(k,n); convergence rate of relative independence number of arithp(k,n)
+\DeclareMathOperator{\crarithpp}{cr_{ap}^{pr}} % Konvergenzrate der relativen Unabhaengigkeitszahl von arithpp(k,n); convergence rate of relative independence number of arithpp(k,n)
+%
+%
+% ####################################################
+% # PROBABILITY THEORY (Wahrscheinlichkeits-Theorie) #
+% ####################################################
+%
+\DeclareMathOperator{\prob}{Pr}
+%
+%
+%
+% ######################
+% # NUMERICS (Numerik) #
+% ######################
+%
+\nc{\absfeh}[1]{\delta_{#1}} % absoluter Fehler; absolute error
+\nc{\relfeh}[1]{\ve_{#1}} % relativer Fehler; relative error
+%
+\newcommand{\Flpp}{\mr{Flpp}} % Gleitkommazahldarstellungen; floating point number representations
+\DeclareMathOperator{\rflp}{flp} % die reelle Zahl zu einer Gleitkommazahldarstellungen; the real number for a floating point number representations
+\DeclareMathOperator{\meps}{\epsilon} % die Maschinengenauigkeit; machine epsilon
+\DeclareMathOperator{\Nmin}{N_{min}} % die kleinste positive normale Gleitkommazahl; smallest normalised floating point number
+\DeclareMathOperator{\Nmax}{N_{max}} % die groesste positive normale Gleitkommazahl; largest normalised floating point number
+\DeclareMathOperator{\Nrg}{Nrg} % normale Bereich; normal range
+%
+%
+% ########################################################
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-parse-self: t
+%%% TeX-auto-save: t
+%%% TeX-master: "Definitionen"
+%%% End:

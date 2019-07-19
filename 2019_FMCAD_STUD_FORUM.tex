@@ -1,0 +1,286 @@
+% Oliver Kullmann, 18.5.2019 (Swansea)
+% Bibtex entry \cite{KullmannShukla2019DQCNF}.
+% Underlying report: 2018_DQBF.tex \cite{KullmannShukla2018DQBF}.
+% Submitted to FMCAD 2019 https://fmcad.forsyte.at/FMCAD19/ :
+% ID 79d524970076dd8509ffbd92da4922bba7682e3b.
+
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+
+
+\input Latex_macros/Definitionen.tex
+
+\usepackage{enumerate}
+\usepackage[all]{xy}
+\usepackage[active]{srcltx}
+
+\interdisplaylinepenalty=2500
+
+\DeclareMathOperator{\varess}{\var_{es}} % essential variables
+
+\DeclareMathOperator{\Aaut}{A}
+\DeclareMathOperator{\Eaut}{E}
+
+
+\begin{document}
+
+\title{Autarkies for DQCNF}
+
+
+\author{\IEEEauthorblockN{Oliver Kullmann\IEEEauthorrefmark{1}}\thanks{\IEEEauthorrefmark{1}Supported by EPSRC grant EP/S015523/1.}
+\IEEEauthorblockA{Computer Science Department\\
+Swansea University, UK\\
+Email: O.Kullmann@Swansea.ac.uk}
+\and
+\IEEEauthorblockN{Ankit Shukla}
+\IEEEauthorblockA{Institute for
+	Formal Models
+	and Verification\\
+Johannes Kepler University, Austria\\
+Email: ankit.shukla@jku.at}
+}
+
+\maketitle
+
+\begin{abstract}
+  Autarkies for SAT are partial assignments for boolean CNF, which either satisfy a clause or leave it untouched.
+  We introduce the natural generalisation of autarkies for DQCNF (dependency-quantified boolean CNF), by generalising constant boolean functions $0, 1$, as used in SAT, to arbitrary boolean functions assigned to existential variables, as allowed by the dependency-specification.
+  We regard here DQCNF as a proper generalisation of QCNF (QBF with CNF), and all results naturally apply also to QCNF.
+  We provide the most basic theory, considering confluence of autarky reduction (removing the clauses satisfied by some autarky), and the Autarky Decomposition Theorem, the unique decomposition of a DQCNF into the lean kernel (free from any autarky) and the clauses satisfiable by some autarky.
+  Finding autarkies is NEXPTIME-hard (or PSPACE-hard, when restricting to QCNF), and so autarky systems are introduced, which allow for more feasible restricted notions of autarkies, while maintaining the basic properties.
+  The two most basic autarky systems restrict either the number of existential variables assigned, or the number of universal variables used in the boolean functions assigned.
+\end{abstract}
+
+
+
+\section{Introduction}
+\label{sec:Intro}
+
+QBF is the natural extension of SAT to a PSPACE-complete problem, by allowing quantifiers (for the basics of the theory see \cite{KBB09HBSAT}).
+QBF can be seen as maturing, with solvers and underlying theory available.
+Its NEXPTIME-complete extension DQBF, which generalises the existential quantifiers by allowing arbitrary dependencies, is at an earlier stage.
+On the theory side, proof calculi get developed (see \cite{BeyersdorffChewSchmidtSuda2016DQBF} for a basic pointer), and dependency-schemes naturally play an important role (see \cite{SlivovskySzeider2016Reordering,WimmerSchollWimmerBecker2016Dependencies} for basic pointers).
+On the solver side, our investigations are closer to pre- or inprocessing (see \cite{WimmerSchollWimmerBecker2015Preprocessing}).
+We introduce basic autarky theory, which can become a fabric for pre/inprocessing. The basic theory of autarkies for SAT can be found in \cite{Kullmann2007HandbuchMU}. An autarky for a CNF $F$ is a partial assignment $\vp$ (with boolean values $0,1$) such that every clause of $F$, where some variable is assigned by $\vp$, is satisfied by $\vp$. Clauses satisfied by some autarky can be removed satisfiability-equivalently (and indeed these clauses can not be used by any resolution refutation (\cite{Ku00f})). Restricted forms of autarkies yield ``autarky systems''; an example is given by ``matching autarkies'' (\cite[Subsection 11.11.2]{Kullmann2007HandbuchMU}), where the variables used to satisfy clauses must be distinct.
+
+The natural generalisation for a DQCNF $F$ is to allow $\vp$ to assign existential variables $v$ of $F$, with values now being boolean functions as allowed by the dependency-map for $v$.
+Making a clause ``true'' now means making it a tautology.
+The basic autarky-systems $\Aaut_0$, $\Aaut_1$ allow the boolean functions to \emph{essentially} depend on $0$ resp.\ $1$ universal variable, while $\Eaut_1$ only uses one existential variable (we use ``A'' to denote universal variables, and ``E'' for existential variables).
+Let's consider the example from \cite[after Definition 4]{BubeckHKB2006Dependencies}:
+\begin{eqnarray*}
+  F & := & \fa x_1,x_2,x_3 \ex y_1(x_1,x_2) \ex y_2(x_2,x_3) : F_0\\
+  F_0 & := & (y_1 \vee x_1) \wedge (\neg y_1 \vee x_2) \wedge (\neg y_2 \vee \neg x_2 \vee x_3).
+\end{eqnarray*}
+$F$ has an $\Eaut_1$-autarky for $y_2$, which is also an $\Aaut_0$-autarky, namely we can assign $y_2 \mapsto 0$, and obtain the satisfiability-equivalent QCNF $F' := \fa x_1,x_2 \ex y_1 : (y_1 \vee x_1) \wedge (\neg y_1 \vee x_2)$.
+These two clauses are equivalent to $\neg x_1 \ra y_1 \ra x_2$, and this ``interval'' for $y_1$, the boolean functions implied by $\neg x_1$ and implying $x_2$, is empty, as one sees by assigning $x_1, x_2 \mapsto 0$.
+Thus there is no non-trivial autarky, that is, $F'$ is ``lean''.
+We call $F'$ the \emph{lean kernel} of $F$.
+Finding $\Aaut_1$-autarkies in general is translated to SAT, where the fundamental idea is to \emph{compile} for each clause the \emph{minimal} possibilities to make it a tautology.
+
+
+Our work is related in mainly two dimensions to existing literature:
+our ``model''-based approach, starting so to speak with the Skolem functions (not extracting them as e.g.\ in \cite{WWSB2016DQBF}), is discussed in Subsection \ref{sec:introstartbf}, while generalisations of autarkies to QBF are discussed in Subsection \ref{sec:introautqbf}.
+
+
+\subsubsection{Starting with the boolean functions (models)}
+\label{sec:introstartbf}
+
+Our approach in general is similar to \cite{HKBSubramaniZhao2003BooleanModels}, concerning the basic framework, while generalising satisfying assignments (``models'') to autarkies.
+They consider ``$K_1$-models'', which correspond to our $\Aaut_1$-autarky system (for total assignments, as only studied by  \cite{HKBSubramaniZhao2003BooleanModels}).
+They show that every satisfiable Q2CNF (QCNFs with the matrix a 2CNF) has a $K_1$-model (Theorem 3).
+We remark here that this generalises to DQ2CNF, and thus every satisfiable DQ2CNF is $\Aaut_1$-satisfiable, but due to space restrictions we don't prove this here.
+Furthermore they consider $K_2$ (conjunctions of positive literals), and mention $K_3$, which is the closure of $K_1$ under conjunction; we will consider the corresponding autarky-systems in future work.
+
+Our notion of an autarky system goes beyond the study of classes of boolean functions, since the autarkies may depend on the formula, as for example for matching autarkies.
+
+
+\subsubsection{Restricted autarkies for QBF}
+\label{sec:introautqbf}
+
+Autarkies for QBF in the literature only use boolean values (not boolean functions as values, as we do).
+\cite{BueningZhao2008QBFFixDef} uses $\Aaut_0$ (especially matching autarkies), and exploits that not having any such autarkies implies that the ``deficiency'' (the number of clauses minus the number of existential variables) is at least one.
+\cite{Ruehmkorf2010Autarky} consider the matrix $F$ of a QCNF, and just any autarky for $F$, not differentiating between universal and existential variables.
+If only existential variables are involved, then this is the $\Aaut_0$-case.
+While the main use of an autarky just involving universal variables is based on the following simple fact about autarkies for CNFs $F$: if $\vp$ is an autarky for $F$ with $v \in \var(\vp)$, then in the result of applying $\vp$ without $v$ to $F$, the variable $v$ must be pure (occurs only in one sign).
+And if a universal variable if pure, then it can be assigned to that value which makes its instances \emph{false}.
+In \cite{Ruehmkorf2010Autarky} this is used in the DLL-framework (a simple backtracking algorithm) for QBF, considering at most two variables.
+We believe that in a DQCNF the only real variables are the existential variables, while the universal variables belong to the value-structure (as in constraint satisfaction), and that there is no use for considering assigning the universal variables (for autarkies; except of the above case of pure universal variables).
+For QBF that might be different, when exploiting \emph{duality} (the negation of a QBF is again a QBF), but would be a more complicated matter.
+
+
+
+
+\section{DQCNF and autarkies}
+\label{sec:dqcnfaut}
+
+We assume a standard framework for \emph{boolean clause-sets}: a set $\Lit$ of literals is given with a fixed-point free involution $x \in \Lit \mapsto \ol x \in \Lit$, the complementation. For a set $L \sse \Lit$ of literals we use element-wise complementation $\ol{L} := \set{\ol x : x \in L}$. The set of variables is $\Va \sse \Lit$ with $\Va \cap \ol{\Va} = \es$ and $\Va \cup \ol{\Va} = \Lit$. A clause is a finite subset $C \sse \Lit$ which is complement-free (i.e., $C \cap \ol{C} = \es$), and finally a clause-set is a finite set of clauses. For a clause $C$ we set $\var(C) := (C \cup \ol C) \cap \Va$, while for a clause-set $F$ we define $\var(F) := \bc_{C \in F} \var(C)$.
+A \textbf{DQCNF} is a 4-tuple $(A,E,F,D)$, where
+\begin{itemize}
+\item $A$ is the set of universal variables,
+\item $E$ is the set of existential variables, with $A \cap E = \es$,
+\item $F$ is a clause-set over $A \cup E$ (i.e., $\var(F) \sse A \cup E$),
+\item $D$ is the dependency-map with $\dom(D) = E$, mapping $v \in E \mapsto D(v) \sse A$, the variables on which $v$ depends.
+\end{itemize}
+DQCNFs with $A = \es$ correspond to (formal) boolean clause-sets, with $E$ the set of (formal) variables (which might not occur in $F$).
+A universal clause is a $C \in F$ with $\var(C) \sse A$ (generalising the unique empty clause of boolean clause-sets).
+The example from the Introduction is $F = (\set{x_1,x_2,x_3},\set{y_1,y_2},F_0,\set{(y_1,\set{x_1,x_2}),(y_2,\set{x_2,x_3})})$, where $F_0 = \set{\set{y_1,x_1},\set{\ol{y_1},x_2},\set{\ol{y_2},\ol{x_2},x_3}}$.
+We use the standard definition of a map $f$ as a set of pairs $(x,y)$ with $x \in \dom(f)$ and $y = f(x)$.
+We now define the semantics of DQCNF, generalising the standard semantics for boolean clause-sets, where now instead of constant boolean functions we consider arbitrary boolean functions as values of assignments.
+A total boolean assignment $f$ for a set $V$ of variables is a map $f: V \ra \set{0,1}$, the set of all $2^{\abs{V}}$ many total assignments over $V$ is denoted by $\Tass(V)$.
+As usual, $f(\ol v) = \ol{f(v)}$, with $\ol 0 = 1$ and $\ol 1 = 0$.
+
+A \textbf{boolean function} over $V$ is a map $b: \Tass(V) \ra \set{0,1}$, where we set $\var(b) := V$. For $V' \supseteq V$ and $f' \in \Tass(V')$ we let $b(f') := b(f' \rstr V)$, using the restriction of $f'$ to $V$.
+The set of essential variables, denoted by $\varess(b) \sse \var(b)$, is the set of $v \in \var(b)$, such that there exists $f, f' \in \Tass(\var(b))$ with $\fa\, w \in \var(b) : f(w) \ne f'(w) \Lra w = v$ and $b(f) \ne b(f')$.
+A \textbf{total assignment} for a DQCNF $(A,E,F,D)$ (indeed only depending on $(E,D)$) is a map $\Phi$ with $\dom(\Phi) = E$ such that for each $v \in E$ the value $\Phi(v)$ is a boolean function over $D(v)$. Again, as usual, $\Phi(\ol v) = \ol{\Phi(v)}$, where for a boolean function $b$ and $f \in \Tass(\var(b))$ we have $\ol{b}(f) = \ol{b(f)}$. In \cite[Section 1]{HKBSubramaniZhao2003BooleanModels} our total assignments are called ``proper assignments'' (in the special case of QBF).
+Informally, a total assignment $\Phi$ \textbf{satisfies} $(A,E,F,D)$ (``is a model of $(A,E,F,D)$'') if $\Phi$ satisfies each clause $C \in F$. This means that for $C$, understood as disjunction of literals, after replacing the existential literals of $C$ with the boolean functions as given by $\Phi$ (negated if the literal is negated), the disjunction of these boolean functions and the remaining universal literals is a tautology over $A$. Formally, that can be easily expressed as follows: The total assignment $\Phi$ for $(A,E,F,D)$ satisfies $C \in F$, if for every $f \in \Tass(A)$ there exists a universal literal $x \in C$ (i.e., $\var(x) \in A$) with $f(x) = 1$ or there exists an existential literal $y \in C$ (i.e., $\var(y) \in E$) with $\Phi(y)(f) = 1$. As usual, we only need to consider $f \in \Tass(A \cap \var(C))$.
+A DQCNF $(A,E,F,D)$ is \textbf{satisfiable} (or ``true'') if it has a satisfying (total) assignment, otherwise it is \textbf{unsatisfiable} (or ``false'').
+
+For boolean clause-sets, an \emph{autarky} for a clause-set $F$ generalises satisfying assignments. A partial assignment is a total assignment for some finite set $V$ of variables. Now an autarky for $F$ is a partial assignment $\vp$, such that every clause $C \in F$ is either satisfied by $\vp$ or not ``touched'' at all, that is, $\var(\vp) \cap \var(C) = \es$ (using $\var(\vp) = \dom(\vp) = V$). See \cite{Kullmann2007HandbuchMU} for the basic theory of autarkies for boolean clause-sets.
+This is naturally generalised to DQCNF $(A,E,F,D)$. A partial assignment for $(A,E,F,D)$ is a total assignment for some $V \sse E$.
+An \textbf{autarky} for $(A,E,F,D)$ is a partial assignment satisfying every $C \in F$ with $\var(\vp) \cap \var(C) \ne \es$.
+The above definition that $\Phi$ satisfies $C$ is generalised in the natural way here to the partial assignment $\vp$, now requiring that for the existential literal $y \in C$ we have $\var(y) \in \var(\vp)$.
+
+The empty partial assignment is always an autarky for every DQCNF (never touching any clause), and also every satisfying assignment is an autarky (now satisfying every clause). We note that the definitions of satisfying assignments and autarkies for DQCNFs are \emph{semantical}, do not consider any representation of boolean functions (by circuits, say) other than the canonical representation by truth-tables. For every restricted notion of ``autarky system'' the representation issue has to be considered anew.
+
+
+
+\section{Basic theorems}
+\label{sec:basictheorems}
+
+Generalising \cite[Subsection 11.8.3]{Kullmann2007HandbuchMU}: A DQCNF $(A,E,F,D)$ is called \textbf{lean} if for every autarky $\vp$ with $\var(\vp) \sse E$ we have $\var(\vp) = \es$ (no non-trivial autarkies).
+
+For two DQCNF $(A,E,F,D), (A',E',F',D')$ their \textbf{union} is defined if $A \cap E' = \es$, $E \cap A' = \es$, and $D, D'$ restricted to $E \cap E'$ coincide (i.e., $D \rstr (E \cap E') = D' \rstr (E \cap E')$).
+In this case we define $(A,E,F,D) \cup (A',E',F',D') := (A \cup A', E \cup E', F \cup F', D \cup D')$, using that the union of two compatible maps (equal on the intersection of their domains) is again a map.
+It is easy to see that the union of two lean DQCNFs is again lean, and thus every DQCNF has a largest lean sub-DQCNF, its \textbf{lean kernel}.
+Here we use for DQCNFs $(A,E,F,D) \sse (A',E',F',D')$ iff $A \sse A'$, $E \sse E'$, $F \sse F'$, and $D \sse D'$.
+We note that thus for the lean kernel $(A_0, E_0, F_0, D_0)$ of $(A,E,F,D)$ we have $A_0 = A$, while $E_0$ is exactly the set of existential variables occurring in $F_0$.
+Another trivial property is that for every universal $C \in F$ we have $C \in F_0$ (these clauses can neither be ``touched'' nor satisfied).
+We denote the lean kernel by \bmm{\na(A,E,F,D)} (``N'' like ``normal form'').
+The clause-set of $\na(A,E,F,D)$ is empty iff $(A,E,F,D)$ is satisfiable.
+
+The alternative approach towards the lean kernel of $(A,E,F,D)$ is via \textbf{autarky reduction}. For an autarky $\vp$ let $\bmm{\vp * (A,E,F,D)} := (A, E \sm \var(\vp), \set{C \in F : \var(\vp) \cap \var(C) = \es}, D \rstr E)$ be the sub-DQCNF obtained by removing the clauses satisfied by $\vp$. The most basic observations on autarkies is worth stating as a fundamental lemma:\vspace{-1ex}
+\begin{lem}\label{lem:autsateq}
+  For an autarky $\vp$ of $(A,E,F,D)$ the sub-DQCNF $\vp * (A,E,F,D)$ is satisfiability-equivalent to it.
+\end{lem}
+\begin{prf}
+A satisfying assignment of $(A,E,F,D)$ satisfies also $\vp * (A,E,F,D)$, since just clauses have been removed. And if $\Phi$ is a total satisfying assignment for $\vp * (A,E,F,D)$, then $\vp \cup \Phi$ is a (partial) satisfying assignment for $(A,E,F,D)$. \Qed
+\end{prf}
+\vspace{-1ex}
+
+The basic fact now is that autarky reduction is confluent, and ends up with the lean kernel.
+For this it is convenient to allow for autarkies $\vp$ of $(A,E,F,D)$ some variables outside of $A \cup E$, so that an autarky for a DQCNF is also an autarky for any sub-DQCNF.
+Thus if $\vp, \psi$ are autarkies for $(A,E,F,D)$, then $\vp$ is also an autarky for $\psi * (A,E,F,D)$.
+This already proves that if we apply autarky-reduction as long as possible, then the final result is uniquely determined (we have confluence of autarky-reduction).
+It is also instructive to note that for the result of this chain of reduction we have $\vp * (\psi * (A,E,F,D)) = (\vp \circ \psi) * (A,E,F,D)$.
+Here for partial assignments $\vp, \psi$ we define their composition $\vp \circ \psi$ as the partial assignment with domain $\var(\vp) \cup \var(\psi)$, which assigns to $v \in \var(\psi)$ the value $\psi(v)$, and to $v \in \var(\vp) \sm \var(\psi)$ the value $\vp(v)$.
+The basic observation regarding composition now is that for autarkies $\vp, \psi$ of $(A,E,F,D)$ also their composition $\vp \circ \psi$ is an autarky of $(A,E,F,D)$, touching (satisfying) the clauses touched by $\vp$ plus the clauses touched by $\psi$: This is clear for the clauses touched by $\psi$, since the assignments by $\psi$ are contained in $\vp \circ \psi$, and additional assignments do not hurt in satisfying a clause (as disjunction).
+While for the remaining clauses, the clauses touched by $\vp$ and \emph{not} touched by $\psi$, now all the assignments of $\vp$ for \emph{this} clause are also contained in $\vp \circ \psi$.
+
+So for the final result $(A_0, E_0, F_0, D_0)$ of autarky-reduction of $(A,E,F,D)$, where actually $A_0 = A$ holds, there exists a single ``maximal'' autarky $\Phi$ such that $\Phi * (A,E,F,D) = (A,E_0,F_0,D_0)$, and where $\Phi$ can be obtained by a composition of all autarkies of $F$ (in any order).
+
+By definition $(A,E_0,F_0,D_0)$ is lean. And indeed we have $(A,E_0,F_0,D_0) = \na(A,E,F,D)$, since no clause of $\na(A,E,F,D)$ can be touched by any autarky of $(A,E,F,D)$ (which is also an autarky for the lean kernel -- necessarily a trivial one). An \emph{autark sub-DQCNF} of $(A,E,F,D)$ is a sub-DQCNF $(A',E',F',D')$ such that an autarky $\vp$ of $(A,E,F,D)$ exists satisfying all clauses of $F'$. We see that $(A,E,F \sm F_0, D)$ is the unique largest autark sub-DQCNF of $(A,E,F,D)$ (satisfied by $\Phi$).
+We can summarise the results of this section in the Autarky Decomposition Theorem:\vspace{-1ex}
+\begin{thm}\label{thm:decomp}
+  Consider a DQCNF $(A,E,F,D)$. There is a largest lean sub-DQCNF $\na(A,E,F,D) = (A,E_0,F_0,D_0)$ (with every lean sub-DQCNF $(A',E',F',D') \sse (A,E_0,F_0,D_0)$) and a largest autark sub-DQCNF $(A,E,F_1,D)$ (with every autark sub-DQCNF $(A',E',F',D') \sse (A,E,F_1,D)$), where we have $F = F_0 \cup F_1$, $F_0 \cap F_1 = \es$. Furthermore $\var(F_0) \cap E = E_0$ holds, and there exists an autarky $\Phi$ of $(A,E,F,D)$ with $\var(\Phi) = E \sm E_0$. Every chain of autarky reductions starting with $(A,E,F,D)$ can be extended to $\na(A,E,F,D)$ (where it necessarily ends).
+\end{thm}
+
+
+\section{Autarky systems}
+\label{sec:autsys}
+
+Due to the high complexity of general autarky-finding for DQCNF, it is vital to allow restricted notions of autarkies (with lower complexity).
+For that purpose we generalise the notion of ``autarky systems'' from \cite[Section 11.11]{Kullmann2007HandbuchMU}.
+While for a DQCNF $(A,E,F,D)$ we write $\aut(A,E,F,D)$ for the set of all autarkies, an \textbf{autarky system} $\mc{A}$ now allows to consider subsets $\mc{A}(A,E,F,D) \sse \aut(A,E,F,D)$.
+There are two basic conditions which make $\mc{A}$ an autarky system.
+First for DQCNFs $(A,E,F,D)$ and $\vp, \psi \in \mc{A}(F)$ it must always hold $\vp \circ \psi \in \mc{A}(F)$ (closure under composition).
+And second for DQCNFs $(A,E,F,D) \sse (A',E',F',D')$ it must always hold $\mc{A}(A',E',F',D') \sse \mc{A}(A,E,F,D)$ (removal of clauses does not remove $\mc{A}$-autarkies).
+\textbf{$\mc{A}$-satisfiability} means satisfiability by a series of $\mc{A}$-autarkies, while \textbf{$\mc{A}$-leanness} means there there are no nontrivial $\mc{A}$-autarkies.
+
+In order for the results from Section \ref{sec:basictheorems} to generalise, we formulate five conditions for \textbf{normal autarky systems}; we formulate the conditions here only informally, since there are no real subtleties involved. First four trivial conditions on $\mc{A}$:
+
+\textbf{standardised:} the presence or absence of formal variables (not actually occurring) is not of relevance
+
+\textbf{$\bot$-invariant:} universal clauses are not of relevance
+
+\textbf{invariant under variable elimination:} removing (existential) variables from the clauses does not affect autarkies of $\mc{A}$ which do not use these variables
+
+\textbf{invariant under renaming:} renaming variables (existential or universal) is respected by the autarky system.
+
+These four conditions are always expected to hold. Finally there is a non-trivial condition:
+
+\textbf{iterative:} if we apply an autarky of $\mc{A}$, and take another autarky of $\mc{A}$ for the reduction result, then their composition also belongs to $\mc{A}$ (for the original DQCNF).
+
+All results of Section \ref{sec:basictheorems} hold for arbitrary normal autarky systems.
+Especially we have confluence of $\mc{A}$-autarky reduction, and we have the unique decomposition of any DQCNF in an $\mc{A}$-lean and an $\mc{A}$-satisfiable part.
+If $\mc{A}$ is not iterative (but fulfils the other four conditions), then we can consider the unique closure $\mc{A}^*$ of $\mc{A}$ under iteration, which then is a normal autarky system, and which has exactly the same power of reduction, with the only difference that by $\mc{A}^*$ we can always obtain every (iterated) reduction result also in one steep (applying a single $\mc{A}$-autarky -- the composition of the autarkies used in the reduction chain).
+For two autarky systems $\mc{A}_1, \mc{A}_2$, we can consider their combination $\mc{A}_1 + \mc{A}_2$, which contains all possible compositions $\vp \circ \psi, \psi \circ \vp$ for $\vp \in \mc{A}_1(A,E,F,D)$, $\psi \in \mc{A}_2(A,E,F,D)$. If $\mc{A}_1, \mc{A}_2$ are normal, then so is $\mc{A}_1 + \mc{A}_2$.
+
+
+
+\section{A- and E-systems}
+\label{sec:AEsystems}
+
+Consider a DQCNF $(A,E,F,D)$, and $k \in \NNZ$. An \textbf{\bmm{\Aaut_k}-autarky} for $(A,E,F,D)$ is an autarky $\vp$, such that for all $v \in \var(\vp)$ holds $\abs{\varess(\vp(v))} \le k$ (i.e., all boolean functions used in assignments by $\vp$ use at most $k$ (universal, essential) variables), while an {\bmm{\Eaut_k}-autarky} is an autarky $\vp$ with $\abs{\var(\vp)} \le k$ (i.e., at most $k$ (existential) variables are assigned by $\vp$).
+$\Aaut_0$ is just CNF-autarky, and we concentrate on $\Aaut_1$, which has some nontrivial power (can satisfy all satisfiable DQ2CNF) and has a nice SAT-translation, and on $\Eaut_1$, which has a natural polytime computation. We obtain the composition $\mc{E}_1 + \mc{A}_1$, which one might consider as the basic ``clean-up autarky system''.
+An example for $\Aaut_1$-satisfiability and $\Aaut_0+\Eaut_1$-leanness is $\fa x_1, x_2 \ex y_1(x_1) \ex y_2(x_2) : (y_1 \vee y_2 \vee \ol{x_1}) \wedge (y_1 \vee y_2 \vee \ol{x_2}) \wedge (\ol{y_1} \vee x_1) \wedge (\ol{y_2} \vee x_2)$, which has the satisfying $\Aaut_1$-assignment $y_1 \mapsto x_1, y_2 \mapsto x_2$.
+An example for $\Eaut_1$-satisfiability and $\Aaut_1$-leanness is $\fa x_1,x_2 \ex y : (\ol{y} \vee x_1 \vee x_2) \wedge (y \vee \ol{x_1}) \wedge (y \vee \ol{x_2})$, with the satisfying $\Eaut_1$-assignment $y \mapsto x_1 \vee x_2$.
+An example for $\Eaut_1 + \Aaut_1$-satisfiability, while not satisfiable by $\Eaut_1 + \Aaut_0$ or $\Aaut_1$ alone, is obtained by taking the union of the two after renaming $y$ to $y_3$.
+
+Since the existence of an ordinary propositional autarky for a clause-set $F$ is NP-complete (see \cite{Ku00f}), which is covered by $\Aaut_0$-autarkies, deciding whether a DQCNF has a non-trivial $\Aaut_k$-autarky is NP-hard for every $k \ge 0$ (boolean functions can be just represented by truth-tables here).
+Deciding the existence and finding some short $\Eaut_1$-autarky can be done in polynomial time, as we will discuss below, while for any fixed $k \ge 2$ we are not aware of results in the literature (see also below).
+We note here that there are no restrictions on the boolean functions used in $\Eaut_k$ autarkies, but we will see that for $k=1$ a CNF- as well as a DNF-representation can be read off $F$ in linear time.
+The restriction $\Aaut_k$ yields a normal autarky system for every $k \ge 0$, while the $\Eaut_k$ fulfil all requirements for a normal autarky system except for not beeing iterative.
+
+
+\setcounter{subsubsection}{0}
+\subsubsection{$\Eaut_1$-autarkies}
+\label{sec:e1aut}
+
+Consider a DQCNF $(A,E,F,D)$ and $V \sse E$.
+Let $([A,E,F,D)[V] := (A, V, F[V], D \rstr V)$ be obtained by restriction to $V$, where $F[V] := \set{C \cap (A \cup \ol A \cup V \cup \ol V) : C \in F \wedge \var(C) \cap V \ne \es}$ is obtained from $F$ by removing all clauses not containing some variable from $V$, and removing from the remaining clauses all existential literals with variables not from $V$.
+The existence of an autarky $\vp$ with $\var(\vp) = V$ is equivalent to the DQCNF $(A,E,F,D)[V]$ being satisfiable, where the satisfying assignments correspond to the autarkies.
+So searching for an $\Eaut_1$-autarky of $(A,E,F,D)$ means solving for each $v$ the one-existential-variable DQCNF $(A,E,F,D)[\set{v}]$.
+From any clause $C$ we can remove all universal literals $x \in C$, where there is no existential variable in $C$ depending on the underlying universal variable of $x$ (this is called ``universal reduction'').
+So we have a QCNF $\fa X \ex v : F'$ with exactly one existential variable $v$ to solve.
+$F'$ is equivalent to $A \ra v \ra B$, where $A$ is a DNF over $X$, and $B$ is a CNF over $X$.
+There is a solution for $v$ iff every conjunct of $A$ has a non-empty intersection with every disjunct of $B$, in which case either $A$ or $B$ can be chosen as a solution.
+We note here that for $\Eaut_2$ we do not get a QCNF with two existential variables, but only such a DQCNF.
+
+\subsubsection{$\Aaut_1$-autarkies}
+\label{sec:a1aut}
+
+The main strategy to solve the constraint-satisfaction problem of finding some non-trivial $\Aaut_1$-autarky for a given $(A,E,F,D)$ is:
+1. to explicitly list the possible boolean functions as values of the existential variables,
+2. to \emph{compile} for each clause $C \in F$ the minimal possibilities for $C$ to become a tautology, and
+3. to make it explicitly part of the SAT-translation that at least one of these \emph{minimal} possibilities for $C$ is fulfilled, if the selector-variable of $C$ is true (a dedicated variable per clause, true iff the clause is touched).
+For $v \in E$ we thus have $2 \abs{D(v)} + 2$ possible values (boolean functions depending on at most one of the variables of $D(v)$) to consider, the two constant boolean functions plus for each universal variable the two associated literals.
+And there are exactly three types of minimal possibilities for $C$ to become a tautology:
+\begin{enumerate}
+\item some $y \in C \cap (E \cup \ol E)$ is set to $1$;
+\item for some $y \in C \cap (E \cup \ol E)$ there is $x \in C \cap (A \cup \ol A)$ with $\var(x) \in D(\var(y))$, and $y$ is set to $\ol x$;
+\item for some $y, y' \in C \cap (E \cup \ol E)$, $y \ne y'$, there is $x \in D(\var(y)) \cap D(\var(y'))$, and $y$ is set to $x$ and $y'$ to $\ol x$.
+\end{enumerate}
+The translation into a SAT-problem is now in principle not difficult, but effort and experimentation is needed for the representation of AMO-constraints (at-most-one), and for encodings of nonboolean values (direct or logarithmic encodings).
+
+
+\section{Conclusion}
+\label{sec:conc}
+
+We consider $\Eaut_1 + \Aaut_1$ only as a first example and appetiser --- all the SAT-theory on autarkies can be combined with many interesting classes of boolean functions, to yield interesting autarky systems.
+The results on the normalforms by the basic autarky systems $\Aaut_0, \Aaut_1, \Eaut_1$ and their combinations, on all known QCNF and DQCNF instances (as in QBFLIB), will be made available online.
+After establishing this precise basis, the use of autarkies in pre- and inprocessing is the main question.
+
+
+
+\bibliographystyle{plainurl}
+
+\BibliographyOKlibrary
+
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
