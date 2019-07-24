@@ -94,9 +94,7 @@ We present two techniques autarkies and symmetry that can be basis for pre-proce
 %
 We have recently proposed the autarky theory with simple autarky systems (namely $A_0$, $A_1$ and $E_1$) for DQBF. 
 %
-Here we give an overview of the theory outline the more stronger autarky system
-%and present more complex autarky systems, 
-namely $A_2$ and $E_2$. 
+Here we give an overview of the autarky theory and outline the more stronger autarky systems $A_2$, $E_2$ and $E_2 + A_2$. 
 %
 
 Symmetries are well understood and successfully exploited in the case of SAT. 
@@ -156,6 +154,11 @@ We obtain the reduction result $\fa x_1,x_2,x_3 \ex y_1(x_1,x_2) : (y_1 \vee x_1
 which doesn't allow any further autarky. 
 %
 This is lean kernel of the original formula.
+
+The autarky system $A_0, A_1$ and $E_1$ are too weak for general DQBF solving. Out of total 334 instances of DQBF track of QBFEVAL'18 we only found 4 instances with non-trivial autakies. We are analyzing stronger autarky systems, $A_2$ (function is dependent on 2 other universal variables), $E_2$ (only uses two existential variables) and their combination. 
+%
+%The complexity of finding an $A_2$ autarky is at second level of polynomial hierarchy whereas for $E_2$ it is not known.
+
 \subsection{Symmetry}
 \label{sec:sym}
 
