@@ -41,8 +41,7 @@ In this paper we investigate two techniques, autarkies and symmetry to improve t
 %
 DQBF extend QBF with non-linear dependencies between the quantified variables.
 %
-Inspired by the fruitfulness of the established model for generating
-random QBF instances, we give an overview of a general model for generating random DQBF instances.	
+Motivated by the models for generating random QBF instances, we give an overview of a general model for generating random DQBF instances.	
 %
 The tool is under development. 
 %We are developing tools for improving correctness of tools like fuzzer (what is the random generator) and delta-debugger.
@@ -56,16 +55,10 @@ The tool is under development.
 Dependency Quantified Boolean Formulas (DQBF) are an extension of QBF
 which allows the specification of non-linear dependencies between quantified variables. 
 %
-In the case of QBF the variable dependencies always follow a
-linear order (each existential variable depends on all universal variables left of its position in the quantifier prefix).
+%In the case of QBF the variable dependencies always follow a
+%linear order (each existential variable depends on all universal variables left of its position in the quantifier prefix).
 %
-This implies DQBF can offers more succinct descriptions than
-QBF, provided that the two classes do not collapse.
-%
-Deciding DQBF is NEXPTIME-complete, compared to the PSPACE completeness of QBF.
-%
-Many practical problems are known to be NEXPTIME-complete, e.g. partial information non-cooperative games or probabilistic planning of finite length, or certain bit-vector logics making DQBF an idea formalism to express them.
-
+%The DQBF problem permits the modeling of problems known to be NEXPTIME-complete, e.g. partial information non-cooperative games or probabilistic planning of finite length, or certain bit-vector logics making DQBF an idea formalism to express them.
 For example \par\noindent
 %\begin{align}
 %\nonumber\\
@@ -82,8 +75,16 @@ For example \par\noindent
 \label{eqn:ex}
 \end{equation}
 
-is a DQBF formula where explicit dependencies ($(x_1,x_2), (x_2,x_3), (x_1)$) of quantified existential variables ($y_1, y_2, y_3$ respectively) are specified. We call the explicit dependencies the \textit{dependency set} of the corresponding variable. 
+is a DQBF formula where explicit dependencies ($(x_1,x_2), (x_2,x_3), (x_1)$) of quantified existential variables ($y_1, y_2, y_3$ respectively) are specified. We call the explicit dependencies the \textit{dependency set} of the corresponding variables. 
 %
+%
+DQBF can offers more succinct descriptions than
+QBF, provided that the two classes do not collapse.
+%
+Deciding DQBF is NEXPTIME-complete, compared to the PSPACE completeness of QBF.
+%
+Making it suitable to model problems known to be NEXPTIME-complete, e.g. partial information non-cooperative games, probabilistic planning of finite length, and certain bit-vector logics.
+%The DQBF problem permits the modeling of problems like partial information non-cooperative games, probabilistic planning of finite length, and certain bit-vector logics etc.
 %For example, the dependency set of the existential variable $y_1$ is  $\{x_1,x_2\}$. 
 %$\{x_2,x_3\}, \{x_1\}$
 
@@ -99,17 +100,19 @@ Here we give an overview of the autarky theory and outline the more stronger aut
 
 Symmetries are well understood and successfully exploited in the case of SAT. 
 %
-Recently general framework of symmetry for QBF was proposed.
+Recently general framework of symmetry for QBF was proposed \cite{kauers2018symmetries}.
 %
 Here, we present an overview of our current work of extending the symmetries from QBF to DQBF.   
 
 \subsection{Autarkies}
 \label{sec:aut}
-An autarky for a CNF $F$ is a partial assignment which satisfies every clause of $F$ containing an assigned variable. 
+An autarky for a CNF $F$ is a partial assignment (mapping variables of the formula to 0 or 1) which satisfies every clause of $F$ containing an assigned variable. 
 %
 Clauses satisfied by some autarky can be removed satisfiability-equivalently. 
 %
-This is generalised to DQBF by considering partial assignments to existential variables and allowing boolean functions as values (fulfilling the dependencies), where the clauses with assigned variables need now to become tautologies.
+We generalize the concept for DQBF by considering partial assignments to existential variables and allowing boolean functions of universal variables as values (fulfilling the dependencies) substituted for them.
+%
+Now the clauses with assigned variables need to become tautologies.
 %
 Note that an empty partial assignment is an autarky for every $F$ i.e. never touching any clause (\textit{trivial autarky}) and a satisfying assignment for $F$ is also an autarky for $F$, touching every clause and satisfying it.
 
@@ -155,15 +158,86 @@ which doesn't allow any further autarky.
 %
 This is lean kernel of the original formula.
 
-The autarky system $A_0, A_1$ and $E_1$ are too weak for general DQBF solving. Out of total 334 instances of DQBF track of QBFEVAL'18 we only found 4 instances with non-trivial autakies. We are analyzing stronger autarky systems, $A_2$ (function is dependent on 2 other universal variables), $E_2$ (only uses two existential variables) and their combination. 
+The autarky system $A_0, A_1$ and $E_1$ are too weak for general DQBF solving. Out of total 334 instances of DQBF track of QBFEVAL'18 we only found 4 instances with non-trivial autakies. We are analyzing stronger autarky systems, $A_2$ (function is dependent on 2 universal variables), $E_2$ (only uses two existential variables) and their combination $E_2 + A_2$. 
 %
 %The complexity of finding an $A_2$ autarky is at second level of polynomial hierarchy whereas for $E_2$ it is not known.
 
 \subsection{Symmetry}
 \label{sec:sym}
 
+Symmetry in general is a transformation of an object that leaves the object unchanged.
+%
+%Recently a general framework of symmetries for QBF was presented .
+% 
+%In the case of DQBF we analyze two kind of transformations. 
+%use group actions to describe symmetries for DQBF. 
+%We discuss wo kinds of group actions. 
+%
+%On the one hand, we consider transformations that map
+%Formulas to formulas transformation, i.e. XXX   
+%i.e., a group action $G \times BF(X) \to BF(X)$.
+%and strategies to strategies transformation i.e. XXX.
+%i.e., a group action $G \times S_\exists (P ) \to S_\exists (P)$ or $G \times S_\forall (P) \to S_\forall (P)$. 
+%Symmetries are described using groups and group actions. A group is a set $G$ together with an associative binary operation $G \times G \to G$.
+%$(g, h) \to gh$. 
+%A group has a neutral element and every element has an inverse in $G$. 
+%
+%A typical examples for a group is the set $Z$ of integers together with addition and group of permutations.
+%
+%We use group actions to describe symmetries for DQBF. 
+%
+%In both cases, we consider groups $G$ which preserve the set of winning strategies for a given QBF $F$.
+%\subsubsection{Syntactic Symmetry} 
+For DQBF we pose a following restriction over the transformation:
+\begin{itemize}
+   \item The group action preserves propositional satisfiability.
+%   \item The variables should be from the same quantifier block.
+   \item The dependency of the variable is same. 
+\end{itemize}
+
+In advance case we relax the requirement of the variables to have the same dependency. For example \par\noindent
+%\begin{align}
+%\nonumber\\
+% \nonumber
+%	%
+%\end{align}
+%
+\begin{equation}
+F := \fa x_1,x_2 \ex y_1(x_1) \ex y_2(x_2): (y_1 \lor x_1) \land (y_2 \lor  x_2)
+\label{eqn:exs}
+\end{equation}
+has symmetry $a \to b$. replacing variable $y_1$ with variable $y_2$ do not change the syntactic formula.
+
+%\subsubsection{Symantic Symmetry} 
+%XXX
+
+\subsection{Symmetry aware compilation}
+The compilation is minimum possibility to make a clause tautology. 
+%
+Currently the compilation is clausewise and fed directly to a SAT solver to find the suitable autarky.
+%
+We can use the concept of symmetry to reduce the work by a SAT solver and (most likely) improve the efficiency.
+%
+The idea is to make the process of solving the problem with communication between clauses (at multi-clause level rather than current state of doing it clausewise).
+%
+Adding support for avoiding solutions from same orbit will be utilized to search for a solution with less effort.
+%
+Note that the use of symmetry here is similar to finding symmetry during search, unlike the use of the symmetry breaker. 
+ 
+%Although a direct use of a symmetry breaker can be helpful here a better solution will be   
+
 \section{DQBF solver development}
 \label{sec:dev}
+
+A valuable tool for SAT and QBF research is the model for
+generating random instances. These instances are useful as a benchmark and investigation of the complexity.
+
+Reasoning for the hard and easy instance use (Fuzz) XXX \\
+
+Delta debugger XXX \\
+
+Certification XXX
+%Inherently hard instances for SAT and QBF solvers are essen- tial for designing and testing search methods employed by solvers [Achlioptas, 2009], and are used to assess their performance in solver competitions [Järvisalo et al. 2012; Nar-izzano et al. 2006; Calimeri et al. 2016]. On the flip side,large collections of easy instances support the so-called fuzztesting, used to reveal problems in solver implementation, as well as defects in solver design [Brummayer et al. 2010].
 
 \section{Conclusion}
 \label{sec:conc}
@@ -172,9 +246,10 @@ We consider $\Eaut_2 + \Aaut_2$ only as a first example and appetiser --- all th
 The results on the normalforms by the basic autarky systems $\Aaut_0, \Aaut_1, \Eaut_1$ and their combinations, on all known QCNF and DQCNF instances (as in QBFLIB), will be made available online.
 After establishing this precise basis, the use of autarkies in pre- and inprocessing is the main question.
 
-
-
 \bibliographystyle{plainurl}
+%\bibliographystyle{unsrt}
+%\bibliography{sample}
+\bibliography{fmcad}
 
 %\BibliographyOKlibrary
 
