@@ -75,15 +75,16 @@ For example \par\noindent
 \label{eqn:ex}
 \end{equation}
 
-is a DQBF formula where explicit dependencies ($(x_1,x_2), (x_2,x_3), (x_1)$) of quantified existential variables ($y_1, y_2, y_3$ respectively) are specified. We call the explicit dependencies the \textit{dependency set} of the corresponding variables. 
+is a DQBF formula where explicit dependencies ($(x_1,x_2), (x_2,x_3), (x_1)$) of quantified existential variables ($y_1, y_2, y_3$ respectively) are specified. We call the explicit dependencies the \textit{dependency set} of the corresponding variable. 
 %
+The rest of the formula $F_0$ is the propositional formula in the conjunctive normal form (CNF).
 %
 DQBF can offers more succinct descriptions than
 QBF, provided that the two classes do not collapse.
 %
 Deciding DQBF is NEXPTIME-complete, compared to the PSPACE completeness of QBF.
 %
-Making it suitable to model problems known to be NEXPTIME-complete, e.g. partial information non-cooperative games, probabilistic planning of finite length, and certain bit-vector logics.
+Making it suitable to model problems known to be NEXPTIME-complete, e.g. partial information non-cooperative games, program synthesis, probabilistic planning of finite length, and certain bit-vector logics.
 %The DQBF problem permits the modeling of problems like partial information non-cooperative games, probabilistic planning of finite length, and certain bit-vector logics etc.
 %For example, the dependency set of the existential variable $y_1$ is  $\{x_1,x_2\}$. 
 %$\{x_2,x_3\}, \{x_1\}$
@@ -102,7 +103,7 @@ Symmetries are well understood and successfully exploited in the case of SAT.
 %
 Recently general framework of symmetry for QBF was proposed \cite{kauers2018symmetries}.
 %
-Here, we present an overview of our current work of extending the symmetries from QBF to DQBF.   
+Here, we present an overview of our current work of exploiting symmetries for preprocessing of DQBF.   
 
 \subsection{Autarkies}
 \label{sec:aut}
