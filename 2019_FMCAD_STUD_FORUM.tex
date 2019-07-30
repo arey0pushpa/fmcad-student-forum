@@ -91,15 +91,24 @@ Making it suitable to model problems known to be NEXPTIME-complete, e.g. partial
 
 \section{preprocessing}
 \label{sec:pre}
-Preprocessing techniques can be extremely beneficial. The basic idea is to try to reduce the input formula by simplification procedures.
+Preprocessing techniques 
+%can be extremely beneficial in the case of SAT and QBF. 
 %
-Which (in principle) substantially decrease the run time of solvers.
+%The basic idea is to 
+tries to reduce the input formula by simplification procedures before the formula is passed to the actual solving algorithm.
+%
+It is well acknowledged by the SAT and QBF community that these preprocessing techniques often reduce the computation time of the solver by orders of magnitude.
+%Which (in principle) substantially decrease the run time of solvers.
 %Assumption: smaller problems are easier to solve
-Inprocessing XXX. 
+Inprocessing on the other hand uses the formula simplification procedures during the search process of the solver. 
 %
-In practice it might pay off to spend
-more time on pre/inprocessing due to the hardness of DQBF.
+For DQBF in practice, it might pay off to spend
+more time on pre/inprocessing due to the hardness of the problem.
 
+%The SAT and QBF instances can be simplified using 
+%For SAT and QBF formulas many 
+%techniques are applied in order to reduce/modify the number of variables and clauses of the formula,
+%
 
 We present two techniques autarkies and symmetry that can be basis for pre-processing and in-processing of DQBF solving process. 
 %
