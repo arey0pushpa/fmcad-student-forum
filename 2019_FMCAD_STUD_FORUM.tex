@@ -84,13 +84,22 @@ QBF, provided that the two classes do not collapse.
 %
 Deciding DQBF is NEXPTIME-complete, compared to the PSPACE completeness of QBF.
 %
-Making it suitable to model problems known to be NEXPTIME-complete, e.g. partial information non-cooperative games, program synthesis, probabilistic planning of finite length, and certain bit-vector logics.
+Making it suitable to model problems known to be NEXPTIME-complete, e.g. partial information non-cooperative games, program and circuit synthesis, probabilistic planning of finite length, and certain bit-vector logics.
 %The DQBF problem permits the modeling of problems like partial information non-cooperative games, probabilistic planning of finite length, and certain bit-vector logics etc.
 %For example, the dependency set of the existential variable $y_1$ is  $\{x_1,x_2\}$. 
 %$\{x_2,x_3\}, \{x_1\}$
 
 \section{preprocessing}
 \label{sec:pre}
+Preprocessing techniques can be extremely beneficial. The basic idea is to try to reduce the input formula by simplification procedures.
+%
+Which (in principle) substantially decrease the run time of solvers.
+%Assumption: smaller problems are easier to solve
+Inprocessing XXX. 
+%
+In practice it might pay off to spend
+more time on pre/inprocessing due to the hardness of DQBF.
+
 
 We present two techniques autarkies and symmetry that can be basis for pre-processing and in-processing of DQBF solving process. 
 %
