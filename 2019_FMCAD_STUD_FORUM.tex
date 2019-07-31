@@ -181,6 +181,10 @@ Consider a DQCNF $F$ and $k \ge 0$:
 
 %\subsubsection{A}
 $A_0, A_1$ allow the boolean functions to essentially depend on 0 resp. 1 universal variable, while $E_1$ only uses one existential variable (for a single autarky).
+%
+Deciding the existence of $E_1$-autarky can be done in polynomial time.
+%
+Deciding the existence of $A_1$-autarky can be done is NP-complete and require a SAT solver.
 %$A_0, A_1, A_2$ restrict the structure of the boolean function, by forcing the existential variable to depend on at most 0, 1, 2 universal variable.
 %\subsubsection{E}
 %$E_1, E_2$ only uses one and two existential variable.
@@ -250,13 +254,18 @@ has symmetry $a \to b$. replacing variable $y_1$ with variable $y_2$ do not chan
 %XXX
 
 \subsection{Synergy of autarkies and symmetry}
-The compilation is minimum possibility to make a clause tautology. 
+
+The process of finding $A_{1}$-autarkes requires compiling the minimum possibility for each clause to make it a tautology.
 %
-Currently the compilation is clausewise and fed directly to a SAT solver to find the suitable autarky.
+For example, to make the first clause in Example~\ref{eqn:ex} $(y_1 \lor x_1)$ a tautology, the minimum possibility is $y_1 \to 1$ and $y_1 \to \neg x_1$ (both substitutions makes the clause a tautology).
+%translation that at least one of these minimal possibilities for C is fulfilled
+%
+Currently the compilation is clausewise and fed directly to a SAT solver.
+% to find the suitable autarky.
 %
 We can use the concept of symmetry to reduce the work by a SAT solver and (most likely) improve the efficiency.
 %
-The idea symmetry aware compilation is to make the process of solving the problem with communication between clauses (at multi-clause level rather than current state of doing it clausewise).
+The idea \textbf{symmetry aware compilation} is to make the process of solving the problem with communication across the clauses (at multi-clause level rather than current state of doing it clausewise).
 %
 Adding support for avoiding solutions from same orbit will be utilized to search for a solution with less effort.
 %
