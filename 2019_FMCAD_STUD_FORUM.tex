@@ -124,18 +124,19 @@ more time on pre/inprocessing due to the hardness of the problem.
 %
 We have recently proposed the autarky theory~\cite{oliverfmcad} with simple autarky systems (namely $A_0$, $A_1$ and $E_1$) for DQBF. 
 %
-Here we give an overview of the autarky theory and outline the more stronger autarky systems $A_2$, $E_2$ and $E_2 + A_2$. 
+First we provide an overview of the autarky theory and outline the more stronger autarky systems $A_2$, $E_2$ and $E_2 + A_2$. 
 %
 
 Symmetries are well understood and successfully exploited in the case of SAT. 
 %
-Recently general framework of symmetry for QBF was proposed \cite{kauers2018symmetries}.
+Recently a general framework of symmetry for QBF was proposed \cite{kauers2018symmetries}.
 %
-Here, we present an overview of our current work of exploiting symmetries for preprocessing of DQBF.   
+Here, we present an overview of our current work of exploiting symmetries for the preprocessing of DQBF.   
 
 \subsection{Autarkies}
 \label{sec:aut}
-An autarky for a CNF $F$ is a partial assignment (mapping variables of the formula to 0 or 1) which satisfies every clause of $F$ containing an assigned variable. 
+An autarky for a CNF $F$ is a partial assignment (mapping variables of the formula to \textit{true} or \textit{false}) which either does not ``touch" a clause (no variable of that clause is assigned) or satisfies it.
+%which satisfies every clause of $F$ containing an assigned variable. 
 %
 Clauses satisfied by some autarky can be removed satisfiability-equivalently. 
 %
