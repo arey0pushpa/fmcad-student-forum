@@ -53,7 +53,7 @@ These tools contribute to the robustness and correctness of SAT and QBF solvers.
 Similar tool-sets are in need for a safe, secure and rigorous DQBF development.
 %Motivated by the models for generating random QBF instances, we give an overview of a general model for generating random DQBF instances.	
 %
-%The tool is under development. 
+The tool is under development. 
 %We are developing tools for improving correctness of tools like fuzzer (what is the random generator) and delta-debugger.
 %    
 \end{abstract}
@@ -274,10 +274,13 @@ Tool support for the testing and delta debugging~\cite{brummayer2010automated} a
 %
 
 %
-A valuable tool for SAT and QBF research is the model for
-generating random instances. These instances are useful as a benchmark and investigation of the complexity.
+%A valuable tool for SAT and QBF research is the model for
+%generating random instances. These instances are useful as a benchmark and investigation of the complexity.
 
-Reasoning for the hard and easy instance use (Fuzz) XXX \\
+%Reasoning for the hard and easy instance use (Fuzz)\\
+Fuzzing is an automated negative testing technique that treat software as a black-box and repeatedly “attack” it with random inputs in order to find critical defects, e.g. buffer overflows.
+%
+We generate random DQBF instances to try to find defects in current state-of-the-art solver implementations.
 
 Delta debugger XXX \\
 
