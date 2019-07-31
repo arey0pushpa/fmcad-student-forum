@@ -272,14 +272,14 @@ QBF solvers.
 %
 Tool support for the testing and delta debugging~\cite{brummayer2010automated} are essential part of the solver ecosystem.
 %
-Similar toolsets are required for DQBF to make the process of DQBF solving more reliable.  
+Similar toolsets are necessary for DQBF to make the process of DQBF solving more reliable.  
 %s
-We identify three critical areas where more tooling support is required.
+We identify three critical areas where more development (theory or tooling) is needed.
 %A valuable tool for SAT and QBF research is the model for
 %generating random instances. These instances are useful as a benchmark and investigation of the complexity.
 
 %Reasoning for the hard and easy instance use (Fuzz)\\
-Fuzzing is an automated negative testing technique that treat software as a black-box and repeatedly “attack” it with random inputs in order to find critical defects, e.g. buffer overflows.
+Fuzzing is an automated negative testing technique that treat software as a black-box and repeatedly “attack” it with random inputs in order to find critical defects.
 %
 We generate random DQBF instances to try to find defects in current state-of-the-art solver implementations.
 %
@@ -297,17 +297,18 @@ The technique tries to systematically narrow down input until a given time limit
 We are in the early stages of the design for a delta debugger for DQBF.
 
 
-Certification provide means to verify the correctness of a solver’s result.
+Certification provides a means to verify the correctness of a solver's result.
 %
-Currently DQBF-solvers give mere true/false answers to a given problem, which often proves to be insufficient.
+Currently, DQBF-solvers give mere true/false answers to a given problem, which often proves to be insufficient.
 %
 The certification also serves a basis of extraction of additional information regarding the validity of the result. 
 % 
-For example the application of DQBF like program/hardware synthesis, game scenarios and planning require extraction of winning strategies or a plan in addition to whether they exists or not answer.
+For example, applications of DQBF like program/hardware synthesis, game scenarios, and planning require extraction of winning strategies or a plan in addition to whether they exist or not answer.
 %
-A lack of certification is one of the critical bottleneck in the wider application of DQBF.
+A lack of certification is one of the critical bottlenecks in the wider application of DQBF.
 %
-We are planning to work on certification of DQBF based on the similar proof system QRAT. 
+We are planning to develop certification for DQBF along the lines of QRAT for QBF.
+%based on a similar proof system QRAT. 
 
 %These results are crucial for fixing circuits   
 %Inherently hard instances for SAT and QBF solvers are essen- tial for designing and testing search methods employed by solvers [Achlioptas, 2009], and are used to assess their performance in solver competitions [Järvisalo et al. 2012; Nar-izzano et al. 2006; Calimeri et al. 2016]. On the flip side,large collections of easy instances support the so-called fuzztesting, used to reveal problems in solver implementation, as well as defects in solver design [Brummayer et al. 2010].
