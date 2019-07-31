@@ -257,7 +257,7 @@ has symmetry $a \to b$. replacing variable $y_1$ with variable $y_2$ do not chan
 
 The process of finding $A_{1}$-autarkes requires compiling the minimum possibility for each clause to make it a tautology.
 %
-For example, to make the first clause in Example~\ref{eqn:ex} $(y_1 \lor x_1)$ a tautology, the minimum possibility is $y_1 \to 1$ and $y_1 \to \neg x_1$ (both substitutions makes the clause a tautology).
+For example, to make the first clause in Example~\ref{eqn:ex} $(y_1 \lor x_1)$ a tautology, the minimum possibility is \{$y_1 \to 1$, $y_1 \to \neg x_1$\} (both of these assignments makes the clause a tautology).
 %translation that at least one of these minimal possibilities for C is fulfilled
 %
 Currently the compilation is clausewise and fed directly to a SAT solver.
@@ -265,9 +265,9 @@ Currently the compilation is clausewise and fed directly to a SAT solver.
 %
 We can use the concept of symmetry to reduce the work by a SAT solver and (most likely) improve the efficiency.
 %
-The idea \textbf{symmetry aware compilation} is to make the process of solving the problem with communication across the clauses (at multi-clause level rather than current state of doing it clausewise).
+The idea of \textbf{symmetry aware compilation} is to make the process of solving the problem with communication across the clauses (at multi-clause level rather than current state of doing it clausewise).
 %
-Adding support for avoiding solutions from same orbit will be utilized to search for a solution with less effort.
+Adding support for avoiding syntactically equivalent solutions will be utilized to search for a solution with less effort.
 %
 Note that the use of symmetry here is similar to finding symmetry during search, unlike the use of the symmetry breaker. 
  
@@ -276,8 +276,8 @@ Note that the use of symmetry here is similar to finding symmetry during search,
 \section{DQBF solver development}
 \label{sec:dev}
 
-Robustness and correctness are essential criteria for SAT and
-QBF solvers.
+Robustness and correctness are properties of SAT and
+QBF solver implementations.
 %
 Tool support for the testing and delta debugging~\cite{brummayer2010automated} are essential part of the solver ecosystem.
 %
@@ -288,37 +288,41 @@ We identify three critical areas where more development (theory or tooling) is n
 %generating random instances. These instances are useful as a benchmark and investigation of the complexity.
 
 %Reasoning for the hard and easy instance use (Fuzz)\\
-Fuzzing is an automated negative testing technique that treat software as a black-box and repeatedly “attack” it with random inputs in order to find critical defects.
+Fuzzing is an automated testing technique that treats software as a black-box and repeatedly “attacks” it with random inputs in order to find critical defects.
 %
-We generate random DQBF instances to try to find defects in current state-of-the-art solver implementations.
+For this purpose we establish a new random model for DQBF with interesting theoretical properties like phase transition.
 %
-Our goal is not to generate hard DQBF instances but find a sweet spot for a usefulness of the generated instance. 
+Our main objective is to obtain high code coverage.
+%We generate random DQBF instances to try to find defects in current state-of-the-art solver implementations.
+%
+%Our goal is not to generate hard DQBF instances but find a sweet spot for a usefulness of the generated instance. 
 %
 We are in the final stages of the development of the tool. 
 
 %Two other areas which we are planning to focus:
 Delta Debugging is a methodology to automate the debugging of programs to find failure-inducing circumstances. 
 %
-If an input caused the solver to crash or incorrectly return the satsifiability. 
+If an input caused the solver to crash or returns an incorrect result a delta debugger tries to systematically narrow down the particular input until a given time limit is reached or no further narrowing is possible.
 %
-The technique tries to systematically narrow down the particular input iteratively until a given time limit or no further narrowing is possible.
-%
-The reduced input can then be used for effective debugging.
+The reduced input can then be used for effective manual debugging.
 %
 We are in the early stages of the design for a delta debugger for DQBF.
 
-
-Certification provides a means to verify the correctness of a solver's result.
+Testing, however, can never guarantee the correctness of a solver.
 %
-Currently, DQBF-solvers give mere true/false answers to a given problem, which often proves to be insufficient.
+Therefore we suggest to certify the solving results by producing proofs that is easy to check as it is standard in SAT + QBF solving in terms of QRAT proofs.
 %
-The certification also serves a basis of extraction of additional information regarding the validity of the result. 
+%Certification provides a means to verify the correctness of a solver's result.
+%
+%Currently, DQBF-solvers give mere true/false answers to a given problem, which often proves to be insufficient.
+%
+It is also expected that such prof can serves a basis for the extraction of a solution. 
 % 
 For example, applications of DQBF like program/hardware synthesis, game scenarios, and planning require extraction of winning strategies or a plan in addition to whether they exist or not answer.
 %
-A lack of certification is one of the critical bottlenecks in the wider application of DQBF.
+%A lack of certification is one of the crucial bottlenecks in the wider application of DQBF.
 %
-We are planning to develop certification for DQBF along the lines of QRAT certificates for QBF.
+%We are planning to develop certification for DQBF along the lines of QRAT certificates for QBF.
 %based on a similar proof system QRAT. 
 
 %These results are crucial for fixing circuits   
