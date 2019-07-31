@@ -292,7 +292,9 @@ Delta Debugging is a methodology to automate the debugging of programs to find f
 %
 If an input caused the solver to crash or incorrectly return the satsifiability. 
 %
-The technique tries to systematically narrow down input until a given time limit or when no further narrowing is possible.
+The technique tries to systematically narrow down the particular input iteratively until a given time limit or no further narrowing is possible.
+%
+The reduced input can then be used for effective debugging.
 %
 We are in the early stages of the design for a delta debugger for DQBF.
 
@@ -307,7 +309,7 @@ For example, applications of DQBF like program/hardware synthesis, game scenario
 %
 A lack of certification is one of the critical bottlenecks in the wider application of DQBF.
 %
-We are planning to develop certification for DQBF along the lines of QRAT for QBF.
+We are planning to develop certification for DQBF along the lines of QRAT certificates for QBF.
 %based on a similar proof system QRAT. 
 
 %These results are crucial for fixing circuits   
@@ -318,9 +320,9 @@ We are planning to develop certification for DQBF along the lines of QRAT for QB
 
 We consider auatarkies and symmetry for pre-inprocessing of DQBF solving.
 %
-We outline the search like the implementation of symmetry during autarky search.
+We outline the search-based implementation of symmetry during autarky search.
 %
-Besides as part of our current and future work for the correct and rigorous development of DQBF solving, we sketch fuzzing, delta debugging and certification for DQBF.
+As part of our current and future work for the correct and rigorous development of DQBF solving, we sketch an outline for fuzzing, delta debugging and certification for DQBF.
 
 \bibliographystyle{plainurl}
 %\bibliographystyle{unsrt}
