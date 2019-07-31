@@ -303,16 +303,21 @@ The certification also serves a basis of extraction of additional information re
 % 
 For example the application of DQBF like program/hardware synthesis, game scenarios and planning require extraction of winning strategies or a plan in addition to whether they exists or not answer.
 %
-A lack of certification is a critical 
+A lack of certification is one of the critical bottleneck in the wider application of DQBF.
+%
+We are planning to work on certification of DQBF based on the similar proof system QRAT. 
+
 %These results are crucial for fixing circuits   
 %Inherently hard instances for SAT and QBF solvers are essen- tial for designing and testing search methods employed by solvers [Achlioptas, 2009], and are used to assess their performance in solver competitions [Järvisalo et al. 2012; Nar-izzano et al. 2006; Calimeri et al. 2016]. On the flip side,large collections of easy instances support the so-called fuzztesting, used to reveal problems in solver implementation, as well as defects in solver design [Brummayer et al. 2010].
 
 \section{Conclusion}
 \label{sec:conc}
 
-We consider $\Eaut_2 + \Aaut_2$ only as a first example and appetiser --- all the SAT-theory on autarkies can be combined with many interesting classes of boolean functions, to yield interesting autarky systems.
-The results on the normalforms by the basic autarky systems $\Aaut_0, \Aaut_1, \Eaut_1$ and their combinations, on all known QCNF and DQCNF instances (as in QBFLIB), will be made available online.
-After establishing this precise basis, the use of autarkies in pre- and inprocessing is the main question.
+We consider auatarkies and symmetry for pre-inprocessing of DQBF solving.
+%
+We outline the search like the implementation of symmetry during autarky search.
+%
+Besides as part of our current and future work for the correct and rigorous development of DQBF solving, we sketch fuzzing, delta debugging and certification for DQBF.
 
 \bibliographystyle{plainurl}
 %\bibliographystyle{unsrt}
