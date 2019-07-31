@@ -45,9 +45,15 @@ can be basis for pre-processing and in-processing of DQBF solving process.
 %
 DQBF extend QBF with non-linear dependencies between the quantified variables.
 %
-Motivated by the models for generating random QBF instances, we give an overview of a general model for generating random DQBF instances.	
+Automated testing and debugging techniques as essential part of the solvers tool-chain.
 %
-The tool is under development. 
+These tools contribute to the robustness and correctness of SAT and QBF solvers.
+% contributed by these tools. 
+%
+Similar tool-sets are in need for a safe, secure and rigorous DQBF development.
+%Motivated by the models for generating random QBF instances, we give an overview of a general model for generating random DQBF instances.	
+%
+%The tool is under development. 
 %We are developing tools for improving correctness of tools like fuzzer (what is the random generator) and delta-debugger.
 %    
 \end{abstract}
@@ -252,6 +258,13 @@ Note that the use of symmetry here is similar to finding symmetry during search,
 \section{DQBF solver development}
 \label{sec:dev}
 
+Robustness and correctness are essential criteria for SAT and
+QBF solver.
+%
+Tool support for the testing and delta debugging~\cite{brummayer2010automated} are essential part of the solver ecosystem.
+%
+
+%
 A valuable tool for SAT and QBF research is the model for
 generating random instances. These instances are useful as a benchmark and investigation of the complexity.
 
