@@ -124,7 +124,7 @@ more time on pre/inprocessing due to the hardness of the problem.
 %
 We have recently proposed the autarky theory~\cite{oliverfmcad} with simple autarky systems (namely $A_0$, $A_1$ and $E_1$) for DQBF. 
 %
-First we provide an overview of the autarky theory and outline the more stronger autarky systems $A_2$, $E_2$ and $E_2 + A_2$. 
+First we provide an overview of the autarky theory and then outline the more stronger autarky systems $A_2$, $E_2$ and $E_2 + A_2$. 
 %
 
 Symmetries are well understood and successfully exploited in the case of SAT. 
@@ -150,11 +150,19 @@ A DQBF is called \textbf{lean} if it has no non-trivial autarkies.
 The union of two lean DQCNF with compatible variables and dependencies is again lean, and thus every DQBF has a largest lean sub-DQBF, the \textbf{lean kernel}.
 %We denote the lean kernel by $\bm{\na(F)}$ (``N'' like ``normal form'').
 Alternatively one can arrive at the lean kernel via \textbf{autarky reduction}.
-For an autarky $\vp$ of a DQBF we denote by $\vp * F$ the DQBF with the clauses removed which are satisfied by $\vp$.
+
+%For an autarky $\vp$ of a DQBF we denote by $\vp * F$ the DQBF with the clauses removed which are satisfied by $\vp$.
+We denote by $F^\prime$ the DQBF with the clauses removed which are satisfied by an autarky.
 \begin{lem}\label{lem:autsateq}
-	$\vp * F$ is satisfiability-equivalent to $F$ for an autarky $\vp$ of $F$.
+	$F^\prime$ is satisfiability-equivalent to $F$ for an autarky $\vp$ of $F$.
 \end{lem}
-For two autarkies $\vp, \psi$ of $F$ one can consider the composition $\vp \circ \psi$, which on the variables of $\psi$ acts like $\psi$, and otherwise like $\vp$:
+
+\begin{lem}\label{lem:compaut}
+Autarky reduction is confluent.
+\end{lem}
+
+For two autarkies $\vp, \psi$ of $F$ one can consider the composition, %$\vp \circ \psi$,
+ which on the variables of $\psi$ acts like $\psi$, and otherwise like $\vp$:
 \begin{lem}\label{lem:compaut}
 	The composition of two autarkies is again an autarky.
 \end{lem}
