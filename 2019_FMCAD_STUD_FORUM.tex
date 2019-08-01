@@ -150,11 +150,11 @@ A DQBF is called \textbf{lean} if it has no non-trivial autarkies.
 The union of two lean DQCNF with compatible variables and dependencies is again lean, and thus every DQBF has a largest lean sub-DQBF, the \textbf{lean kernel}.
 %We denote the lean kernel by $\bm{\na(F)}$ (``N'' like ``normal form'').
 Alternatively one can arrive at the lean kernel via \textbf{autarky reduction}.
-
+%
 %For an autarky $\vp$ of a DQBF we denote by $\vp * F$ the DQBF with the clauses removed which are satisfied by $\vp$.
-We denote by $F^\prime$ the DQBF with the clauses removed which are satisfied by an autarky.
+We denote by $F[\phi]$ the DQBF with the clauses removed which are satisfied by an autarky $\phi$. \vspace{-1em}
 \begin{lem}\label{lem:autsateq}
-	$F^\prime$ is satisfiability-equivalent to $F$ for an autarky $\vp$ of $F$.
+	$F[\phi]$ is satisfiability-equivalent to $F$ for an autarky $\vp$ of $F$.
 \end{lem}
 
 \begin{lem}\label{lem:compaut}
@@ -162,11 +162,12 @@ Autarky reduction is confluent.
 \end{lem}
 
 For two autarkies $\vp, \psi$ of $F$ one can consider the composition, %$\vp \circ \psi$,
- which on the variables of $\psi$ acts like $\psi$, and otherwise like $\vp$:
+ which on the variables of $\psi$ acts like $\psi$, and otherwise like $\vp$: \vspace{-1em}
 \begin{lem}\label{lem:compaut}
 	The composition of two autarkies is again an autarky.
 \end{lem}
 Now the lean kernel is obtained by repeatedly applying autarky-reduction on $F$ as long as possible:
+\vspace{-1em}
 \begin{lem}\label{lem:decomp}
 	Consider a DQBF $F$. The largest lean sub-DQBF is also obtained by applying autarky-reduction to $F$ as long as possible (in any order).
 \end{lem}
@@ -267,7 +268,7 @@ We can use the concept of symmetry to reduce the work by a SAT solver and (most 
 %
 The idea of \textbf{symmetry aware compilation} is to make the process of solving the problem with communication across the clauses (at multi-clause level rather than current state of doing it clausewise).
 %
-Adding support for avoiding syntactically equivalent solutions will be utilized to search for a solution with less effort.
+%Adding support for avoiding symmetric solutions will be utilized to search for a solution with less effort.
 %
 Note that the use of symmetry here is similar to finding symmetry during search, unlike the use of the symmetry breaker. 
  
