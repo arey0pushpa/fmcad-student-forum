@@ -37,45 +37,28 @@ Email: ankit.shukla@jku.at}
 \maketitle
 
 \begin{abstract}
-In this paper we outline two techniques, autarkies and symmetry that
-%to improve the reasoning with the Dependency Quantified Boolean Formulas (DQBF).
-%
-%These techniques 
-can be basis for pre-processing and in-processing of DQBF solving process.
+In this paper, we outline two techniques, autarkies, and symmetry that
+can be the basis for pre-processing and in-processing of DQBF solving process.
 %
 DQBF extend QBF with non-linear dependencies between the quantified variables.
 %
-Automated testing and debugging techniques as essential part of the solvers tool-chain.
+Automated testing and debugging techniques as an essential part of the solvers tool-chain.
 %
 These tools contribute to the robustness and correctness of SAT and QBF solvers.
-% contributed by these tools. 
 %
-Similar tool-sets are in need for a safe, secure and rigorous DQBF development.
-%Motivated by the models for generating random QBF instances, we give an overview of a general model for generating random DQBF instances.	
+Similar tool-sets is required for a safe, secure and rigorous DQBF development.
 %
-The tool is under development. 
-%We are developing tools for improving correctness of tools like fuzzer (what is the random generator) and delta-debugger.
-%    
+The tool is under development.   
 \end{abstract}
 
 
 
 \section{Introduction}
 \label{sec:Intro}
-Dependency Quantified Boolean Formulas (DQBF) are an extension of QBF
+Dependency Quantified Boolean Formulas (DQBF) is an extension of QBF
 which allows the specification of non-linear dependencies between quantified variables. 
 %
-%In the case of QBF the variable dependencies always follow a
-%linear order (each existential variable depends on all universal variables left of its position in the quantifier prefix).
-%
-%The DQBF problem permits the modeling of problems known to be NEXPTIME-complete, e.g. partial information non-cooperative games or probabilistic planning of finite length, or certain bit-vector logics making DQBF an idea formalism to express them.
 For example \par\noindent
-%\begin{align}
-%\nonumber\\
-% \nonumber
-%	%
-%\end{align}
-%
 \begin{equation}
 \begin{split}
 &F := \fa x_1,x_2,x_3 \ex y_1(x_1,x_2) \ex y_2(x_2,x_3) \ex y_3(x_1): F_0 \\
@@ -89,39 +72,24 @@ is a DQBF formula where explicit dependencies ($(x_1,x_2), (x_2,x_3), (x_1)$) of
 %
 The rest of the formula $F_0$ is the propositional formula in the conjunctive normal form (CNF).
 %
-DQBF can offers more succinct descriptions than
-QBF, provided that the two classes do not collapse.
+DQBF can offer more succinct descriptions than
+QBF provided that the two classes do not collapse.
 %
 Deciding DQBF is NEXPTIME-complete, compared to the PSPACE completeness of QBF.
 %
 Making it suitable to model problems known to be NEXPTIME-complete, e.g. partial information non-cooperative games, program and circuit synthesis, probabilistic planning of finite length, and certain bit-vector logics.
-%The DQBF problem permits the modeling of problems like partial information non-cooperative games, probabilistic planning of finite length, and certain bit-vector logics etc.
-%For example, the dependency set of the existential variable $y_1$ is  $\{x_1,x_2\}$. 
-%$\{x_2,x_3\}, \{x_1\}$
 
 \section{preprocessing}
 \label{sec:pre}
-Preprocessing techniques~\cite{een2005effective} 
-%can be extremely beneficial in the case of SAT and QBF. 
-%
-%The basic idea is to 
-tries to reduce the input formula by simplification procedures before the formula is passed to the actual solving algorithm.
+Preprocessing techniques~\cite{een2005effective} tries to reduce the input formula by simplification procedures before the formula is passed to the actual solving algorithm.
 %
 It is well acknowledged by the SAT and QBF community that these preprocessing techniques often reduce the computation time of the solver by orders of magnitude.
-%Which (in principle) substantially decrease the run time of solvers.
-%Assumption: smaller problems are easier to solve
-Inprocessing on the other hand uses the formula simplification procedures during the search process of the solver. 
+%
+Inprocessing, on the other hand, uses the formula simplification procedures during the search process of the solver. 
 %
 For DQBF in practice, it might pay off to spend
 more time on pre/inprocessing due to the hardness of the problem.
 
-%The SAT and QBF instances can be simplified using 
-%For SAT and QBF formulas many 
-%techniques are applied in order to reduce/modify the number of variables and clauses of the formula,
-%
-
-%We present two techniques autarkies and symmetry that can be basis for pre-processing and in-processing of DQBF solving process. 
-%
 We have recently proposed the autarky theory~\cite{oliverfmcad} with simple autarky systems (namely $A_0$, $A_1$ and $E_1$) for DQBF. 
 %
 First we provide an overview of the autarky theory and then outline the more stronger autarky systems $A_2$, $E_2$ and $E_2 + A_2$. 
@@ -135,8 +103,7 @@ Here, we present an overview of our current work of exploiting symmetries for th
 
 \subsection{Autarkies}
 \label{sec:aut}
-An autarky for a CNF $F$ is a partial assignment (mapping variables of the formula to \textit{true} or \textit{false}) which either does not ``touch" a clause (no variable of that clause is assigned) or satisfies it.
-%which satisfies every clause of $F$ containing an assigned variable. 
+An autarky for a CNF $F$ is a partial assignment (mapping variables of the formula to \textit{true} or \textit{false}) which either do not ``touch" a clause (no variable of that clause is assigned) or satisfies it.
 %
 Clauses satisfied by some autarky can be removed satisfiability-equivalently. 
 %
@@ -148,10 +115,9 @@ Note that an empty partial assignment is an autarky for every $F$ i.e. never tou
 
 A DQBF is called \textbf{lean} if it has no non-trivial autarkies.
 The union of two lean DQCNF with compatible variables and dependencies is again lean, and thus every DQBF has a largest lean sub-DQBF, the \textbf{lean kernel}.
-%We denote the lean kernel by $\bm{\na(F)}$ (``N'' like ``normal form'').
+%
 Alternatively one can arrive at the lean kernel via \textbf{autarky reduction}.
 %
-%For an autarky $\vp$ of a DQBF we denote by $\vp * F$ the DQBF with the clauses removed which are satisfied by $\vp$.
 We denote by $F[\phi]$ the DQBF with the clauses removed which are satisfied by an autarky $\phi$. \vspace{-1em}
 \begin{lem}\label{lem:autsateq}
 	$F[\phi]$ is satisfiability-equivalent to $F$ for an autarky $\vp$ of $F$.
@@ -180,16 +146,11 @@ Consider a DQCNF $F$ and $k \ge 0$:
 	\item An \textbf{$\Eaut_k$-autarky} is an autarky assigns at most $k$ (existential) variables.
 \end{itemize}
 
-%\subsubsection{A}
 $A_0, A_1$ allow the boolean functions to essentially depend on 0 resp. 1 universal variable, while $E_1$ only uses one existential variable (for a single autarky).
 %
 Deciding the existence of $E_1$-autarky can be done in polynomial time.
 %
 Deciding the existence of $A_1$-autarky can be done is NP-complete and require a SAT solver.
-%$A_0, A_1, A_2$ restrict the structure of the boolean function, by forcing the existential variable to depend on at most 0, 1, 2 universal variable.
-%\subsubsection{E}
-%$E_1, E_2$ only uses one and two existential variable.
-%
 
 Consider the Example~\ref{eqn:ex}
 Since $\overline{y_2}$ is pure, we have the $\Aaut_0$-autarky $y_2 \rightarrow 0$ (removing the third clause).
@@ -203,9 +164,9 @@ The remaining formula is the lean kernel of the original formula.
 %
 We can now try to solve this reduced formula using a DQBF solver.
 
-As demonstrated in the above example we can use autarky procedure to preprocess the input formula, but in practice the autarky system $A_0, A_1$ and $E_1$ are too weak for the general DQBF solving. Out of total 334 instances of DQBF track of QBFEVAL'18 we only found 4 instances with non-trivial $A_1$+$E_1$ autakies. We are analyzing stronger autarky systems, $A_2$ (function is dependent on 2 universal variables), $E_2$ (only uses two existential variables) and their combination $E_2 + A_2$. 
+As demonstrated in the above example we can use autarky procedure to preprocess the input formula, but in practice, the autarky system $A_0, A_1$ and $E_1$ are too weak for the general DQBF solving. Out of total 334 instances of DQBF track of QBFEVAL'18 we only found 4 instances with non-trivial $A_1$+$E_1$ autakies. We are analyzing stronger autarky systems, $A_2$ (function is dependent on 2 universal variables), $E_2$ (only uses two existential variables) and their combination $E_2 + A_2$. 
 %
-More exciting direction is to use autarky procedure during search (inprocessing) of a solver. 
+Another exciting direction is to use autarky procedure during search (inprocessing) of a solver. 
 %The complexity of finding an $A_2$ autarky is at second level of polynomial hierarchy whereas for $E_2$ it is not known.
 
 \subsection{Symmetry}
@@ -213,16 +174,11 @@ More exciting direction is to use autarky procedure during search (inprocessing)
 
 %Symmetry in general is a transformation of an object that leaves the object unchanged.
 %
-In case of of SAT solving, symmetry is permutation of variable assignments that preserves satisfaction of the input formula.
+In the case of SAT solving, symmetry is a permutation of variable assignments that preserves satisfaction of the input formula.
 %
-Eliminating symmetry in the formula (generally) improves solver performance as it prevents a solver from 
-%tell the solver that certain parts of the search space are equivalent, so that it investigates only one
-%of them.
-needlessly exploring equivalent parts of a search space.
+Eliminating symmetry in the formula (generally) improves solver performance as it prevents a solver from needlessly exploring equivalent parts of a search space.
 %
-One way to eliminate symmetries is to add symmetry breaking formulas $\Phi$ (symmetry breaker) to the input formula $F$ 
-%(and solve $F \land \Phi$) 
-known as static symmetry breaking.
+One way to eliminate symmetries is to add symmetry breaking formulas $\Phi$ (symmetry breaker) to the input formula $F$ known as static symmetry breaking.
 %Recently a general framework of symmetries for QBF was presented .
 % 
 %In the case of DQBF we analyze two kind of transformations. 
@@ -245,13 +201,13 @@ known as static symmetry breaking.
 %In both cases, we consider groups $G$ which preserve the set of winning strategies for a given QBF $F$.
 %\subsubsection{Syntactic Symmetry}
 
-In~\cite{kauers2018symmetries} a general framework for symmetry breaking for QBF was presented. To prove the soundness of the symmetry breaker syntactic restrictions of using variables from same quantification blocks were enforced.
+In~\cite{kauers2018symmetries} a general framework for symmetry breaking for QBF was presented. To prove the soundness of the symmetry breaker syntactic restrictions of using variables from the same quantification blocks were enforced.
 %
-Similarly for DQBF we use the following restriction:
+Similarly, for DQBF we use the following restriction:
 \begin{itemize}
-   \item The propositional satisfiability is preserve.
-%   \item The variables should be from the same quantifier block.
-   \item The dependency of the variable is same. 
+	\item The propositional satisfiability is preserved.
+	%   \item The variables should be from the same quantifier block.
+	\item The dependency of the variable is the same. 
 \end{itemize}
 
 We are currently analyzing less restricted cases where we relax the requirement of the variables to have the same dependency. 
@@ -274,17 +230,15 @@ We are currently analyzing less restricted cases where we relax the requirement 
 
 \subsection{Synergy of autarkies and symmetry}
 
-The process of finding $A_{1}$-autarkes requires compiling the minimum possibility for each clause to make it a tautology.
+The process of finding $A_{1}$-autarkies requires compiling the minimum possibility for each clause to make it a tautology.
 %
 For example, to make the first clause in Example~\ref{eqn:ex} $(y_1 \lor x_1)$ a tautology, the minimum possibility is \{$y_1 \to 1$, $y_1 \to \neg x_1$\} (both of these assignments makes the clause a tautology).
-%translation that at least one of these minimal possibilities for C is fulfilled
 %
-Currently the compilation is clausewise and fed directly to a SAT solver.
-% to find the suitable autarky.
+Currently, the compilation is clausewise and fed directly to a SAT solver.
 %
 We can use the concept of symmetry to reduce the work by a SAT solver and (most likely) improve the efficiency.
 %
-The idea of \textbf{symmetry aware compilation} is to make the process of solving the problem with communication across the clauses (at multi-clause level rather than current state of doing it clausewise).
+The idea of \textbf{symmetry aware compilation} is to make the process of solving the problem with communication across the clauses (at multi-clause level rather than the current state of doing it clausewise).
 %
 %Adding support for avoiding symmetric solutions will be utilized to search for a solution with less effort.
 %
@@ -298,23 +252,17 @@ Note that the use of symmetry here is similar to finding symmetry during search 
 Robustness and correctness are properties of SAT and
 QBF solver implementations.
 %
-Tool support for the testing and delta debugging~\cite{brummayer2010automated} are essential part of the solver ecosystem.
+Tool support for the testing and delta debugging~\cite{brummayer2010automated} are an essential part of the solver ecosystem.
 %
 Similar toolsets are necessary for DQBF to make the process of DQBF solving more reliable.  
 %s
 We identify three critical areas where more development (theory or tooling) is needed.
-%A valuable tool for SAT and QBF research is the model for
-%generating random instances. These instances are useful as a benchmark and investigation of the complexity.
 
-%Reasoning for the hard and easy instance use (Fuzz)\\
-Fuzzing is an automated testing technique that treats software as a black-box and repeatedly “attacks” it with random inputs in order to find critical defects.
+Fuzzing is an automated testing technique that treats software as a black-box and repeatedly “attacks” it with random inputs to find critical defects.
 %
-For this purpose we establish a new random model for DQBF with interesting theoretical properties like phase transition.
+For this purpose, we establish a new random model for DQBF with interesting theoretical properties like phase transition.
 %
 Our main objective is to obtain high code coverage.
-%We generate random DQBF instances to try to find defects in current state-of-the-art solver implementations.
-%
-%Our goal is not to generate hard DQBF instances but find a sweet spot for a usefulness of the generated instance. 
 %
 We are in the final stages of the development of the tool. 
 
@@ -329,13 +277,9 @@ We are in the early stages of the design for a delta debugger for DQBF.
 
 Testing, however, can never guarantee the correctness of a solver.
 %
-Therefore we suggest to certify the solving results by producing proofs that is easy to check as it is standard in SAT + QBF solving in terms of QRAT proofs.
+Therefore we suggest certifying the solving results by producing proofs that are easy to check as it is standard in SAT + QBF solving in terms of QRAT proofs.
 %
-%Certification provides a means to verify the correctness of a solver's result.
-%
-%Currently, DQBF-solvers give mere true/false answers to a given problem, which often proves to be insufficient.
-%
-It is also expected that such prof can serves a basis for the extraction of a solution. 
+It is also expected that such prof can serve a basis for the extraction of a solution. 
 % 
 For example, applications of DQBF like program/hardware synthesis, game scenarios, and planning require extraction of winning strategies or a plan in addition to whether they exist or not answer.
 %
