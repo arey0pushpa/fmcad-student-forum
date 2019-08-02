@@ -199,17 +199,30 @@ We obtain the reduction result $\fa x_1,x_2,x_3 \ex y_1(x_1,x_2) : (y_1 \vee x_1
 %which is equivalent to the QBF $\fa x_1,x_2 \ex y_1 : (y_1 \vee x_1) \wedge (\overline{y_1} \vee x_2)$, 
 which doesn't allow any further autarky. 
 %
-This is lean kernel of the original formula.
-
-The autarky system $A_0, A_1$ and $E_1$ are too weak for general DQBF solving. Out of total 334 instances of DQBF track of QBFEVAL'18 we only found 4 instances with non-trivial autakies. We are analyzing stronger autarky systems, $A_2$ (function is dependent on 2 universal variables), $E_2$ (only uses two existential variables) and their combination $E_2 + A_2$. 
+The remaining formula is the lean kernel of the original formula.
 %
+We can now try to solve this reduced formula using a DQBF solver.
+
+As demonstrated in the above example we can use autarky procedure to preprocess the input formula, but in practice the autarky system $A_0, A_1$ and $E_1$ are too weak for the general DQBF solving. Out of total 334 instances of DQBF track of QBFEVAL'18 we only found 4 instances with non-trivial $A_1$+$E_1$ autakies. We are analyzing stronger autarky systems, $A_2$ (function is dependent on 2 universal variables), $E_2$ (only uses two existential variables) and their combination $E_2 + A_2$. 
+%
+More exciting direction is to use autarky procedure during search (inprocessing) of a solver. 
 %The complexity of finding an $A_2$ autarky is at second level of polynomial hierarchy whereas for $E_2$ it is not known.
 
 \subsection{Symmetry}
 \label{sec:sym}
 
-Symmetry in general is a transformation of an object that leaves the object unchanged.
+%Symmetry in general is a transformation of an object that leaves the object unchanged.
 %
+In case of of SAT solving, symmetry is permutation of variable assignments that preserves satisfaction of the input formula.
+%
+Eliminating symmetry in the formula (generally) improves solver performance as it prevents a solver from 
+%tell the solver that certain parts of the search space are equivalent, so that it investigates only one
+%of them.
+needlessly exploring equivalent parts of a search space.
+%
+One way to eliminate symmetries is to add symmetry breaking formulas $\Phi$ (symmetry breaker) to the input formula $F$ 
+%(and solve $F \land \Phi$) 
+known as static symmetry breaking.
 %Recently a general framework of symmetries for QBF was presented .
 % 
 %In the case of DQBF we analyze two kind of transformations. 
@@ -230,26 +243,31 @@ Symmetry in general is a transformation of an object that leaves the object unch
 %We use group actions to describe symmetries for DQBF. 
 %
 %In both cases, we consider groups $G$ which preserve the set of winning strategies for a given QBF $F$.
-%\subsubsection{Syntactic Symmetry} 
-For DQBF we pose a following restriction over the transformation:
+%\subsubsection{Syntactic Symmetry}
+
+In~\cite{kauers2018symmetries} a general framework for symmetry breaking for QBF was presented. To prove the soundness of the symmetry breaker syntactic restrictions of using variables from same quantification blocks were enforced.
+%
+Similarly for DQBF we use the following restriction:
 \begin{itemize}
-   \item The group action preserves propositional satisfiability.
+   \item The propositional satisfiability is preserve.
 %   \item The variables should be from the same quantifier block.
    \item The dependency of the variable is same. 
 \end{itemize}
 
-In advance case we relax the requirement of the variables to have the same dependency. For example \par\noindent
+We are currently analyzing less restricted cases where we relax the requirement of the variables to have the same dependency. 
+
+%For example \par\noindent
 %\begin{align}
 %\nonumber\\
 % \nonumber
 %	%
 %\end{align}
 %
-\begin{equation}
-F := \fa x_1,x_2 \ex y_1(x_1) \ex y_2(x_2): (y_1 \lor x_1) \land (y_2 \lor  x_2)
-\label{eqn:exs}
-\end{equation}
-has symmetry $a \to b$. replacing variable $y_1$ with variable $y_2$ do not change the syntactic formula.
+%\begin{equation}
+%F := \fa x_1,x_2 \ex y_1(x_1) \ex y_2(x_2): (y_1 \lor x_1) \land (y_2 \lor  x_2)
+%\label{eqn:exs}
+%\end{equation}
+%has symmetry $a \to b$. replacing variable $y_1$ with variable $y_2$ do not change the syntactic formula.
 
 %\subsubsection{Symantic Symmetry} 
 %XXX
@@ -270,7 +288,7 @@ The idea of \textbf{symmetry aware compilation} is to make the process of solvin
 %
 %Adding support for avoiding symmetric solutions will be utilized to search for a solution with less effort.
 %
-Note that the use of symmetry here is similar to finding symmetry during search, unlike the use of the symmetry breaker. 
+Note that the use of symmetry here is similar to finding symmetry during search (dynamic symmetry breaking), unlike the use of the symmetry breaker (static symmetry breaking). 
  
 %Although a direct use of a symmetry breaker can be helpful here a better solution will be   
 
